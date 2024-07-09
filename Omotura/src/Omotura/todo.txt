@@ -1,0 +1,10 @@
+- view matrix pour positionner caméra derrière joueur
+- sous système audio
+
+- clean animation files
+- inputs (sous système ??) / animations (sûrement state machine)
+
+- debug primitive drawer
+- debug menus (ImGui)
+
+- intégrer physique

@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>{e9f40066-d615-41a9-b7d0-06b02587923a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\shaders">
+      <UniqueIdentifier>{13cfda8d-bfa5-4aab-9d8c-51cb7342383d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{8da3f885-ac73-43fa-b1cf-9f31a302ac5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura">
+      <UniqueIdentifier>{c87d3521-553e-4c3b-9adc-1719d4ec02d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\API">
+      <UniqueIdentifier>{8178ef71-c503-4abe-b5c4-77b770832c2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\BackEnd">
+      <UniqueIdentifier>{f20eddc3-7ca3-4d87-ac00-d713c92c5284}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\Common">
+      <UniqueIdentifier>{907ca0fb-7338-4280-b482-5b969e4c0564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\Core">
+      <UniqueIdentifier>{0e085d75-f06c-49f9-bcfa-823a01beec3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\Physics">
+      <UniqueIdentifier>{93460cad-038b-48ff-b5b2-b1e96c0a960a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\Renderer">
+      <UniqueIdentifier>{a8850d08-e10a-49ea-9f96-2458203719f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\Utils">
+      <UniqueIdentifier>{e38113aa-6887-49ec-8f3c-f3c2c3c239e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\Asset">
+      <UniqueIdentifier>{d79993aa-b65a-4918-8fd9-cee60e89f913}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\default.vert">
+      <Filter>res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\light.frag">
+      <Filter>res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\light.vert">
+      <Filter>res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\skybox.frag">
+      <Filter>res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\skybox.vert">
+      <Filter>res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\default.frag">
+      <Filter>res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\skinning.frag">
+      <Filter>res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\skinning.vert">
+      <Filter>res\shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Omotura\Engine.cpp" />
+    <ClCompile Include="src\Omotura\glad.c" />
+    <ClCompile Include="src\Omotura\main.cpp" />
+    <ClCompile Include="src\Omotura\stb.cpp" />
+    <ClCompile Include="src\Omotura\Core\Animator.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\BackEnd\BackEnd.cpp">
+      <Filter>src\Omotura\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\Camera.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\Game.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\GameObject.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\Transform.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Renderer\Model_OLD.cpp">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Renderer\Renderer.cpp">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Renderer\ShaderClass.cpp">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Renderer\Texture.cpp">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Asset\AssetManager.cpp">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Asset\TextureImporter.cpp">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\API\OpenGLTexture.cpp">
+      <Filter>src\Omotura\API</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Asset\ModelImporter.cpp">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Asset\Asset.cpp">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Asset\AssetImporter.cpp">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\UUID.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\compressonator\DDS_Helpers.cpp" />
+    <ClCompile Include="src\Omotura\Core\FPSCamera.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\FlyCamera.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Renderer\FrameBuffer.cpp">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Renderer\Model.cpp">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Renderer\OpenGLRenderer.cpp">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Asset\AnimationImporter.cpp">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\Animation.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Asset\SkinnedModelImporter.cpp">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Renderer\SkinnedModel.cpp">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\Scene.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\Player.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Omotura\Engine.h" />
+    <ClInclude Include="src\Omotura\Core\Animator.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\BackEnd\BackEnd.h">
+      <Filter>src\Omotura\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Camera.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Common\Common.h">
+      <Filter>src\Omotura\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Game.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\GameObject.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Transform.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Utils\Math.hpp">
+      <Filter>src\Omotura\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\Material.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\Mesh.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\Model_OLD.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\Renderer.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\ShaderClass.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\Texture.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Asset\AssetManager.h">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Asset\AssetImporter.h">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Asset\AssetInfo.h">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Asset\TextureImporter.h">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\API\OpenGLTexture.h">
+      <Filter>src\Omotura\API</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Asset\ModelImporter.h">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Asset\Asset.h">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\UUID.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Utils\Utils.hpp">
+      <Filter>src\Omotura\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\FlyCamera.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\FPSCamera.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\FrameBuffer.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\RendererCommon.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\RenderData.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Light.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\Model.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\OpenGLRenderer.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Asset\AnimationImporter.h">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Animation.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Asset\SkinnedModelImporter.h">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\SkinnedModel.h">
+      <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Scene.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Player.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

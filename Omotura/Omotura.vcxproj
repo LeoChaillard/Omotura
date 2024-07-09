@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\default.frag" />
+    <None Include="res\shaders\default.vert" />
+    <None Include="res\shaders\light.frag" />
+    <None Include="res\shaders\light.vert" />
+    <None Include="res\shaders\skinning.frag" />
+    <None Include="res\shaders\skinning.vert" />
+    <None Include="res\shaders\skybox.frag" />
+    <None Include="res\shaders\skybox.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\include\compressonator\DDS_Helpers.cpp" />
+    <ClCompile Include="src\Omotura\API\OpenGLTexture.cpp" />
+    <ClCompile Include="src\Omotura\Asset\AnimationImporter.cpp" />
+    <ClCompile Include="src\Omotura\Asset\Asset.cpp" />
+    <ClCompile Include="src\Omotura\Asset\AssetImporter.cpp" />
+    <ClCompile Include="src\Omotura\Asset\AssetManager.cpp" />
+    <ClCompile Include="src\Omotura\Asset\ModelImporter.cpp" />
+    <ClCompile Include="src\Omotura\Asset\SkinnedModelImporter.cpp" />
+    <ClCompile Include="src\Omotura\Asset\TextureImporter.cpp" />
+    <ClCompile Include="src\Omotura\BackEnd\BackEnd.cpp" />
+    <ClCompile Include="src\Omotura\Core\Animation.cpp" />
+    <ClCompile Include="src\Omotura\Core\Animator.cpp" />
+    <ClCompile Include="src\Omotura\Core\Camera.cpp" />
+    <ClCompile Include="src\Omotura\Core\FlyCamera.cpp" />
+    <ClCompile Include="src\Omotura\Core\FPSCamera.cpp" />
+    <ClCompile Include="src\Omotura\Core\Game.cpp" />
+    <ClCompile Include="src\Omotura\Core\GameObject.cpp" />
+    <ClCompile Include="src\Omotura\Core\Player.cpp" />
+    <ClCompile Include="src\Omotura\Core\Scene.cpp" />
+    <ClCompile Include="src\Omotura\Core\Transform.cpp" />
+    <ClCompile Include="src\Omotura\Core\UUID.cpp" />
+    <ClCompile Include="src\Omotura\Engine.cpp" />
+    <ClCompile Include="src\Omotura\glad.c" />
+    <ClCompile Include="src\Omotura\main.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\FrameBuffer.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\Model.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\Model_OLD.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\OpenGLRenderer.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\ShaderClass.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\SkinnedModel.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Omotura\stb.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Omotura\API\OpenGLTexture.h" />
+    <ClInclude Include="src\Omotura\Asset\AnimationImporter.h" />
+    <ClInclude Include="src\Omotura\Asset\Asset.h" />
+    <ClInclude Include="src\Omotura\Asset\AssetImporter.h" />
+    <ClInclude Include="src\Omotura\Asset\AssetInfo.h" />
+    <ClInclude Include="src\Omotura\Asset\AssetManager.h" />
+    <ClInclude Include="src\Omotura\Asset\ModelImporter.h" />
+    <ClInclude Include="src\Omotura\Asset\SkinnedModelImporter.h" />
+    <ClInclude Include="src\Omotura\Asset\TextureImporter.h" />
+    <ClInclude Include="src\Omotura\BackEnd\BackEnd.h" />
+    <ClInclude Include="src\Omotura\Common\Common.h" />
+    <ClInclude Include="src\Omotura\Core\Animation.h" />
+    <ClInclude Include="src\Omotura\Core\Animator.h" />
+    <ClInclude Include="src\Omotura\Core\Camera.h" />
+    <ClInclude Include="src\Omotura\Core\FlyCamera.h" />
+    <ClInclude Include="src\Omotura\Core\FPSCamera.h" />
+    <ClInclude Include="src\Omotura\Core\Game.h" />
+    <ClInclude Include="src\Omotura\Core\GameObject.h" />
+    <ClInclude Include="src\Omotura\Core\Light.h" />
+    <ClInclude Include="src\Omotura\Core\Player.h" />
+    <ClInclude Include="src\Omotura\Core\Scene.h" />
+    <ClInclude Include="src\Omotura\Core\Transform.h" />
+    <ClInclude Include="src\Omotura\Core\UUID.h" />
+    <ClInclude Include="src\Omotura\Engine.h" />
+    <ClInclude Include="src\Omotura\Renderer\FrameBuffer.h" />
+    <ClInclude Include="src\Omotura\Renderer\Material.h" />
+    <ClInclude Include="src\Omotura\Renderer\Mesh.h" />
+    <ClInclude Include="src\Omotura\Renderer\Model.h" />
+    <ClInclude Include="src\Omotura\Renderer\Model_OLD.h" />
+    <ClInclude Include="src\Omotura\Renderer\OpenGLRenderer.h" />
+    <ClInclude Include="src\Omotura\Renderer\RenderData.h" />
+    <ClInclude Include="src\Omotura\Renderer\Renderer.h" />
+    <ClInclude Include="src\Omotura\Renderer\RendererCommon.h" />
+    <ClInclude Include="src\Omotura\Renderer\ShaderClass.h" />
+    <ClInclude Include="src\Omotura\Renderer\SkinnedModel.h" />
+    <ClInclude Include="src\Omotura\Renderer\Texture.h" />
+    <ClInclude Include="src\Omotura\Utils\Math.hpp" />
+    <ClInclude Include="src\Omotura\Utils\Utils.hpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{2450b904-2348-41c9-9938-8da3951b4739}</ProjectGuid>
+    <RootNamespace>Demo</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Omotura</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../lib/assimp;../lib/cyclone;../lib/gl;../lib/compressonator</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Cyclone.lib;glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;Compressonator_MD_DLL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../lib/assimp;../lib/cyclone;../lib/gl;../lib/compressonator</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Cyclone.lib;glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;Compressonator_MD_DLL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4766110e-fb9c-4d22-a1a0-a91a185b963a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers">
+      <UniqueIdentifier>{cd7ee60b-2a94-4131-91e5-aa39330d2014}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cyclone\collide_fine.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\contacts.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\core.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\cyclone.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\fgen.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\joints.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\particle.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\pcontacts.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\pfgen.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\plinks.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\precision.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\pworld.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\random.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\world.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\body.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cyclone\collide_coarse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Cyclone\contacts.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\core.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\fgen.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\joints.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\particle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\pcontacts.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\pfgen.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\plinks.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\pworld.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\random.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\world.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\body.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\collide_coarse.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cyclone\collide_fine.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
