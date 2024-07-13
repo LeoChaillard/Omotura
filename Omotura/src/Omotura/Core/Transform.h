@@ -12,12 +12,12 @@ namespace Omotura
 	{
 	public:
 		Vector3 m_vWorldPosition;
-		glm::vec3 m_vLocalPosition = glm::vec3(0.0f, 0.0f, 0.0f);
+		Vector3 m_vLocalPosition;
 
-		glm::quat m_quaternion = glm::quat(1, 0, 0, 0);
+		Quaternion m_quaternion;
 
 		Vector3 m_vWorldScale;
-		glm::vec3 m_vLocalScale = glm::vec3(1.0f, 1.0f, 1.0f);
+		Vector3 m_vLocalScale;
 
 		// TODO : manage child and parents transforms
 	public:

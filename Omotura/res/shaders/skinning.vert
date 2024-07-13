@@ -10,8 +10,9 @@ out vec3 crntPos;
 out vec3 Normal;
 out vec2 texCoord;
 
-uniform mat4 camMatrix;
 uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 projectionMatrix;
 
 uniform mat4 matrixPalette[100];
 
@@ -33,5 +34,5 @@ void main()
 	Normal = mat3(transpose(inverse(modelMatrix))) * aNormal; // !!! should be done on CPU !!!!!!
 	texCoord = aTex;	
 
-	gl_Position = camMatrix * vec4(crntPos, 1);
+	gl_Position = projectionMatrix * viewMatrix * vec4(crntPos, 1);
 }

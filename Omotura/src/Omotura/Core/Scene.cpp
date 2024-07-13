@@ -14,16 +14,16 @@ namespace Omotura
 
 		// Models transforms
 		glm::mat4 objectModel = glm::mat4(1.0f);
-		glm::mat4 mTranslate = glm::translate(glm::vec3(2.0, 0.0f, 5.0f));
+		glm::mat4 mTranslate  = glm::translate(glm::vec3(2.0f, 2.0f, 5.0f));
 		glm::mat4 mRot = glm::mat4(1.0f);
-		glm::mat4 mScale = glm::scale(glm::vec3(0.0001f));
-		objectModel = mTranslate * mRot * mScale * objectModel;
+		glm::mat4 mScale = glm::scale(glm::vec3(0.01f));
+		objectModel = mTranslate * mScale * objectModel;
 		m_vpSkinnedModels[0]->SetModelMatrix(objectModel);
 		m_vpSkinnedModels[0]->UpdateBoneTransformsFromBindPose();
 		m_vpSkinnedModels[0]->SetAnimation("AKS74U_Reload");
 
 		objectModel = glm::mat4(1.0f);
-		mTranslate = glm::translate(glm::vec3(0.0f, 0.0f, 5.0f));
+		mTranslate = glm::translate(glm::vec3(0.0f, 2.0f, 0.0f));
 		mRot = glm::mat4(1.0f);
 		mScale = glm::scale(glm::vec3(0.0001f));
 		objectModel = mTranslate * mRot * mScale * objectModel;
@@ -32,7 +32,7 @@ namespace Omotura
 		m_vpSkinnedModels[1]->SetAnimation("Glock_Reload");
 
 		objectModel = glm::mat4(1.0f);
-		mTranslate = glm::translate(glm::vec3(-2.0f, 0.0f, 5.0f));
+		mTranslate = glm::translate(glm::vec3(-2.0f, 2.0f, 5.0f));
 		mRot = glm::rotate(glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		mScale = glm::scale(glm::vec3(0.01f));
 		objectModel = mTranslate * mRot * mScale * objectModel;

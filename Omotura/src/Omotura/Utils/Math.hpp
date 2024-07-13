@@ -10,10 +10,9 @@ namespace Omotura
 {
     /*** CF Revolver4DMathEngine ****/
 
-    ////// Vector3 ///////
+     ////// Vector3 ///////
     struct Vector3
     {
-
         float x = 0;
         float y = 0;
         float z = 0;
@@ -96,6 +95,11 @@ namespace Omotura
         {
             return this->x != _vOther.x || this->y != _vOther.y || this->z != _vOther.z;
         }
+
+        glm::vec3 ToGLM()
+        {
+            return glm::vec3(this->x, this->y, this->z);
+        }
     };
 
     inline  std::ostream& operator<<(std::ostream& os, Vector3 _vObject)
@@ -105,7 +109,6 @@ namespace Omotura
     };
 
     ///////Quaternion///////
-
     struct Quaternion
     {
         float fScalar;
@@ -147,6 +150,38 @@ namespace Omotura
             float fScalar = this->fScalar * _q.fScalar - this->vImaginary.dot(_q.vImaginary);
             Vector3 vImaginary = _q.vImaginary * this->fScalar + this->vImaginary * _q.fScalar + this->vImaginary.cross(_q.vImaginary);
             return Quaternion(fScalar, vImaginary);
+        }
+
+        //Quaternion operator*(const Vector3& _value)
+        //{
+        //    float sPart = -(this->vImaginary.x * _value.x + this->vImaginary.y * _value.y + this->vImaginary.z * _value.z);
+        //    float xPart = this->fScalar * _value.x + this->vImaginary.y * _value.z - this->vImaginary.z * _value.y;
+        //    float yPart = this->fScalar * _value.y + this->vImaginary.z * _value.x - this->vImaginary.x * _value.z;
+        //    float zPart = this->fScalar * _value.z + this->vImaginary.x * _value.y - this->vImaginary.y * _value.x;
+        //
+        //    Vector3 vectorPart(xPart, yPart, zPart);
+        //    Quaternion result(sPart, vectorPart);
+        //
+        //    return result;
+        //}
+
+        Vector3 operator*(const Vector3& _value)
+        {
+            Quaternion qRot = Quaternion(this->fScalar, this->vImaginary);
+            Quaternion qRotConjugate = qRot.Conjugate();
+            Quaternion qPure(0, _value);
+            Quaternion qPureInverse = qRot * qPure * qRotConjugate;
+            return qPureInverse.vImaginary;
+        }
+
+        Quaternion Conjugate()
+        {
+            return Quaternion(this->fScalar, Vector3(-this->vImaginary.x, -this->vImaginary.y, -this->vImaginary.z));
+        }
+
+        glm::quat ToGLM()
+        {
+            return glm::quat(this->fScalar, this->vImaginary.ToGLM());
         }
     };
 

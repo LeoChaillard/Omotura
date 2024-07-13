@@ -63,7 +63,7 @@ namespace Omotura
 		return m_scene;
 	}
 
-	const Player& Game::GetPlayer()
+	Player& Game::GetPlayer()
 	{
 		return m_player;
 	}

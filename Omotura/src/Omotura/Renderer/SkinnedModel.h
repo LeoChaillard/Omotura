@@ -57,8 +57,10 @@ namespace Omotura
 
 		GLuint m_buffers[NUM_BUFFERS] = { 0 };
 
+		// Model
 		std::vector<Mesh> m_vMeshes;
 		std::vector<Material> m_vMaterials;
+		glm::mat4 m_mModelMatrix = glm::mat4(1.0f);
 
 		// Temporary space for vertex attributes before we load them on the GPU
 		std::vector<glm::vec3> m_vPositions;
@@ -66,9 +68,7 @@ namespace Omotura
 		std::vector<glm::vec2> m_vTextCoords;
 		std::vector<GLuint> m_vIndices;
 
-		glm::mat4 m_mModelMatrix = glm::mat4(1.0f);
-
-		// Bone related
+		// Sekelton related
 		std::vector<Joint> m_vJoints;
 		std::map<NodeHandle, int> m_nodeBoneMap;
 		std::vector<BoneInfo> m_vBonesInfos;
@@ -85,14 +85,18 @@ namespace Omotura
 		SkinnedModel(const std::string& _strFilePath);
 		~SkinnedModel();
 
+		// Import related
 		bool LoadSkinnedModel(const std::string& _strFilePath);
+
+		// Skeleton related
 		void UpdateBoneTransformsFromBindPose();
 		void UpdateBoneTransformsFromAnimation();
 		void GetBoneTransforms(float _fTimeInSeconds, std::vector<glm::mat4>& _transforms);
-		std::vector<BoneInfo>& GetBoneInfos();
-		std::map<NodeHandle, int> GetNodeBoneMap();
+
+		// Animation related
 		void SetAnimation(const std::string& _strAnimation, bool _bLooping = true);
 
+		// Model
 		GLuint GetVAO();
 		const std::vector<Mesh>& GetMeshes() const;
 		const std::vector<Material>& GetMaterials() const;
@@ -104,18 +108,20 @@ namespace Omotura
 		virtual AssetType GetType() const { return GetStaticType(); }
 
 	private:
+		// Import related
 		bool InitFromScene(const aiScene* _pScene, const std::string _strFileName);
 		void CountVerticesAndIndices(const aiScene* _pScene, unsigned int& _iNumVertices, unsigned int& _iNumIndices);
-		void ReserveSpace(unsigned int _iNumVertices, unsigned int _iNumIndices, unsigned int _iNumBones, unsigned int _iNumWeights);
+		void ReserveSpace(unsigned int _iNumVertices, unsigned int _iNumIndices);
 		void InitAllMeshes(const aiScene* _pScene);
 		void InitSingleMesh(const aiMesh* _pMesh, int _iBaseVertex);
 		bool InitMaterials(const aiScene* _pScene, const std::string& _strFileName);
 		void PopulateBuffers();
 
-		void CountBones(const aiScene* _pScene, unsigned int& _iNumBones);
+		// Skeleton related
 		void RetrieveBones(const aiMesh* _pMesh, int _iBaseVertex);
 		void RetrieveSkeletonJoints(const aiNode* _pNode, int _iParentIndex);
 
+		// Animated related
 		Shared<AnimatedNode> FindAnimatedNode(Shared<Animation> _pAnimation, BoneHandle _handle);
 		int FindAnimatedNodeIndex(float _fAnimationTime, const Shared<AnimatedNode> _pAnimatedNode);
 		float GetAnimationTime(float _fCurrentAnimationTime, Shared<Animation> _pCurrentAnimation);

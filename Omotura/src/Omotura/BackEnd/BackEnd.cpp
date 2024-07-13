@@ -1,7 +1,9 @@
 #include "BackEnd.h"
 
 #include "../Asset/AssetManager.h"
+#include "../Input/Input.h"
 #include "../Utils/Utils.hpp"
+#include "../Core/PlayerInput.h"
 
 #include <iostream>
 #include <string>
@@ -31,7 +33,7 @@ namespace Omotura
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-			// Create Winow
+			// Create Window
 			CreateGLFWWindow();
 			glfwMakeContextCurrent(m_pWindow);
 			gladLoadGL();
@@ -40,7 +42,13 @@ namespace Omotura
 		
 		// Init Subsystems (Input, Audio, Physics...)
 		AssetManager::Init();
+		Input::Init();
+	}
 
+	void BackEnd::UpdateSubSystems()
+	{
+		Input::Update();
+		PlayerInput::Update();
 	}
 
 	const API& BackEnd::GetAPI()

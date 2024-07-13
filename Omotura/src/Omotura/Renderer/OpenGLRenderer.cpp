@@ -139,8 +139,11 @@ namespace Omotura
 				}
 
 				// Camera
-				m_skinningShader.SetFloat3("camPos", _renderData.pPlayerCamera->m_vPosition.x, _renderData.pPlayerCamera->m_vPosition.y, _renderData.pPlayerCamera->m_vPosition.z);
-				_renderData.pPlayerCamera->UploadMatrix(m_skinningShader, "camMatrix");
+				Shared<Camera> pCamera = _renderData.pPlayerCamera;
+				const Transform& cameraTransform = pCamera->GetTransform();
+				m_skinningShader.SetFloat3("camPos", cameraTransform.m_vWorldPosition.x, cameraTransform.m_vWorldPosition.y, cameraTransform.m_vWorldPosition.z);
+				m_skinningShader.SetMatrixFloat4("viewMatrix", pCamera->GetViewMatrix());
+				m_skinningShader.SetMatrixFloat4("projectionMatrix", pCamera->GetPerspectiveMatrix());
 
 				// Draw
 				glDrawElementsBaseVertex(GL_TRIANGLES,
@@ -213,8 +216,11 @@ namespace Omotura
 				}
 
 				// Camera
-				m_shaderProgram.SetFloat3("camPos", _renderData.pPlayerCamera->m_vPosition.x, _renderData.pPlayerCamera->m_vPosition.y, _renderData.pPlayerCamera->m_vPosition.z);
-				_renderData.pPlayerCamera->UploadMatrix(m_shaderProgram, "camMatrix");
+				Shared<Camera> pCamera = _renderData.pPlayerCamera;
+				const Transform& cameraTransform = pCamera->GetTransform();
+				m_skinningShader.SetFloat3("camPos", cameraTransform.m_vWorldPosition.x, cameraTransform.m_vWorldPosition.y, cameraTransform.m_vWorldPosition.z);
+				m_shaderProgram.SetMatrixFloat4("viewMatrix", pCamera->GetViewMatrix());
+				m_shaderProgram.SetMatrixFloat4("projectionMatrix", pCamera->GetPerspectiveMatrix());
 
 				// Draw
 				glDrawElementsBaseVertex(GL_TRIANGLES,
@@ -260,7 +266,7 @@ namespace Omotura
 		m_skyboxShader.Activate();
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 projection = glm::mat4(1.0f);
-		view = glm::mat4(glm::mat3(glm::lookAt(_renderData.pPlayerCamera->m_vPosition, _renderData.pPlayerCamera->m_vPosition + _renderData.pPlayerCamera->m_vFront, _renderData.pPlayerCamera->m_vUp)));
+		view = _renderData.pPlayerCamera->GetOrientation() * glm::mat4(1.0f);
 		projection = glm::perspective(glm::radians(45.0f), (float)1920 / 1080, 0.1f, 100.0f);
 		m_skyboxShader.SetMatrixFloat4("view", view);
 		m_skyboxShader.SetMatrixFloat4("projection", projection);

@@ -21,6 +21,7 @@ namespace Omotura
 		while (BackEnd::WindowIsOpen())
 		{
 			BackEnd::BeginFrame();
+			BackEnd::UpdateSubSystems();
 
 			if (!Game::GetInstance()->IsLoaded())
 			{
@@ -36,7 +37,7 @@ namespace Omotura
 				Game::GetInstance()->Update(fDeltaTime);
 				Renderer::RenderFrame();
 			}
-					
+
 			BackEnd::EndFrame();
 		}
 

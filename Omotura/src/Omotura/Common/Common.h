@@ -2,10 +2,13 @@
 
 #include "../Asset/AssetInfo.h"
 #include "../Asset/Asset.h"
+#include "../Core/Transform.h"
 
 #include <memory>
 #include <functional>
 #include <string>
+
+#include <glm/glm.hpp>
 
 namespace Omotura
 {
@@ -37,6 +40,7 @@ namespace Omotura
 
 	// Callbacks
 	using AssetLoadCallback = std::function<void(const AssetInfo&, Shared<Asset>)>;
+	using OnMoveCallback = std::function<void(const Vector3&, const Quaternion&)>;
 
 	// Preprocessor directives
 	#define ARRAY_SIZE_IN_ELEMENTS(a) sizeof(a) / sizeof(a[0])

@@ -41,9 +41,9 @@ namespace Omotura
 
 					// Joint Transform
 					Transform transform;
-					transform.m_vLocalPosition = glm::vec3(pos.mValue.x, pos.mValue.y, pos.mValue.z);
-					transform.m_quaternion = glm::quat(rot.mValue.w, rot.mValue.x, rot.mValue.y, rot.mValue.z);
-					transform.m_vLocalScale = glm::vec3(scale.mValue.x);
+					transform.m_vLocalPosition = Vector3(pos.mValue.x, pos.mValue.y, pos.mValue.z);
+					transform.m_quaternion = Quaternion(rot.mValue.w, Vector3(rot.mValue.x, rot.mValue.y, rot.mValue.z));
+					transform.m_vLocalScale = Vector3(scale.mValue.x);
 
 					// Key
 					NodeKey nodeKey;

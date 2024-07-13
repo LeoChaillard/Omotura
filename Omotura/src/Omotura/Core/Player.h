@@ -1,15 +1,26 @@
 #pragma once
 
-#include "FlyCamera.h"
-#include "FPSCamera.h"
+#include "Transform.h"
+
+#include "../Renderer/SkinnedModel.h"
 
 namespace Omotura
 {
+	namespace constants
+	{
+		constexpr float fPlayerSpeed = 20.0f;
+	}
+
 	class Player
 	{
 	private:
+		Transform m_transform;
 		Shared<Camera> m_pCamera;
-		glm::mat4 m_weaponViewMatrix;
+		Shared<SkinnedModel> m_pCurrentWeapon;
+
+		// Movement
+		float m_fSpeed;
+		Vector3 m_vFacingDir;
 
 	public:
 		Player();
@@ -19,6 +30,9 @@ namespace Omotura
 		void FixedUpdate(float _fFixedDeltaTime);
 
 		Shared<Camera> GetCamera();
-		void SetWeaponViewMatrix(const glm::mat4& _weaponViewMatrix);
+
+	private:		
+		void OnMove(const Vector3& _vDir, const Quaternion& _qOrientation);
+		void HandleMovement(float _fDeltaTime);
 	};
 }

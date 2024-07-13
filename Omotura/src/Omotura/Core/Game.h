@@ -1,7 +1,5 @@
-#pragma once
+ #pragma once
 
-#include "FlyCamera.h"
-#include "FPSCamera.h"
 #include "Scene.h"
 #include "Player.h"
 
@@ -40,6 +38,6 @@ namespace Omotura
 
 		Shared<Camera> GetPlayerCamera();
 		const Scene& GetScene();
-		const Player& GetPlayer();
+		Player& GetPlayer();
 	};
 }

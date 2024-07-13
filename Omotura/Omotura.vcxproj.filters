@@ -37,6 +37,9 @@
     <Filter Include="src\Omotura\Asset">
       <UniqueIdentifier>{d79993aa-b65a-4918-8fd9-cee60e89f913}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Omotura\Input">
+      <UniqueIdentifier>{5ac70aca-11c3-4340-99bf-b99d17c03b5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\default.vert">
@@ -87,9 +90,6 @@
     <ClCompile Include="src\Omotura\Core\Transform.cpp">
       <Filter>src\Omotura\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Omotura\Renderer\Model_OLD.cpp">
-      <Filter>src\Omotura\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Omotura\Renderer\Renderer.cpp">
       <Filter>src\Omotura\Renderer</Filter>
     </ClCompile>
@@ -121,12 +121,6 @@
       <Filter>src\Omotura\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\include\compressonator\DDS_Helpers.cpp" />
-    <ClCompile Include="src\Omotura\Core\FPSCamera.cpp">
-      <Filter>src\Omotura\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Omotura\Core\FlyCamera.cpp">
-      <Filter>src\Omotura\Core</Filter>
-    </ClCompile>
     <ClCompile Include="src\Omotura\Renderer\FrameBuffer.cpp">
       <Filter>src\Omotura\Renderer</Filter>
     </ClCompile>
@@ -152,6 +146,12 @@
       <Filter>src\Omotura\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Omotura\Core\Player.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Input\Input.cpp">
+      <Filter>src\Omotura\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\PlayerInput.cpp">
       <Filter>src\Omotura\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -185,9 +185,6 @@
       <Filter>src\Omotura\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Omotura\Renderer\Mesh.h">
-      <Filter>src\Omotura\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Omotura\Renderer\Model_OLD.h">
       <Filter>src\Omotura\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Omotura\Renderer\Renderer.h">
@@ -226,12 +223,6 @@
     <ClInclude Include="src\Omotura\Utils\Utils.hpp">
       <Filter>src\Omotura\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="src\Omotura\Core\FlyCamera.h">
-      <Filter>src\Omotura\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Omotura\Core\FPSCamera.h">
-      <Filter>src\Omotura\Core</Filter>
-    </ClInclude>
     <ClInclude Include="src\Omotura\Renderer\FrameBuffer.h">
       <Filter>src\Omotura\Renderer</Filter>
     </ClInclude>
@@ -266,6 +257,15 @@
       <Filter>src\Omotura\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Omotura\Core\Player.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Input\Input.h">
+      <Filter>src\Omotura\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Input\KeyCodes.h">
+      <Filter>src\Omotura\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\PlayerInput.h">
       <Filter>src\Omotura\Core</Filter>
     </ClInclude>
   </ItemGroup>

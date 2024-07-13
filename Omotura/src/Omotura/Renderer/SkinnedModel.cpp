@@ -30,7 +30,7 @@ namespace Omotura
 		glGenBuffers(ARRAY_SIZE_IN_ELEMENTS(m_buffers), m_buffers);
 
 		// Importing scene
-		bool bSuccess = false;		
+		bool bSuccess = false;
 
 		//m_importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);
 		m_pScene = m_importer.ReadFile(_strFilePath.c_str(), ASSIMP_LOAD_FLAGS);
@@ -41,7 +41,7 @@ namespace Omotura
 		else
 		{
 			printf("Error parsing '%s': '%s'\n", _strFilePath.c_str(), m_importer.GetErrorString());
-		}		
+		}
 
 		// Unbinding VAO
 		glBindVertexArray(0);
@@ -57,14 +57,10 @@ namespace Omotura
 
 		unsigned int iNumVertices = 0;
 		unsigned int iNumIndices = 0;
-		unsigned int iNumBones = 0;
-		unsigned int iNumWeights = 0;
 
 		CountVerticesAndIndices(_pScene, iNumVertices, iNumIndices);
-		iNumWeights = iNumVertices;
-		iNumBones = iNumVertices;
 
-		ReserveSpace(iNumVertices, iNumIndices, iNumBones, iNumWeights);
+		ReserveSpace(iNumVertices, iNumIndices);
 
 		InitAllMeshes(_pScene);
 
@@ -92,22 +88,22 @@ namespace Omotura
 		}
 	}
 
-	void SkinnedModel::ReserveSpace(unsigned int _iNumVertices, unsigned int _iNumIndices, unsigned int _iNumBones, unsigned int _iNumWeights)
+	void SkinnedModel::ReserveSpace(unsigned int _iNumVertices, unsigned int _iNumIndices)
 	{
 		m_vPositions.reserve(_iNumVertices);
 		m_vNormals.reserve(_iNumVertices);
 		m_vTextCoords.reserve(_iNumVertices);
 		m_vIndices.reserve(_iNumIndices);
-		
-		m_vBoneIDs.resize(_iNumBones);
-		m_vWeights.resize(_iNumWeights);
+
+		m_vBoneIDs.resize(_iNumVertices);
+		m_vWeights.resize(_iNumVertices);
 	}
 
 	void SkinnedModel::InitAllMeshes(const aiScene* _pScene)
 	{
 		int iSize = m_vMeshes.size();
 		for (int i = 0; i < iSize; i++)
-		{			
+		{
 			const aiMesh* paiMesh = _pScene->mMeshes[i];
 			InitSingleMesh(paiMesh, m_vMeshes[i].iBaseVertex);
 		}
@@ -212,16 +208,6 @@ namespace Omotura
 		return m_vMaterials;
 	}
 
-	void SkinnedModel::CountBones(const aiScene* _pScene, unsigned int& _iNumBones)
-	{
-		int iMeshes = _pScene->mNumMeshes;
-		for (int i = 0; i < iMeshes; i++)
-		{
-			aiMesh* pMesh = _pScene->mMeshes[i];
-			_iNumBones += pMesh->mNumBones;
-		}
-	}
-
 	void SkinnedModel::RetrieveBones(const aiMesh* _pMesh, int _iBaseVertex)
 	{
 		// Load infos
@@ -285,7 +271,7 @@ namespace Omotura
 		m_vJoints.push_back(joint);
 
 		int iChildren = _pNode->mNumChildren;
-		for (int i = 0; i < iChildren; i++) 
+		for (int i = 0; i < iChildren; i++)
 		{
 			RetrieveSkeletonJoints(_pNode->mChildren[i], _iParentIndex);
 		}
@@ -341,6 +327,7 @@ namespace Omotura
 
 				glm::vec3 vTranlation;
 				CalcInterpolatedPosition(vTranlation, fAnimationTime, pAnimatedNode);
+
 				glm::mat4 TranslationM = glm::translate(glm::mat4(1.0f), vTranlation);
 
 				nodeTransform = TranslationM * RotationM * scalingM;
@@ -380,33 +367,23 @@ namespace Omotura
 		float fDuration = m_pCurrentAnimation->GetDuration() / m_pCurrentAnimation->GetTicksPerSecond();
 
 		// Increase the animation time
-		if (!m_pCurrentAnimation->IsPaused()) 
+		if (!m_pCurrentAnimation->IsPaused())
 		{
-			m_fCurrentAnimationTime += _fDeltaTime * m_pCurrentAnimation->GetSpeed(); 
+			m_fCurrentAnimationTime += _fDeltaTime * m_pCurrentAnimation->GetSpeed();
 		}
 		// Animation is complete?
-		if (m_fCurrentAnimationTime > fDuration) 
+		if (m_fCurrentAnimationTime > fDuration)
 		{
-			if (!m_pCurrentAnimation->IsLooping()) 
+			if (!m_pCurrentAnimation->IsLooping())
 			{
 				m_fCurrentAnimationTime = fDuration;
 				m_pCurrentAnimation->SetPaused(true);
 			}
-			else 
+			else
 			{
 				m_fCurrentAnimationTime = 0.0f;
 			}
 		}
-	}
-
-	std::vector<BoneInfo>& SkinnedModel::GetBoneInfos()
-	{
-		return m_vBonesInfos;
-	}
-
-	std::map<NodeHandle, int> SkinnedModel::GetNodeBoneMap()
-	{
-		return m_nodeBoneMap;
 	}
 
 	Shared<AnimatedNode> SkinnedModel::FindAnimatedNode(Shared<Animation> _pAnimation, BoneHandle _handle)
@@ -429,7 +406,7 @@ namespace Omotura
 		if (_fAnimationTime < _pAnimatedNode->vNodeKeys[0].fTimeStamp)
 			return -1; // you WERE returning -1 here
 
-		for (unsigned int i = 1; i < _pAnimatedNode->vNodeKeys.size(); i++) 
+		for (unsigned int i = 1; i < _pAnimatedNode->vNodeKeys.size(); i++)
 		{
 			if (_fAnimationTime < _pAnimatedNode->vNodeKeys[i].fTimeStamp)
 			{
@@ -449,7 +426,7 @@ namespace Omotura
 
 	void SkinnedModel::CalcInterpolatedScaling(glm::vec3& _vScaling, float _fAnimationTime, const Shared<AnimatedNode> _pAnimatedNode)
 	{
-		
+
 		int iIndex = FindAnimatedNodeIndex(_fAnimationTime, _pAnimatedNode);
 		int iNextIndex = iIndex + 1;
 
@@ -471,11 +448,11 @@ namespace Omotura
 		float fDeltaTime = _pAnimatedNode->vNodeKeys[iNextIndex].fTimeStamp - _pAnimatedNode->vNodeKeys[iIndex].fTimeStamp;
 		float fFactor = (_fAnimationTime - _pAnimatedNode->vNodeKeys[iIndex].fTimeStamp) / fDeltaTime;
 
-		glm::vec3 vStart = _pAnimatedNode->vNodeKeys[iIndex].boneTransform.m_vLocalScale;
-		glm::vec3 vEnd = _pAnimatedNode->vNodeKeys[iNextIndex].boneTransform.m_vLocalScale;
-		glm::vec3 vDelta = vEnd - vStart;
-		
-		_vScaling = vStart + fFactor * vDelta;
+		Vector3 vStart = _pAnimatedNode->vNodeKeys[iIndex].boneTransform.m_vLocalScale;
+		Vector3 vEnd = _pAnimatedNode->vNodeKeys[iNextIndex].boneTransform.m_vLocalScale;
+		Vector3 vDelta = vEnd - vStart;
+
+		_vScaling = vStart.ToGLM() + fFactor * vDelta.ToGLM();
 	}
 
 	void SkinnedModel::CalcInterpolatedRotation(glm::quat& _qRotation, float _fAnimationTime, const Shared<AnimatedNode> _pAnimatedNode)
@@ -486,14 +463,14 @@ namespace Omotura
 		// Discard if next frame out of range
 		if (iNextIndex == _pAnimatedNode->vNodeKeys.size())
 		{
-			_qRotation = _pAnimatedNode->vNodeKeys[iIndex].boneTransform.m_quaternion;
+			_qRotation = _pAnimatedNode->vNodeKeys[iIndex].boneTransform.m_quaternion.ToGLM();
 			return;
 		}
 
 		// Check if there is at least 2 frames
 		if (iIndex == -1 || _pAnimatedNode->vNodeKeys.size() == 1)
 		{
-			_qRotation = _pAnimatedNode->vNodeKeys[0].boneTransform.m_quaternion;
+			_qRotation = _pAnimatedNode->vNodeKeys[0].boneTransform.m_quaternion.ToGLM();
 			return;
 		}
 
@@ -501,9 +478,9 @@ namespace Omotura
 		float fDeltaTime = _pAnimatedNode->vNodeKeys[iNextIndex].fTimeStamp - _pAnimatedNode->vNodeKeys[iIndex].fTimeStamp;
 		float fFactor = (_fAnimationTime - _pAnimatedNode->vNodeKeys[iIndex].fTimeStamp) / fDeltaTime;
 
-		const glm::quat& qStart = _pAnimatedNode->vNodeKeys[iIndex].boneTransform.m_quaternion;
-		const glm::quat& qEnd = _pAnimatedNode->vNodeKeys[iNextIndex].boneTransform.m_quaternion;
-		
+		const glm::quat& qStart = _pAnimatedNode->vNodeKeys[iIndex].boneTransform.m_quaternion.ToGLM();
+		const glm::quat& qEnd = _pAnimatedNode->vNodeKeys[iNextIndex].boneTransform.m_quaternion.ToGLM();
+
 		InterpolateQuaternion(_qRotation, qStart, qEnd, fFactor);
 		_qRotation = glm::normalize(_qRotation);
 	}
@@ -516,14 +493,14 @@ namespace Omotura
 		// Discard if next frame out of range
 		if (iNextIndex == _pAnimatedNode->vNodeKeys.size())
 		{
-			_vPosition = _pAnimatedNode->vNodeKeys[iIndex].boneTransform.m_vLocalPosition;
+			_vPosition = _pAnimatedNode->vNodeKeys[iIndex].boneTransform.m_vLocalPosition.ToGLM();
 			return;
 		}
 
 		// Check if there is at least 2 frames
 		if (iIndex == -1 || _pAnimatedNode->vNodeKeys.size() == 1)
 		{
-			_vPosition = _pAnimatedNode->vNodeKeys[0].boneTransform.m_vLocalPosition;
+			_vPosition = _pAnimatedNode->vNodeKeys[0].boneTransform.m_vLocalPosition.ToGLM();
 			return;
 		}
 
@@ -531,8 +508,8 @@ namespace Omotura
 		float fDeltaTime = _pAnimatedNode->vNodeKeys[iNextIndex].fTimeStamp - _pAnimatedNode->vNodeKeys[iIndex].fTimeStamp;
 		float fFactor = (_fAnimationTime - _pAnimatedNode->vNodeKeys[iIndex].fTimeStamp) / fDeltaTime;
 
-		glm::vec3 vStart = _pAnimatedNode->vNodeKeys[iIndex].boneTransform.m_vLocalPosition;
-		glm::vec3 vEnd = _pAnimatedNode->vNodeKeys[iNextIndex].boneTransform.m_vLocalPosition;
+		glm::vec3 vStart = _pAnimatedNode->vNodeKeys[iIndex].boneTransform.m_vLocalPosition.ToGLM();
+		glm::vec3 vEnd = _pAnimatedNode->vNodeKeys[iNextIndex].boneTransform.m_vLocalPosition.ToGLM();
 
 		glm::vec3 vDelta = vEnd - vStart;
 
@@ -542,7 +519,6 @@ namespace Omotura
 	void SkinnedModel::SetAnimation(const std::string& _strAnimation, bool _bLooping /*= true*/)
 	{
 		Shared<Animation> pAnimation = AssetManager::GetAsset<Animation>(hashID(_strAnimation.c_str()));
-
 		if (pAnimation)
 		{
 			m_pCurrentAnimation = pAnimation;

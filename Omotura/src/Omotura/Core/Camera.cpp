@@ -2,70 +2,56 @@
 
 #include "../BackEnd/BackEnd.h"
 
+#include "Game.h"
+
 namespace Omotura
 {
+	namespace constants
+	{
+		constexpr float fCameraFOV = 45.0f;
+		constexpr float fCameraNearPlane = 0.1f;
+		constexpr float fCameraFarPlane = 100.0f;
+	}
+
 	Camera::Camera(int _iViewportWidth, int _iViewportHeight, glm::vec3 _vPosition)
-		: m_vPosition(_vPosition),
+		: m_transform(),
 		m_iViewportWidth(_iViewportWidth),
-		m_iViewportHeight(_iViewportHeight),
-		m_fYaw(constants::fCameraYaw),
-		m_fPitch(constants::fCameraPitch),
-		m_fSpeed(constants::fCameraSpeed),
-		m_fSensitivity(constants::fCameraSensitivity),
-		m_fFOV(constants::fCameraFOV)		
+		m_iViewportHeight(_iViewportHeight)
 	{		
+		m_transform.m_vWorldPosition = Vector3(0.0f, 2.0f, 10.0f);
+		m_transform.m_vLocalPosition = Vector3(0.0f, 0.85f, 0.25f);
+		m_transform.m_quaternion = Quaternion(1.0f, Vector3(0.0f));
 	}
 
-	void Camera::Update(glm::mat4 _weaponViewMatrix, float _fFOV, float _fNearPlane, float _fFarPlane)
+	void Camera::Follow(const Transform& _transform)
 	{
-		glm::mat4 mView = glm::mat4(1.0f);
-		glm::mat4 mProjection = glm::mat4(1.0f);
-
-		mView = glm::lookAt(m_vPosition, m_vPosition + m_vFront, m_vUp);
-		mProjection = glm::perspective(glm::radians(_fFOV), (float)m_iViewportWidth / m_iViewportHeight, _fNearPlane, _fFarPlane);
-
-		m_mCameraMatrix = mProjection * glm::mat4(glm::mat3(_weaponViewMatrix)) * mView;
+		// Update camera position
+		m_transform.m_quaternion = _transform.m_quaternion;
+		m_transform.m_vWorldPosition = _transform.m_vWorldPosition + m_transform.m_quaternion * m_transform.m_vLocalPosition;
 	}
 
-	void Camera::UploadMatrix(Shader& _shader, const char* _pUniform)
+	glm::mat4 Camera::GetViewMatrix()
 	{
-		_shader.SetMatrixFloat4(_pUniform, m_mCameraMatrix);
+		return glm::mat4_cast(glm::inverse(m_transform.m_quaternion.ToGLM())) * glm::translate(-m_transform.m_vWorldPosition.ToGLM());
 	}
 
-	void Camera::Inputs(GLFWwindow* _pWindow, float _fDeltaTime)
+	glm::mat4 Camera::GetPerspectiveMatrix()
 	{
-		// Keyboard
-		if (glfwGetKey(_pWindow, GLFW_KEY_W) == GLFW_PRESS)
-		{
-			ProcessKeyboard(CameraDirection::FORWARD, _fDeltaTime);
-		}
+		return glm::perspective(glm::radians(constants::fCameraFOV), (float)m_iViewportWidth / m_iViewportHeight, constants::fCameraNearPlane, constants::fCameraFarPlane);
+	}
 
-		if (glfwGetKey(_pWindow, GLFW_KEY_S) == GLFW_PRESS)
-		{
-			ProcessKeyboard(CameraDirection::BACKWARD, _fDeltaTime);
-		}
+	glm::mat4 Camera::GetInverseViewMatrix()
+	{
+		return glm::translate(m_transform.m_vWorldPosition.ToGLM()) * glm::mat4_cast(m_transform.m_quaternion.ToGLM());
+	}
 
-		if (glfwGetKey(_pWindow, GLFW_KEY_D) == GLFW_PRESS)
-		{
-			ProcessKeyboard(CameraDirection::RIGHT, _fDeltaTime);
-		}
+	glm::mat4 Camera::GetOrientation()
+	{
+		return glm::mat4_cast(glm::inverse(m_transform.m_quaternion.ToGLM()));
+	}
 
-		if (glfwGetKey(_pWindow, GLFW_KEY_A) == GLFW_PRESS)
-		{
-			ProcessKeyboard(CameraDirection::LEFT, _fDeltaTime);
-		}
-
-		if (glfwGetKey(_pWindow, GLFW_KEY_E) == GLFW_PRESS)
-		{
-			ProcessKeyboard(CameraDirection::UP, _fDeltaTime);
-		}
-
-		if (glfwGetKey(_pWindow, GLFW_KEY_Q) == GLFW_PRESS)
-		{
-			ProcessKeyboard(CameraDirection::DOWN, _fDeltaTime);
-		}
-
-		// Mouse
-		ProcessMouseMovement(_pWindow);
+	const Transform& Camera::GetTransform() const
+	{
+		return m_transform;
 	}
 }
