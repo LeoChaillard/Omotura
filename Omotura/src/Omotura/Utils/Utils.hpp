@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../Asset/Asset.h"
+
 #include <filesystem>
 #include <string>
 
@@ -38,6 +40,20 @@ namespace Omotura
 				strEngineName = "Omotura";
 			}
 			return strEngineName;
+		}
+
+		static std::string GetAssetFolderNameFromType(AssetType _type)
+		{
+			switch (_type)
+			{
+				case AssetType::ANIMATION: return "animations";
+				case AssetType::MODEL: return "models";
+				case AssetType::SKINNEDMODEL: return "models";
+				case AssetType::TEXTURE2D: return "textures";
+				case AssetType::CUBETEXTURE: return "textures/skybox";
+				case AssetType::AUDIO: return "audio";
+			}
+			return std::string();
 		}
 	};
 }

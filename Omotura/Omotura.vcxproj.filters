@@ -40,6 +40,9 @@
     <Filter Include="src\Omotura\Input">
       <UniqueIdentifier>{5ac70aca-11c3-4340-99bf-b99d17c03b5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Omotura\Audio">
+      <UniqueIdentifier>{1a5af70b-6cb4-44cb-91e7-ba107d1b3909}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\default.vert">
@@ -154,6 +157,15 @@
     <ClCompile Include="src\Omotura\Core\PlayerInput.cpp">
       <Filter>src\Omotura\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Omotura\Audio\Audio.cpp">
+      <Filter>src\Omotura\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Asset\AudioImporter.cpp">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Audio\AudioClip.cpp">
+      <Filter>src\Omotura\Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Omotura\Engine.h" />
@@ -267,6 +279,15 @@
     </ClInclude>
     <ClInclude Include="src\Omotura\Core\PlayerInput.h">
       <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Audio\Audio.h">
+      <Filter>src\Omotura\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Asset\AudioImporter.h">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Audio\AudioClip.h">
+      <Filter>src\Omotura\Audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

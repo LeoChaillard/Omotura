@@ -17,7 +17,8 @@ namespace Omotura
 		SKINNEDMODEL,
 		MATERIAL,
 		TEXTURE2D,
-		CUBETEXTURE
+		CUBETEXTURE,
+		AUDIO
 	};
 
 	std::string GetStringFromType(AssetType _type);

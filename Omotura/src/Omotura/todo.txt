@@ -5,7 +5,7 @@
 - mettre en place système de transforms (avec parentage et héritage : cf gameobject) //
 - parenter camera au joueur //
 
-- sous système audio
+- sous système audio //
 
 - clean models and animation files
 - Animator class (setanimation... cf unity pour state machine)

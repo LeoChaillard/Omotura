@@ -3,6 +3,7 @@
 #include "ModelImporter.h"
 #include "SkinnedModelImporter.h"
 #include "AnimationImporter.h"
+#include "AudioImporter.h"
 
 #include <memory>
 #include <map>
@@ -18,7 +19,8 @@ namespace Omotura
 		{ AssetType::CUBETEXTURE, TextureImporter::LoadCompressedCubeTexture },
 		{ AssetType::MODEL, ModelImporter::LoadModel },
 		{ AssetType::SKINNEDMODEL, SkinnedModelImporter::LoadSkinnedModel },
-		{ AssetType::ANIMATION, AnimationImporter::LoadAnimation }
+		{ AssetType::ANIMATION, AnimationImporter::LoadAnimation },
+		{ AssetType::AUDIO, AudioImporter::LoadAudioClip }
 	};
 
 	Shared<Asset> AssetImporter::LoadAsset(const AssetInfo& _infos)

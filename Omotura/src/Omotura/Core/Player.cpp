@@ -3,6 +3,8 @@
 
 #include "../BackEnd/BackEnd.h"
 #include "../Input/Input.h"
+#include "../Input/KeyCodes.h"
+#include "../Audio/Audio.h"
 #include "../Asset/AssetManager.h"
 
 namespace Omotura
@@ -26,6 +28,38 @@ namespace Omotura
 		// Update Inputs
 		HandleMovement(_fDeltaTime);
 
+		// Testing sound and animations
+		if (Input::KeyDown(OMOTURA_MOUSE_BUTTON_RIGHT))
+		{
+			glm::mat4 objectModel = glm::mat4(1.0f);
+			glm::mat4 mTranslate = glm::translate(glm::vec3(m_transform.m_vWorldPosition.x, m_transform.m_vWorldPosition.y, m_transform.m_vWorldPosition.z));
+			glm::mat4 mScale = glm::scale(glm::vec3(0.0001f));
+			glm::mat4 mRot = glm::rotate(glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			objectModel = mTranslate * glm::mat4_cast(m_transform.m_quaternion.ToGLM()) * mRot * mScale * objectModel;
+			m_pCurrentWeapon->SetModelMatrix(objectModel);
+
+			m_pCurrentWeapon->SetAnimation("Glock_ADS_In", false);
+
+			if (Input::KeyPressed(OMOTURA_MOUSE_BUTTON_LEFT))
+			{
+				//m_pCurrentWeapon->SetAnimation("Glock_Fire0", false);
+				Audio::Play("Glock_Fire0", 0.1f, false);
+			}
+
+			if (!Input::KeyDown(OMOTURA_MOUSE_BUTTON_RIGHT))
+			{
+				glm::mat4 objectModel = glm::mat4(1.0f);
+				glm::mat4 mTranslate = glm::translate(glm::vec3(m_transform.m_vWorldPosition.x, m_transform.m_vWorldPosition.y, m_transform.m_vWorldPosition.z));
+				glm::mat4 mRot = glm::rotate(glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+				glm::mat4 mScale = glm::scale(glm::vec3(0.0001f));
+				objectModel = mTranslate * glm::mat4_cast(m_transform.m_quaternion.ToGLM()) * mScale * objectModel;
+				m_pCurrentWeapon->SetModelMatrix(objectModel);
+
+				m_pCurrentWeapon->SetAnimation("Glock_ADS_Out", false);
+			}
+		}
+
+
 		// Update Camera
 		m_pCamera->Follow(m_transform);
 	}
@@ -38,6 +72,15 @@ namespace Omotura
 	void Player::HandleMovement(float _fDeltaTime)
 	{
 		// Update speed
+		if (m_vFacingDir == Vector3(0.0f))
+		{
+			m_pCurrentWeapon->SetAnimation("Glock_Idle");
+		}
+		else
+		{
+			m_pCurrentWeapon->SetAnimation("Glock_Walk");
+		}
+
 		if (m_vFacingDir.z != 0 && m_vFacingDir.x != 0)
 		{
 			m_fSpeed = constants::fPlayerSpeed / 3.0f;

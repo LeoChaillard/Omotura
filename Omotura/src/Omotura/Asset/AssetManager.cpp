@@ -18,7 +18,8 @@ namespace Omotura
 		AssetType::CUBETEXTURE,
 		AssetType::SKINNEDMODEL,
 		AssetType::MODEL,
-		AssetType::ANIMATION
+		AssetType::ANIMATION,
+		AssetType::AUDIO
 	};
 
 	// Allowed extensions
@@ -28,7 +29,8 @@ namespace Omotura
 		{ AssetType::CUBETEXTURE, ".png" },
 		{ AssetType::MODEL, ".fbx .obj" },
 		{ AssetType::SKINNEDMODEL, ".gltf .glb" },
-		{ AssetType::ANIMATION, ".fbx" }
+		{ AssetType::ANIMATION, ".fbx" },
+		{ AssetType::AUDIO, ".wav" }
 	};
 
 	std::vector<std::string> AssetManager::m_vstrAssetsLogs;
@@ -46,7 +48,7 @@ namespace Omotura
 		// Scan asset directories
 		for (AssetType type : m_vAssetTypesToScan)
 		{
-			std::string strDirPath = strResourcesFolder + PATH_SEPARATOR + GetAssetFolderNameFromType(type);
+			std::string strDirPath = strResourcesFolder + PATH_SEPARATOR + Utils::GetAssetFolderNameFromType(type);
 			ScanAssetPaths(type, strDirPath);
 			LoadAssets(m_assetListMap[type]);
 			m_vstrAssetsLogs.clear();
@@ -133,26 +135,13 @@ namespace Omotura
 		{
 			for (int j = 0; j < constants::CUBE_FACES; j++)
 			{
-				printf("Loaded %s\n", (GetAssetFolderNameFromType(_type) + PATH_SEPARATOR + m_vstrAssetsLogs[_iCurrentIndex + j]).c_str());
+				printf("Loaded %s\n", (Utils::GetAssetFolderNameFromType(_type) + PATH_SEPARATOR + m_vstrAssetsLogs[_iCurrentIndex + j]).c_str());
 			}
 		}
 		else
 		{
-			printf("Loaded %s\n", (GetAssetFolderNameFromType(_type) + PATH_SEPARATOR + m_vstrAssetsLogs[_iCurrentIndex]).c_str());
+			printf("Loaded %s\n", (Utils::GetAssetFolderNameFromType(_type) + PATH_SEPARATOR + m_vstrAssetsLogs[_iCurrentIndex]).c_str());
 		}
-	}
-
-	std::string AssetManager::GetAssetFolderNameFromType(AssetType _type)
-	{
-		switch(_type)
-		{
-			case AssetType::ANIMATION: return "animations";
-			case AssetType::MODEL: return "models";
-			case AssetType::SKINNEDMODEL: return "models";
-			case AssetType::TEXTURE2D: return "textures";
-			case AssetType::CUBETEXTURE: return "textures/skybox";
-		}
-		return std::string();
 	}
 	
 	bool AssetManager::IsExtensionValid(AssetType _type, std::string _strExtension)

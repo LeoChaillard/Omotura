@@ -61,7 +61,6 @@ namespace Omotura
 		static const std::vector<std::string>& GetAssetsLogs();
 		static void PrintLog(int _iCurrentIndex, AssetType _type);
 
-		static std::string GetAssetFolderNameFromType(AssetType _type);
 		static bool IsExtensionValid(AssetType _type, std::string _strExtension);
 	};
 }

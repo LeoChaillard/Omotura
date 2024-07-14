@@ -2,6 +2,7 @@
 
 #include "../Asset/AssetManager.h"
 #include "../Input/Input.h"
+#include "../Audio/Audio.h"
 #include "../Utils/Utils.hpp"
 #include "../Core/PlayerInput.h"
 
@@ -41,12 +42,14 @@ namespace Omotura
 		}
 		
 		// Init Subsystems (Input, Audio, Physics...)
-		AssetManager::Init();
+		Audio::Init();
 		Input::Init();
+		AssetManager::Init();
 	}
 
 	void BackEnd::UpdateSubSystems()
 	{
+		Audio::Update();
 		Input::Update();
 		PlayerInput::Update();
 	}

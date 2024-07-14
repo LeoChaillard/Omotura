@@ -523,6 +523,7 @@ namespace Omotura
 		{
 			m_pCurrentAnimation = pAnimation;
 			m_pCurrentAnimation->SetLooping(_bLooping);
+			m_pCurrentAnimation->SetPaused(false);
 		}
 	}
 }
