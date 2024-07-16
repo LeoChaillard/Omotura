@@ -11,6 +11,7 @@ namespace Omotura
 {
 	SkinnedModel::SkinnedModel(const std::string& _strFilePath)
 	{
+		m_bCurrentAnimationFinished = false;
 		m_pCurrentAnimation = CreateShared<Animation>();
 		LoadSkinnedModel(_strFilePath);
 	}
@@ -31,8 +32,6 @@ namespace Omotura
 
 		// Importing scene
 		bool bSuccess = false;
-
-		//m_importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);
 		m_pScene = m_importer.ReadFile(_strFilePath.c_str(), ASSIMP_LOAD_FLAGS);
 		if (m_pScene)
 		{
@@ -376,6 +375,7 @@ namespace Omotura
 		{
 			if (!m_pCurrentAnimation->IsLooping())
 			{
+				m_bCurrentAnimationFinished = true;
 				m_fCurrentAnimationTime = fDuration;
 				m_pCurrentAnimation->SetPaused(true);
 			}
@@ -516,7 +516,7 @@ namespace Omotura
 		_vPosition = vStart + fFactor * vDelta;
 	}
 
-	void SkinnedModel::SetAnimation(const std::string& _strAnimation, bool _bLooping /*= true*/)
+	void SkinnedModel::SetAnimation(const std::string& _strAnimation, bool _bLooping /*= true*/, float _fSpeed /*= 1.0f*/)
 	{
 		Shared<Animation> pAnimation = AssetManager::GetAsset<Animation>(hashID(_strAnimation.c_str()));
 		if (pAnimation)
@@ -524,6 +524,27 @@ namespace Omotura
 			m_pCurrentAnimation = pAnimation;
 			m_pCurrentAnimation->SetLooping(_bLooping);
 			m_pCurrentAnimation->SetPaused(false);
+			m_pCurrentAnimation->SetSpeed(_fSpeed);
+			m_bCurrentAnimationFinished = false;
 		}
+	}
+
+	bool SkinnedModel::CurrentAnimationFinished()
+	{
+		return m_bCurrentAnimationFinished;
+	}
+
+	void SkinnedModel::StopLoopingAnimation()
+	{
+		m_bCurrentAnimationFinished = true;
+		m_fCurrentAnimationTime = 0.0f;
+		m_pCurrentAnimation->SetPaused(true);
+	}
+
+	void SkinnedModel::ResetAnimation()
+	{
+		m_bCurrentAnimationFinished = false;
+		m_fCurrentAnimationTime = 0.0f;
+		m_pCurrentAnimation->SetPaused(false);
 	}
 }

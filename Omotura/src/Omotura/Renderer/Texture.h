@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ShaderClass.h"
+#include "Shader.h"
 
 #include "../Common/Common.h"
 #include "../Asset/Asset.h"

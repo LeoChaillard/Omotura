@@ -28,6 +28,7 @@ namespace Omotura
 	{
 	public:
 		AssetHandle m_handle;
+		std::string m_strName;
 
 		virtual AssetType GetType() const = 0;
 	};

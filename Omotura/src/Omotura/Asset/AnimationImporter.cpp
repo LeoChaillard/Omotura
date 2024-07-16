@@ -31,6 +31,7 @@ namespace Omotura
 			// Creating animation clip and filling it with poses
 			for (int i = 0; i < iNodeCount; i++)
 			{
+				if (iNodeCount > 10000) std::cout << "MORE THAN 10 000 NODES" << std::endl;
 				AnimatedNode animatedNode;
 				int iNumPositionKeys = pAnim->mChannels[i]->mNumPositionKeys;
 				for (int j = 0; j < iNumPositionKeys; j++)

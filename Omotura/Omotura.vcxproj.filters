@@ -43,6 +43,12 @@
     <Filter Include="src\Omotura\Audio">
       <UniqueIdentifier>{1a5af70b-6cb4-44cb-91e7-ba107d1b3909}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Omotura\Core\StateMachine">
+      <UniqueIdentifier>{4f298875-85f3-4ed5-9a20-5d298a028b1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\Core\PlayerStates">
+      <UniqueIdentifier>{20583c27-56cd-4ca2-93bc-a3cd2ac62c70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\default.vert">
@@ -96,7 +102,7 @@
     <ClCompile Include="src\Omotura\Renderer\Renderer.cpp">
       <Filter>src\Omotura\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Omotura\Renderer\ShaderClass.cpp">
+    <ClCompile Include="src\Omotura\Renderer\Shader.cpp">
       <Filter>src\Omotura\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Omotura\Renderer\Texture.cpp">
@@ -166,6 +172,45 @@
     <ClCompile Include="src\Omotura\Audio\AudioClip.cpp">
       <Filter>src\Omotura\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="src\Omotura\Core\StateMachine\FuncPredicate.cpp">
+      <Filter>src\Omotura\Core\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\StateMachine\Transition.cpp">
+      <Filter>src\Omotura\Core\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\StateMachine\StateMachine.cpp">
+      <Filter>src\Omotura\Core\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\AnimatorManager.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\PlayerStates\IdleState.cpp">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\PlayerStates\WalkState.cpp">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\PlayerStates\AttackState.cpp">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\PlayerStates\ReloadState.cpp">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\PlayerStates\AimTransitionState.cpp">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\PlayerStates\AimIdleState.cpp">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\PlayerStates\AimWalkState.cpp">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\PlayerStates\AimAttackState.cpp">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\PlayerStates\DrawState.cpp">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Omotura\Engine.h" />
@@ -202,7 +247,7 @@
     <ClInclude Include="src\Omotura\Renderer\Renderer.h">
       <Filter>src\Omotura\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Omotura\Renderer\ShaderClass.h">
+    <ClInclude Include="src\Omotura\Renderer\Shader.h">
       <Filter>src\Omotura\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Omotura\Renderer\Texture.h">
@@ -288,6 +333,48 @@
     </ClInclude>
     <ClInclude Include="src\Omotura\Audio\AudioClip.h">
       <Filter>src\Omotura\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\StateMachine\State.h">
+      <Filter>src\Omotura\Core\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\StateMachine\FuncPredicate.h">
+      <Filter>src\Omotura\Core\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\StateMachine\Transition.h">
+      <Filter>src\Omotura\Core\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\StateMachine\StateMachine.h">
+      <Filter>src\Omotura\Core\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\AnimatorManager.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\PlayerStates\IdleState.h">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\PlayerStates\WalkState.h">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\PlayerStates\AttackState.h">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\PlayerStates\ReloadState.h">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\PlayerStates\AimTransitionState.h">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\PlayerStates\AimIdleState.h">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\PlayerStates\AimWalkState.h">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\PlayerStates\AimAttackState.h">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\PlayerStates\DrawState.h">
+      <Filter>src\Omotura\Core\PlayerStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

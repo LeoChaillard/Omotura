@@ -42,21 +42,21 @@ namespace Omotura
 	void Audio::Update()
 	{
 		// Remove handles to any audio that has finished playing
-		int iAudio = m_vActiveAudio.size();
-		for (int i = 0; i < iAudio; i++) 
-		{
-			AudioClip& clip = m_vActiveAudio[i];
-			FMOD::Sound* pCurrentSound;
-			unsigned int iPosition;
-			unsigned int iLength;
-			clip.GetChannel()->getPosition(&iPosition, FMOD_TIMEUNIT_MS);
-			clip.GetSound()->getLength(&iLength, FMOD_TIMEUNIT_MS);
-			if (iPosition >= iLength) 
-			{
-				m_vActiveAudio.erase(m_vActiveAudio.begin() + i);
-				i--;
-			}
-		}
+		//int iAudio = m_vActiveAudio.size();
+		//for (int i = 0; i < iAudio; i++) 
+		//{
+		//	AudioClip& clip = m_vActiveAudio[i];
+		//	FMOD::Sound* pCurrentSound;
+		//	unsigned int iPosition;
+		//	unsigned int iLength;
+		//	clip.GetChannel()->getPosition(&iPosition, FMOD_TIMEUNIT_MS);
+		//	clip.GetSound()->getLength(&iLength, FMOD_TIMEUNIT_MS);
+		//	if (iPosition >= iLength) 
+		//	{
+		//		m_vActiveAudio.erase(m_vActiveAudio.begin() + i);
+		//		i--;
+		//	}
+		//}
 
 		// Update system internal state
 		m_pSystem->update();
@@ -103,22 +103,26 @@ namespace Omotura
 		m_pSystem->playSound(pSound, nullptr, false, &pChannel);
 		pChannel->setVolume(_fVolume);
 		//clip.SetVolume(_fVolume);
+
+		//m_vActiveAudio.push_back(clip);
 	}
 
 	void Audio::Stop(const std::string& _strFileName)
 	{
 		// Stop and delete corresponding audio
-		int iAudio = m_vActiveAudio.size();
-		for (int i = 0; i < iAudio; i++) 
-		{
-			AudioClip& clip = m_vActiveAudio[i];
-			if (clip.GetHandle() == hashID(_strFileName.c_str()))
-			{
-				clip.GetChannel()->stop();
-				m_vActiveAudio.erase(m_vActiveAudio.begin() + i);
-				break;
-			}
-		}
+		//int iAudio = m_vActiveAudio.size();
+		//for (int i = 0; i < iAudio; i++) 
+		//{
+		//	AudioClip& clip = m_vActiveAudio[i];
+		//	if (clip.GetHandle() == hashID(_strFileName.c_str()))
+		//	{
+		//		FMOD::Channel* pChannel = clip.GetChannel();
+		//		pChannel->setLoopCount(0);
+		//		pChannel->stop();
+		//		m_vActiveAudio.erase(m_vActiveAudio.begin() + i);
+		//		break;
+		//	}
+		//}
 
 		// Update system internal state
 		m_pSystem->update();

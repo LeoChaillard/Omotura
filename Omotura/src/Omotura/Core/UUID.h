@@ -13,16 +13,6 @@ namespace Omotura
 
 		operator uint64_t() const { return m_UUID; }
 
-		/*UUID operator=(UUID _other) const
-		{
-			return UUID(_other);
-		}
-
-		bool operator==(UUID _other) const
-		{
-			return this->m_UUID == _other;
-		}*/
-
 	private:
 		uint64_t m_UUID;
 	};

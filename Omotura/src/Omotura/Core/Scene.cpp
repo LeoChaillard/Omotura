@@ -19,17 +19,14 @@ namespace Omotura
 		glm::mat4 mScale = glm::scale(glm::vec3(0.01f));
 		objectModel = mTranslate * mScale * objectModel;
 		m_vpSkinnedModels[0]->SetModelMatrix(objectModel);
-		m_vpSkinnedModels[0]->UpdateBoneTransformsFromBindPose();
-		m_vpSkinnedModels[0]->SetAnimation("AKS74U_Reload");
 
 		objectModel = glm::mat4(1.0f);
 		mTranslate = glm::translate(glm::vec3(0.0f, 2.0f, 0.0f));
 		mRot = glm::mat4(1.0f);
-		mScale = glm::scale(glm::vec3(0.01f));
+		mScale = glm::scale(glm::vec3(0.0001f));
 		objectModel = mTranslate * mRot * mScale * objectModel;
 		m_vpSkinnedModels[1]->SetModelMatrix(objectModel);
-		m_vpSkinnedModels[1]->UpdateBoneTransformsFromBindPose();
-		m_vpSkinnedModels[1]->SetAnimation("Glock_Idle");
+		m_vpSkinnedModels[1]->Hide();
 
 		objectModel = glm::mat4(1.0f);
 		mTranslate = glm::translate(glm::vec3(-2.0f, 2.0f, 5.0f));
@@ -37,8 +34,7 @@ namespace Omotura
 		mScale = glm::scale(glm::vec3(0.01f));
 		objectModel = mTranslate * mRot * mScale * objectModel;
 		m_vpSkinnedModels[2]->SetModelMatrix(objectModel);
-		m_vpSkinnedModels[2]->UpdateBoneTransformsFromBindPose();
-		m_vpSkinnedModels[2]->SetAnimation("Tokarev_Reload");
+		m_vpSkinnedModels[2]->Hide();
 
 		objectModel = glm::mat4(1.0f);
 		mTranslate = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));

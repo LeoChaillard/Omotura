@@ -3,6 +3,8 @@
 #include "Transform.h"
 #include "Animator.h"
 
+#include "../Common/Common.h"
+
 #include <cyclone/body.h>
 
 using namespace cyclone;
@@ -11,14 +13,20 @@ namespace Omotura
 {
 	class GameObject
 	{
+	private:
+		bool m_bVisible;
 	protected:
 		Transform m_transform;
 
 		// Components
-		std::unique_ptr<Animator> m_pAnimController;
-		std::unique_ptr<RigidBody> m_pRigidBody;		
+		Shared<Animator> m_pAnimator;
+		Shared<RigidBody> m_pRigidBody;		
 
 	public:
 		GameObject();
+
+		void Hide();
+		void Show();
+		bool IsHidden();
 	};
 }

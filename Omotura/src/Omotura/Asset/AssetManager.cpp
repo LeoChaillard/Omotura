@@ -113,6 +113,7 @@ namespace Omotura
 					case CUBETEXTURE: m_vTextures.push_back(std::static_pointer_cast<Texture>(asset)); break;
 					case MODEL: m_vModels.push_back(std::static_pointer_cast<Model>(asset)); break;
 				}
+				asset->m_strName = infos.strName;
 				m_assets.insert({ hashID(infos.strName.c_str()), asset });
 				PrintLog(i, infos.type);
 			}

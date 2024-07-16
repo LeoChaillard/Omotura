@@ -19,7 +19,7 @@ namespace Omotura
 		m_iViewportHeight(_iViewportHeight)
 	{		
 		m_transform.m_vWorldPosition = Vector3(0.0f, 2.0f, 10.0f);
-		m_transform.m_vLocalPosition = Vector3(0.0f, 0.85f, 0.25f);
+		m_transform.m_vLocalPosition = Vector3(0.0f, 0.85f, 0.1f);
 		m_transform.m_quaternion = Quaternion(1.0f, Vector3(0.0f));
 	}
 

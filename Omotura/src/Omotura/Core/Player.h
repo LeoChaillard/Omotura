@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Transform.h"
+#include "GameObject.h"
 
 #include "../Renderer/SkinnedModel.h"
 
@@ -11,10 +12,9 @@ namespace Omotura
 		constexpr float fPlayerSpeed = 20.0f;
 	}
 
-	class Player
+	class Player : public GameObject
 	{
 	private:
-		Transform m_transform;
 		Shared<Camera> m_pCamera;
 		Shared<SkinnedModel> m_pCurrentWeapon;
 
@@ -26,10 +26,13 @@ namespace Omotura
 		Player();
 		~Player() = default;
 
+		void Init();
 		void Update(float _fDeltaTime);
 		void FixedUpdate(float _fFixedDeltaTime);
 
 		Shared<Camera> GetCamera();
+		Shared<SkinnedModel> GetCurrentWeapon();
+		Transform GetTransform();
 
 	private:		
 		void OnMove(const Vector3& _vDir, const Quaternion& _qOrientation);

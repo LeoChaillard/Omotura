@@ -3,8 +3,24 @@
 namespace Omotura
 {
 	GameObject::GameObject()
+		: m_bVisible(true)
 	{
-		m_pAnimController = std::make_unique<Animator>();
-		m_pRigidBody = std::make_unique<RigidBody>();
+		m_pAnimator = CreateShared<Animator>();
+		m_pRigidBody = CreateShared<RigidBody>();
+	}
+
+	void GameObject::Hide()
+	{
+		m_bVisible = false;
+	}
+
+	void GameObject::Show()
+	{
+		m_bVisible = true;
+	}
+
+	bool GameObject::IsHidden()
+	{
+		return !m_bVisible;
 	}
 }

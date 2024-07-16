@@ -5,6 +5,7 @@
 
 #include "../Asset/Asset.h"
 #include "../Core/Camera.h"
+#include "../Core/GameObject.h"
 #include "../Common/Common.h"
 
 #include <string>
@@ -14,7 +15,7 @@
 
 namespace Omotura
 {
-	class Model : public Asset
+	class Model : public GameObject, public Asset
 	{
 	private:
 		GLuint m_EBO;

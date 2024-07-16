@@ -2,7 +2,7 @@
 
 #include "RenderData.h"
 #include "Model.h"
-#include "ShaderClass.h"
+#include "Shader.h"
 
 #include "../Common/Common.h"
 

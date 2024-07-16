@@ -12,7 +12,7 @@ namespace Omotura
 	{
 	private:
 		Scene m_scene;
-		Player m_player;
+		Shared<Player> m_pPlayer;
 
 		float m_fDeltaTimeAccumulator;
 		float m_fFixedDeltaTime;
@@ -38,6 +38,6 @@ namespace Omotura
 
 		Shared<Camera> GetPlayerCamera();
 		const Scene& GetScene();
-		Player& GetPlayer();
+		Shared<Player> GetPlayer();
 	};
 }

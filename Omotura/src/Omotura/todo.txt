@@ -7,16 +7,18 @@
 
 - sous système audio //
 
-- clean models and animation files
-- Animator class (setanimation... cf unity pour state machine)
-- animations state machine (R reload, Click gauche fire, Click droit viser, Shift crouch, 123 pour switcher arme)
+- Animator class (setanimation... cf unity pour state machine) //
+- animations state machine (R reload, Click gauche fire, Click droit viser, Shift crouch, 123 pour switcher arme) //
+- clean models and animation files 
 
 - debug primitive drawer
 - debug menus (ImGui)
 
-- intégrer physique
-
 - terrain procédural
+
+- UI
+
+- intégrer physique
 
 - lumière indirecte (raycast, point cloud..., shadow map...)
 

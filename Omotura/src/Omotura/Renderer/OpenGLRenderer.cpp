@@ -69,7 +69,7 @@ namespace Omotura
 
 		SkyboxPass(_renderData);
 		DebugPass();
-
+			
 		// Post Render
 
 	}
@@ -78,6 +78,11 @@ namespace Omotura
 	{
 		for (SkinnedRenderItem3D skinnedRenderItem : _renderData.vGeometrySkinnedRenderItems)
 		{
+			if (skinnedRenderItem.skinnedModel->IsHidden())
+			{
+				continue;
+			}
+
 			m_skinningShader.Activate();
 			m_skinningShader.SetMatrixFloat4("modelMatrix", skinnedRenderItem.modelMatrix);
 			m_skinningShader.SetFloat3("spotLight.lightPos", _renderData.vSpotLights[0].vPosition.x, _renderData.vSpotLights[0].vPosition.y, _renderData.vSpotLights[0].vPosition.z);
@@ -163,6 +168,11 @@ namespace Omotura
 
 		for (RenderItem3D renderItem : _renderData.vGeometryRenderItems)
 		{
+			if (renderItem.model->IsHidden())
+			{
+				continue;
+			}
+
 			m_shaderProgram.Activate();
 			m_shaderProgram.SetMatrixFloat4("modelMatrix", renderItem.modelMatrix);
 			m_shaderProgram.SetFloat3("spotLight.lightPos", _renderData.vSpotLights[0].vPosition.x, _renderData.vSpotLights[0].vPosition.y, _renderData.vSpotLights[0].vPosition.z);
@@ -218,7 +228,7 @@ namespace Omotura
 				// Camera
 				Shared<Camera> pCamera = _renderData.pPlayerCamera;
 				const Transform& cameraTransform = pCamera->GetTransform();
-				m_skinningShader.SetFloat3("camPos", cameraTransform.m_vWorldPosition.x, cameraTransform.m_vWorldPosition.y, cameraTransform.m_vWorldPosition.z);
+				m_shaderProgram.SetFloat3("camPos", cameraTransform.m_vWorldPosition.x, cameraTransform.m_vWorldPosition.y, cameraTransform.m_vWorldPosition.z);
 				m_shaderProgram.SetMatrixFloat4("viewMatrix", pCamera->GetViewMatrix());
 				m_shaderProgram.SetMatrixFloat4("projectionMatrix", pCamera->GetPerspectiveMatrix());
 

@@ -6,6 +6,7 @@
 #include "../Asset/Asset.h"
 #include "../Core/Camera.h"
 #include "../Core/Animation.h"
+#include "../Core/GameObject.h"
 #include "../Common/Common.h"
 
 #include <string>
@@ -34,7 +35,7 @@ namespace Omotura
 		glm::mat4 modelSpaceTransform;
 	};
 
-	class SkinnedModel : public Asset
+	class SkinnedModel : public GameObject, public Asset
 	{
 	private:
 		const aiScene* m_pScene = nullptr;
@@ -79,6 +80,7 @@ namespace Omotura
 		// Animation related
 		Shared<Animation> m_pCurrentAnimation;
 		float m_fCurrentAnimationTime = 0.0f;
+		bool m_bCurrentAnimationFinished;
 
 	public:
 		SkinnedModel() = default;
@@ -94,7 +96,10 @@ namespace Omotura
 		void GetBoneTransforms(float _fTimeInSeconds, std::vector<glm::mat4>& _transforms);
 
 		// Animation related
-		void SetAnimation(const std::string& _strAnimation, bool _bLooping = true);
+		void SetAnimation(const std::string& _strAnimation, bool _bLooping = true, float _fSpeed = 1.0f);
+		bool CurrentAnimationFinished();
+		void StopLoopingAnimation();
+		void ResetAnimation();
 
 		// Model
 		GLuint GetVAO();
