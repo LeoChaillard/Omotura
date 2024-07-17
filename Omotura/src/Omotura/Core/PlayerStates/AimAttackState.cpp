@@ -10,7 +10,6 @@ namespace Omotura
 	AimAttackState::AimAttackState()
 	{
 		m_pPlayer = Game::GetInstance()->GetPlayer();
-
 		std::random_device rd;
 		mt = std::mt19937(rd());
 		dist = std::uniform_real_distribution<double>(1.0, 3.0);
