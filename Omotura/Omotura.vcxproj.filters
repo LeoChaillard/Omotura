@@ -55,7 +55,7 @@
     <Filter Include="src\Omotura\ImGui_Impl">
       <UniqueIdentifier>{dd7d9089-d5e7-4f00-a9b0-f7ac77dbfe91}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Omotura\Core\Debug">
+    <Filter Include="src\Omotura\Core\DebugHelpers">
       <UniqueIdentifier>{cc48d45d-5e60-4a8a-aa7c-733c6dc798a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -241,8 +241,8 @@
     <ClCompile Include="src\Omotura\Core\Time.cpp">
       <Filter>src\Omotura\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Omotura\Core\Debug\DebugMenu.cpp">
-      <Filter>src\Omotura\Core\Debug</Filter>
+    <ClCompile Include="src\Omotura\Core\DebugHelpers\DebugMenu.cpp">
+      <Filter>src\Omotura\Core\DebugHelpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -439,8 +439,8 @@
     <ClInclude Include="src\Omotura\Core\Time.h">
       <Filter>src\Omotura\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Omotura\Core\Debug\DebugMenu.h">
-      <Filter>src\Omotura\Core\Debug</Filter>
+    <ClInclude Include="src\Omotura\Core\DebugHelpers\DebugMenu.h">
+      <Filter>src\Omotura\Core\DebugHelpers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

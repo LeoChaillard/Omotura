@@ -8,7 +8,7 @@
 #include "../Input/Input.h"
 #include "../Input/KeyCodes.h"
 
-#include "../Core/Debug/DebugMenu.h"
+#include "../Core/DebugHelpers/DebugMenu.h"
 
 #include <glm/glm.hpp>
 #include <imgui/imgui.h>

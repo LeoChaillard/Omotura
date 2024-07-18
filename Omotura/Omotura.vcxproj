@@ -52,7 +52,7 @@
     <ClCompile Include="src\Omotura\Core\Animator.cpp" />
     <ClCompile Include="src\Omotura\Core\AnimatorManager.cpp" />
     <ClCompile Include="src\Omotura\Core\Camera.cpp" />
-    <ClCompile Include="src\Omotura\Core\Debug\DebugMenu.cpp" />
+    <ClCompile Include="src\Omotura\Core\DebugHelpers\DebugMenu.cpp" />
     <ClCompile Include="src\Omotura\Core\Game.cpp" />
     <ClCompile Include="src\Omotura\Core\GameObject.cpp" />
     <ClCompile Include="src\Omotura\Core\Player.cpp" />
@@ -114,7 +114,7 @@
     <ClInclude Include="src\Omotura\Core\Animator.h" />
     <ClInclude Include="src\Omotura\Core\AnimatorManager.h" />
     <ClInclude Include="src\Omotura\Core\Camera.h" />
-    <ClInclude Include="src\Omotura\Core\Debug\DebugMenu.h" />
+    <ClInclude Include="src\Omotura\Core\DebugHelpers\DebugMenu.h" />
     <ClInclude Include="src\Omotura\Core\Game.h" />
     <ClInclude Include="src\Omotura\Core\GameObject.h" />
     <ClInclude Include="src\Omotura\Core\Light.h" />
