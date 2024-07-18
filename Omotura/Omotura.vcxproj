@@ -30,6 +30,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\compressonator\DDS_Helpers.cpp" />
+    <ClCompile Include="..\include\imgui\imgui.cpp" />
+    <ClCompile Include="..\include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\include\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="..\include\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="..\include\imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\Omotura\API\OpenGLTexture.cpp" />
     <ClCompile Include="src\Omotura\Asset\AnimationImporter.cpp" />
     <ClCompile Include="src\Omotura\Asset\Asset.cpp" />
@@ -46,6 +52,7 @@
     <ClCompile Include="src\Omotura\Core\Animator.cpp" />
     <ClCompile Include="src\Omotura\Core\AnimatorManager.cpp" />
     <ClCompile Include="src\Omotura\Core\Camera.cpp" />
+    <ClCompile Include="src\Omotura\Core\Debug\DebugMenu.cpp" />
     <ClCompile Include="src\Omotura\Core\Game.cpp" />
     <ClCompile Include="src\Omotura\Core\GameObject.cpp" />
     <ClCompile Include="src\Omotura\Core\Player.cpp" />
@@ -63,6 +70,7 @@
     <ClCompile Include="src\Omotura\Core\StateMachine\FuncPredicate.cpp" />
     <ClCompile Include="src\Omotura\Core\StateMachine\StateMachine.cpp" />
     <ClCompile Include="src\Omotura\Core\StateMachine\Transition.cpp" />
+    <ClCompile Include="src\Omotura\Core\Time.cpp" />
     <ClCompile Include="src\Omotura\Core\Transform.cpp" />
     <ClCompile Include="src\Omotura\Core\UUID.cpp" />
     <ClCompile Include="src\Omotura\Engine.cpp" />
@@ -79,6 +87,15 @@
     <ClCompile Include="src\Omotura\stb.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\imgui\imconfig.h" />
+    <ClInclude Include="..\include\imgui\imgui.h" />
+    <ClInclude Include="..\include\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="..\include\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="..\include\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="..\include\imgui\imgui_internal.h" />
+    <ClInclude Include="..\include\imgui\imstb_rectpack.h" />
+    <ClInclude Include="..\include\imgui\imstb_textedit.h" />
+    <ClInclude Include="..\include\imgui\imstb_truetype.h" />
     <ClInclude Include="src\Omotura\API\OpenGLTexture.h" />
     <ClInclude Include="src\Omotura\Asset\AnimationImporter.h" />
     <ClInclude Include="src\Omotura\Asset\Asset.h" />
@@ -97,6 +114,7 @@
     <ClInclude Include="src\Omotura\Core\Animator.h" />
     <ClInclude Include="src\Omotura\Core\AnimatorManager.h" />
     <ClInclude Include="src\Omotura\Core\Camera.h" />
+    <ClInclude Include="src\Omotura\Core\Debug\DebugMenu.h" />
     <ClInclude Include="src\Omotura\Core\Game.h" />
     <ClInclude Include="src\Omotura\Core\GameObject.h" />
     <ClInclude Include="src\Omotura\Core\Light.h" />
@@ -116,6 +134,7 @@
     <ClInclude Include="src\Omotura\Core\StateMachine\FuncPredicate.h" />
     <ClInclude Include="src\Omotura\Core\StateMachine\StateMachine.h" />
     <ClInclude Include="src\Omotura\Core\StateMachine\Transition.h" />
+    <ClInclude Include="src\Omotura\Core\Time.h" />
     <ClInclude Include="src\Omotura\Core\Transform.h" />
     <ClInclude Include="src\Omotura\Core\UUID.h" />
     <ClInclude Include="src\Omotura\Engine.h" />

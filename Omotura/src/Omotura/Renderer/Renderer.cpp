@@ -10,6 +10,7 @@
 #include "../Asset/Asset.h"
 #include "../Utils/Utils.hpp"
 #include "../Core/Game.h"
+#include "../Core/Time.h"
 
 namespace Omotura
 {
@@ -121,7 +122,7 @@ namespace Omotura
 	{
 		std::vector<SpotLight> vSpotLights;
 		SpotLight spotLight;
-		spotLight.vPosition = glm::vec3(2.5f * sin(glfwGetTime()), 5.0f, 2.5f * cos(glfwGetTime()));
+		spotLight.vPosition = glm::vec3(2.5f * sin(Time::GetCurrentTime()), 5.0f, 2.5f * cos(Time::GetCurrentTime()));
 		spotLight.vDirection = glm::vec3(0.0f, 1.0f, 0.0f);
 		spotLight.fInnerCone = 0.95f;
 		spotLight.fOuterCone = 0.90f;

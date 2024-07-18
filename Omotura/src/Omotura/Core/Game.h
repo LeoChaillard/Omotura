@@ -15,7 +15,6 @@ namespace Omotura
 		Shared<Player> m_pPlayer;
 
 		float m_fDeltaTimeAccumulator;
-		float m_fFixedDeltaTime;
 		bool m_bIsLoaded;
 
 	public:
@@ -32,7 +31,7 @@ namespace Omotura
 			return spInstance;
 		}
 
-		void Update(float _fDeltaTime);
+		void Update();
 		void Create();
 		bool IsLoaded();
 

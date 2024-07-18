@@ -17,7 +17,6 @@ namespace Omotura
 	public:
 		static void Init(API _api);
 		static void UpdateSubSystems();
-		static void ClearSubSystems();
 		static const API& GetAPI();
 		static void Clear();
 		static void BeginFrame();

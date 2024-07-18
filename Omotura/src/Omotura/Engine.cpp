@@ -2,18 +2,17 @@
 
 #include "Core/Camera.h"
 #include "Core/Game.h"
+#include "Core/Time.h"
 #include "BackEnd/BackEnd.h"
 #include "Asset/AssetManager.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/RendererCommon.h"
 
-#include <glad/glad.h>
+#include "Input/Input.h"
+#include "Input/KeyCodes.h"
 
 namespace Omotura
 {
-	float g_fLastFrame = glfwGetTime();
-	float g_fCurrentFrame = g_fLastFrame;
-
 	void Engine::Run()
 	{
 		BackEnd::Init(API::OPENGL);
@@ -29,12 +28,16 @@ namespace Omotura
 			}
 			else
 			{
-				// Update time
-				g_fLastFrame = g_fCurrentFrame;
-				g_fCurrentFrame = glfwGetTime();
-				float fDeltaTime = g_fCurrentFrame - g_fLastFrame;
+				if (Input::KeyPressed(OMOTURA_KEY_F3))
+				{
+					Time::PauseOrResume();
+				}
 
-				Game::GetInstance()->Update(fDeltaTime);
+				if (!Time::IsPaused())
+				{
+					Game::GetInstance()->Update();
+				}
+
 				Renderer::RenderFrame();
 			}
 

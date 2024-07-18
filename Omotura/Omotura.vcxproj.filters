@@ -49,6 +49,15 @@
     <Filter Include="src\Omotura\Core\PlayerStates">
       <UniqueIdentifier>{20583c27-56cd-4ca2-93bc-a3cd2ac62c70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{4615f9e5-328b-4b9f-8265-6f374163b116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\ImGui_Impl">
+      <UniqueIdentifier>{dd7d9089-d5e7-4f00-a9b0-f7ac77dbfe91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\Core\Debug">
+      <UniqueIdentifier>{cc48d45d-5e60-4a8a-aa7c-733c6dc798a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\default.vert">
@@ -210,6 +219,30 @@
     </ClCompile>
     <ClCompile Include="src\Omotura\Core\PlayerStates\DrawState.cpp">
       <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\imgui\imgui_draw.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\imgui\imgui_tables.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\imgui\imgui_widgets.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\imgui\imgui.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\imgui\imgui_impl_glfw.cpp">
+      <Filter>src\Omotura\ImGui_Impl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\imgui\imgui_impl_opengl3.cpp">
+      <Filter>src\Omotura\ImGui_Impl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\Time.cpp">
+      <Filter>src\Omotura\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\Debug\DebugMenu.cpp">
+      <Filter>src\Omotura\Core\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -375,6 +408,39 @@
     </ClInclude>
     <ClInclude Include="src\Omotura\Core\PlayerStates\DrawState.h">
       <Filter>src\Omotura\Core\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\imgui.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\imgui_internal.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\imstb_rectpack.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\imstb_textedit.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\imstb_truetype.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\imconfig.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\imgui_impl_glfw.h">
+      <Filter>src\Omotura\ImGui_Impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\imgui_impl_opengl3.h">
+      <Filter>src\Omotura\ImGui_Impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\imgui_impl_opengl3_loader.h">
+      <Filter>src\Omotura\ImGui_Impl</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Time.h">
+      <Filter>src\Omotura\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Debug\DebugMenu.h">
+      <Filter>src\Omotura\Core\Debug</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,25 +1,14 @@
-- view matrix pour positionner caméra derrière joueur//
-- inputs //
-
-- camera avec quaternions et construction/update manuelle de la view matrix //
-- mettre en place système de transforms (avec parentage et héritage : cf gameobject) //
-- parenter camera au joueur //
-
-- sous système audio //
-
-- Animator class (setanimation... cf unity pour state machine) //
-- animations state machine (R reload, Click gauche fire, Click droit viser, Shift crouch, 123 pour switcher arme) //
 - clean models and animation files 
 
 - debug primitive drawer
 - debug menus (ImGui)
 
-- terrain procédural
+- procedural terrain
 
 - UI
 
-- intégrer physique
+- integrate physics
 
-- lumière indirecte (raycast, point cloud..., shadow map...)
+- indirect light (raycast, point cloud..., shadow map...)
 
 - inventory (armes, munitions) / Pick up system

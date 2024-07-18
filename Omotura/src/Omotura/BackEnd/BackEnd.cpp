@@ -4,7 +4,10 @@
 #include "../Input/Input.h"
 #include "../Audio/Audio.h"
 #include "../Utils/Utils.hpp"
-#include "../Core/PlayerInput.h"
+
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_opengl3.h>
 
 #include <iostream>
 #include <string>
@@ -39,6 +42,19 @@ namespace Omotura
 			glfwMakeContextCurrent(m_pWindow);
 			gladLoadGL();
 			glViewport(0, 0, constants::iWidth, constants::iHeight);
+
+			// Setup Dear ImGui context
+			IMGUI_CHECKVERSION();
+			ImGui::CreateContext();
+			ImGuiIO& io = ImGui::GetIO(); (void)io;
+			io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;	// Enable Keyboard Controls
+
+			// Setup Dear ImGui style
+			ImGui::StyleColorsDark();
+
+			// Setup Platform/Renderer backends
+			ImGui_ImplGlfw_InitForOpenGL(m_pWindow, true);
+			ImGui_ImplOpenGL3_Init("#version 330");
 		}
 		
 		// Init Subsystems (Input, Audio, Physics...)
@@ -51,7 +67,6 @@ namespace Omotura
 	{
 		Audio::Update();
 		Input::Update();
-		PlayerInput::Update();
 	}
 
 	const API& BackEnd::GetAPI()
@@ -92,16 +107,32 @@ namespace Omotura
 
 	void BackEnd::BeginFrame()
 	{
+		// Start the Dear ImGui frame
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+		// Poll GLFW events
 		glfwPollEvents();
 	}
 
 	void BackEnd::EndFrame()
 	{
+		// End Dear ImGui frame
+		ImGui::EndFrame();
+
+		// Swap GLFW buffers
 		glfwSwapBuffers(m_pWindow);
 	}
 
 	void BackEnd::Clear()
 	{
+		// Clean up Dear ImGui
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
+
+		// Clean up GLFW
 		glfwDestroyWindow(m_pWindow);
 		glfwTerminate();
 	}

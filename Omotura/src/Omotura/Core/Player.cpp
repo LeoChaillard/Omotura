@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "PlayerInput.h"
+#include "AnimatorManager.h"
 
 #include "PlayerStates/AimTransitionState.h"
 #include "PlayerStates/AimAttackState.h"
@@ -21,10 +22,11 @@
 namespace Omotura
 {
 	Player::Player()
-		: m_fSpeed(constants::fPlayerSpeed),
+		: m_fMaxSpeed(constants::fPlayerSpeed),
+		m_fSpeed(constants::fPlayerSpeed),
 		m_vFacingDir()
 	{
-		m_pCamera = CreateShared<Camera>(BackEnd::GetWindowWidth(), BackEnd::GetWindowHeight(), glm::vec3(0.0f, 0.0f, 0.0f));
+		m_pCamera = CreateShared<Camera>(BackEnd::GetWindowWidth(), BackEnd::GetWindowHeight(), glm::vec3(0.0f, 2.0f, 0.0f));
 		m_pCurrentWeapon = AssetManager::GetAsset<SkinnedModel>(hashID("AKS74U"));
 		
 		// Register callbacks
@@ -33,7 +35,7 @@ namespace Omotura
 		});
 
 		// Register animator
-		m_pAnimator->Register();
+		AnimatorManager::Register(m_pAnimator);
 	}
 
 	void Player::Init()
@@ -186,7 +188,7 @@ namespace Omotura
 		m_pCamera->Follow(m_transform);
 	}
 
-	void Player::FixedUpdate(float _fFixedDeltaTime)
+	void Player::FixedUpdate()
 	{
 
 	}
@@ -196,18 +198,18 @@ namespace Omotura
 		// Update speed
 		if (m_vFacingDir.z != 0 && m_vFacingDir.x != 0)
 		{
-			m_fSpeed = constants::fPlayerSpeed / 3.0f;
+			m_fSpeed = m_fMaxSpeed / 3.0f;
 		}
 		else
 		{
-			m_fSpeed = constants::fPlayerSpeed;
+			m_fSpeed = m_fMaxSpeed;
 		}
 
 		// Update position
 		m_transform.m_vWorldPosition += m_vFacingDir * m_fSpeed * _fDeltaTime;
-		m_transform.m_vWorldPosition.y = 2.0f;	
+		if (!m_bFly) m_transform.m_vWorldPosition.y = 2.0f;
 
-		// Update model matrix
+		// Update model matrix	
 		glm::mat4 objectModel = glm::mat4(1.0f);
 		glm::mat4 mTranslate = glm::translate(glm::vec3(m_transform.m_vWorldPosition.x, m_transform.m_vWorldPosition.y, m_transform.m_vWorldPosition.z));
 		//glm::mat4 mRot = glm::rotate(glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -235,5 +237,15 @@ namespace Omotura
 	Transform Player::GetTransform()
 	{
 		return m_transform;
+	}
+
+	void Player::MultiplySpeed(float _fFactor)
+	{
+		m_fMaxSpeed *= _fFactor;
+	}
+
+	Shared<Animator> Player::GetAnimator()
+	{
+		return m_pAnimator;
 	}
 }

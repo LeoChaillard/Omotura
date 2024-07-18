@@ -4,8 +4,15 @@
 
 #include "../Asset/AssetManager.h"
 #include "../Utils/Utils.hpp"
+#include "../Input/Input.h"
+#include "../Input/Input.h"
+#include "../Input/KeyCodes.h"
+
+#include "../Core/Debug/DebugMenu.h"
 
 #include <glm/glm.hpp>
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_opengl3.h>
 
 namespace Omotura
 {
@@ -302,10 +309,15 @@ namespace Omotura
 
 	void OpenGLRenderer::DebugPass()
 	{
+		// Debug Primitives
+		 
+		
 		// Debug Menu
-
-		// Draw Debug Primitives
-
+		DebugMenu::Draw();
+		
+		// Render Dear ImGui
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
 	void OpenGLRenderer::Clear()

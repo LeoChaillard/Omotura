@@ -14,11 +14,16 @@ namespace Omotura
 
 	class Player : public GameObject
 	{
+	public:
+		/*******DEBUG********/
+		bool m_bFly = false;
+
 	private:
 		Shared<Camera> m_pCamera;
 		Shared<SkinnedModel> m_pCurrentWeapon;
 
 		// Movement
+		float m_fMaxSpeed;
 		float m_fSpeed;
 		Vector3 m_vFacingDir;
 
@@ -28,11 +33,15 @@ namespace Omotura
 
 		void Init();
 		void Update(float _fDeltaTime);
-		void FixedUpdate(float _fFixedDeltaTime);
+		void FixedUpdate();
 
 		Shared<Camera> GetCamera();
 		Shared<SkinnedModel> GetCurrentWeapon();
 		Transform GetTransform();
+
+		/*******DEBUG********/
+		void MultiplySpeed(float _fFactor);
+		Shared<Animator> GetAnimator();
 
 	private:		
 		void OnMove(const Vector3& _vDir, const Quaternion& _qOrientation);

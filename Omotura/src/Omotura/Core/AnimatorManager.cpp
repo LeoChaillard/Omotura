@@ -9,7 +9,10 @@ namespace Omotura
 		int iSize = m_vRegisteredAnimators.size();
 		for (int i = 0; i < iSize; i++)
 		{
-			m_vRegisteredAnimators[i]->Update();
+			if (m_vRegisteredAnimators[i]->IsEnabled())
+			{
+				m_vRegisteredAnimators[i]->Update();
+			}
 		}
 	}
 
@@ -18,7 +21,10 @@ namespace Omotura
 		int iSize = m_vRegisteredAnimators.size();
 		for (int i = 0; i < iSize; i++)
 		{			
-			m_vRegisteredAnimators[i]->FixedUpdate();
+			if (m_vRegisteredAnimators[i]->IsEnabled())
+			{
+				m_vRegisteredAnimators[i]->FixedUpdate();
+			}
 		}
 	}
 

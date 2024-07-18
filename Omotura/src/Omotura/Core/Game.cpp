@@ -1,5 +1,7 @@
 #include "Game.h"
+#include "Time.h"
 #include "AnimatorManager.h"
+#include "PlayerInput.h"
 
 #include "../BackEnd/BackEnd.h"
 #include "../Utils/Utils.hpp"
@@ -11,7 +13,6 @@ namespace Omotura
 	Game::Game()
 		: m_scene(),
 		m_fDeltaTimeAccumulator(),
-		m_fFixedDeltaTime(1.0f / 60.0f),
 		m_bIsLoaded(false)
 	{
 	}
@@ -28,11 +29,15 @@ namespace Omotura
 		return m_bIsLoaded;
 	}
 
-	void Game::Update(float _fDeltaTime)
+	void Game::Update()
 	{
+		// Update Time
+		Time::Update();
+		float fDeltaTime = Time::GetDeltaTime();
+		
 		// Update fixed delta
-		m_fDeltaTimeAccumulator += _fDeltaTime;
-		if (m_fDeltaTimeAccumulator >= m_fFixedDeltaTime)
+		m_fDeltaTimeAccumulator += fDeltaTime;
+		if (m_fDeltaTimeAccumulator >= Time::GetFixedDeltaTime())
 		{
 			// FPS
 			std::string strFPS = std::to_string(1.0f / m_fDeltaTimeAccumulator);
@@ -43,20 +48,21 @@ namespace Omotura
 			AnimatorManager::FixedUpdate();
 			
 			// Player
-			m_pPlayer->FixedUpdate(m_fFixedDeltaTime);
+			m_pPlayer->FixedUpdate();
 
 			// Step physics
 			m_fDeltaTimeAccumulator = 0.0f;
 		}
 		
-		// Update animators
+		// Update Animators
 		AnimatorManager::Update();
 
 		// Update Scene / Update scene game objects (use buckets? pre/post/final animation?)
-		m_scene.Update(_fDeltaTime);
+		m_scene.Update(fDeltaTime);
 
 		// Update Player
-		m_pPlayer->Update(_fDeltaTime);
+		PlayerInput::Update();
+		m_pPlayer->Update(fDeltaTime);
 	}
 
 	Shared<Camera> Game::GetPlayerCamera()
