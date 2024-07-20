@@ -52,6 +52,7 @@ namespace Omotura
 				case AssetType::TEXTURE2D: return "textures";
 				case AssetType::CUBETEXTURE: return "textures/skybox";
 				case AssetType::AUDIO: return "audio";
+				case AssetType::FONT: return "fonts";
 			}
 			return std::string();
 		}

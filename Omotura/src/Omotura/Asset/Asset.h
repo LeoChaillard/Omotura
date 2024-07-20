@@ -18,7 +18,8 @@ namespace Omotura
 		MATERIAL,
 		TEXTURE2D,
 		CUBETEXTURE,
-		AUDIO
+		AUDIO,
+		FONT
 	};
 
 	std::string GetStringFromType(AssetType _type);

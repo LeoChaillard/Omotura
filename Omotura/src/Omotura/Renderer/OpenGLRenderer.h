@@ -7,10 +7,12 @@ namespace Omotura
 	class OpenGLRenderer
 	{
 	private:
+		// TODO: put in a struct
 		Shader m_shaderProgram;
 		Shader m_skinningShader;
 		Shader m_lightShader;
 		Shader m_skyboxShader;
+		Shader m_debugShader;
 
 		GLuint m_cubemapTexture;
 

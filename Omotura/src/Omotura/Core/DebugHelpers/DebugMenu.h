@@ -9,5 +9,6 @@ namespace Omotura
 		static void DrawRenderingMenu();
 		static void DrawAnimationMenu();
 		static void DrawPlayerMenu();
+		static void DrawCameraMenu();
 	};
 }

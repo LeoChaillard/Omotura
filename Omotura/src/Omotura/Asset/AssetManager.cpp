@@ -19,7 +19,8 @@ namespace Omotura
 		AssetType::SKINNEDMODEL,
 		AssetType::MODEL,
 		AssetType::ANIMATION,
-		AssetType::AUDIO
+		AssetType::AUDIO,
+		AssetType::FONT
 	};
 
 	// Allowed extensions
@@ -30,14 +31,13 @@ namespace Omotura
 		{ AssetType::MODEL, ".fbx .obj" },
 		{ AssetType::SKINNEDMODEL, ".gltf .glb" },
 		{ AssetType::ANIMATION, ".fbx" },
-		{ AssetType::AUDIO, ".wav" }
+		{ AssetType::AUDIO, ".wav" },
+		{ AssetType::FONT, ".ttf" }
 	};
 
 	std::vector<std::string> AssetManager::m_vstrAssetsLogs;
 
 	AssetMap AssetManager::m_assets;
-	std::vector<Shared<Model>> AssetManager::m_vModels;
-	std::vector<Shared<Texture>> AssetManager::m_vTextures;
 	std::map<AssetType, AssetList> AssetManager::m_assetListMap;
 
 	void AssetManager::Init()
@@ -107,12 +107,6 @@ namespace Omotura
 			Shared<Asset> asset = AssetImporter::LoadAsset(infos);
 			if (asset != nullptr)
 			{
-				switch (infos.type)
-				{
-					case TEXTURE2D: m_vTextures.push_back(std::static_pointer_cast<Texture>(asset)); break;
-					case CUBETEXTURE: m_vTextures.push_back(std::static_pointer_cast<Texture>(asset)); break;
-					case MODEL: m_vModels.push_back(std::static_pointer_cast<Model>(asset)); break;
-				}
 				asset->m_strName = infos.strName;
 				m_assets.insert({ hashID(infos.strName.c_str()), asset });
 				PrintLog(i, infos.type);

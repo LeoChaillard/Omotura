@@ -41,6 +41,7 @@ namespace Omotura
 
 		/*******DEBUG********/
 		void MultiplySpeed(float _fFactor);
+		void SetDefaultSpeed();
 		Shared<Animator> GetAnimator();
 
 	private:		

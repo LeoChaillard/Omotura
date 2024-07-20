@@ -14,7 +14,7 @@ namespace Omotura
 
 		// Models transforms
 		glm::mat4 objectModel = glm::mat4(1.0f);
-		glm::mat4 mTranslate  = glm::translate(glm::vec3(2.0f, 2.0f, 5.0f));
+		glm::mat4 mTranslate  = glm::translate(glm::vec3(0.0f, 2.0f, 0.0f));
 		glm::mat4 mRot = glm::mat4(1.0f);
 		glm::mat4 mScale = glm::scale(glm::vec3(0.01f));
 		objectModel = mTranslate * mScale * objectModel;
@@ -22,8 +22,8 @@ namespace Omotura
 
 		objectModel = glm::mat4(1.0f);
 		mTranslate = glm::translate(glm::vec3(0.0f, 2.0f, 0.0f));
-		mRot = glm::mat4(1.0f);
-		mScale = glm::scale(glm::vec3(0.0001f));
+		mRot = glm::rotate(glm::radians(45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		mScale = glm::scale(glm::vec3(0.01f));
 		objectModel = mTranslate * mRot * mScale * objectModel;
 		m_vpSkinnedModels[1]->SetModelMatrix(objectModel);
 		m_vpSkinnedModels[1]->Hide();

@@ -241,7 +241,12 @@ namespace Omotura
 
 	void Player::MultiplySpeed(float _fFactor)
 	{
-		m_fMaxSpeed *= _fFactor;
+		m_fMaxSpeed = constants::fPlayerSpeed * _fFactor;
+	}
+
+	void Player::SetDefaultSpeed()
+	{
+		m_fMaxSpeed = constants::fPlayerSpeed;
 	}
 
 	Shared<Animator> Player::GetAnimator()

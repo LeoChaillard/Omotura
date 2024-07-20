@@ -9,6 +9,7 @@
 #include "../Input/KeyCodes.h"
 
 #include "../Core/DebugHelpers/DebugMenu.h"
+#include "../Core/DebugHelpers/DebugDraw.h"
 
 #include <glm/glm.hpp>
 #include <imgui/imgui.h>
@@ -43,6 +44,8 @@ namespace Omotura
 		m_skinningShader = Shader((strShaderFolder + "skinning.vert").c_str(), (strShaderFolder + "skinning.frag").c_str());
 		m_lightShader = Shader((strShaderFolder + "light.vert").c_str(), (strShaderFolder + "light.frag").c_str());
 		m_skyboxShader = Shader((strShaderFolder + "skybox.vert").c_str(), (strShaderFolder + "skybox.frag").c_str());
+		m_debugShader = Shader((strShaderFolder + "debug.vert").c_str(), (strShaderFolder + "debug.frag").c_str());
+
 
 		// Light shader
 		glm::vec3 lightPos = glm::vec3(0.0f, 5.0f, 2.0f);
@@ -284,7 +287,7 @@ namespace Omotura
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 projection = glm::mat4(1.0f);
 		view = _renderData.pPlayerCamera->GetOrientation() * glm::mat4(1.0f);
-		projection = glm::perspective(glm::radians(45.0f), (float)1920 / 1080, 0.1f, 100.0f);
+		projection = _renderData.pPlayerCamera->GetPerspectiveMatrix();
 		m_skyboxShader.SetMatrixFloat4("view", view);
 		m_skyboxShader.SetMatrixFloat4("projection", projection);
 
@@ -310,8 +313,8 @@ namespace Omotura
 	void OpenGLRenderer::DebugPass()
 	{
 		// Debug Primitives
-		 
-		
+		DebugDraw::DrawPrimitives(m_debugShader);
+
 		// Debug Menu
 		DebugMenu::Draw();
 		

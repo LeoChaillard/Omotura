@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\shaders\debug.frag" />
+    <None Include="res\shaders\debug.vert" />
     <None Include="res\shaders\default.frag" />
     <None Include="res\shaders\default.vert" />
     <None Include="res\shaders\light.frag" />
@@ -42,6 +44,7 @@
     <ClCompile Include="src\Omotura\Asset\AssetImporter.cpp" />
     <ClCompile Include="src\Omotura\Asset\AssetManager.cpp" />
     <ClCompile Include="src\Omotura\Asset\AudioImporter.cpp" />
+    <ClCompile Include="src\Omotura\Asset\FontImporter.cpp" />
     <ClCompile Include="src\Omotura\Asset\ModelImporter.cpp" />
     <ClCompile Include="src\Omotura\Asset\SkinnedModelImporter.cpp" />
     <ClCompile Include="src\Omotura\Asset\TextureImporter.cpp" />
@@ -52,6 +55,7 @@
     <ClCompile Include="src\Omotura\Core\Animator.cpp" />
     <ClCompile Include="src\Omotura\Core\AnimatorManager.cpp" />
     <ClCompile Include="src\Omotura\Core\Camera.cpp" />
+    <ClCompile Include="src\Omotura\Core\DebugHelpers\DebugDraw.cpp" />
     <ClCompile Include="src\Omotura\Core\DebugHelpers\DebugMenu.cpp" />
     <ClCompile Include="src\Omotura\Core\Game.cpp" />
     <ClCompile Include="src\Omotura\Core\GameObject.cpp" />
@@ -77,6 +81,7 @@
     <ClCompile Include="src\Omotura\glad.c" />
     <ClCompile Include="src\Omotura\Input\Input.cpp" />
     <ClCompile Include="src\Omotura\main.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\Font.cpp" />
     <ClCompile Include="src\Omotura\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Omotura\Renderer\Model.cpp" />
     <ClCompile Include="src\Omotura\Renderer\OpenGLRenderer.cpp" />
@@ -103,6 +108,7 @@
     <ClInclude Include="src\Omotura\Asset\AssetInfo.h" />
     <ClInclude Include="src\Omotura\Asset\AssetManager.h" />
     <ClInclude Include="src\Omotura\Asset\AudioImporter.h" />
+    <ClInclude Include="src\Omotura\Asset\FontImporter.h" />
     <ClInclude Include="src\Omotura\Asset\ModelImporter.h" />
     <ClInclude Include="src\Omotura\Asset\SkinnedModelImporter.h" />
     <ClInclude Include="src\Omotura\Asset\TextureImporter.h" />
@@ -114,6 +120,7 @@
     <ClInclude Include="src\Omotura\Core\Animator.h" />
     <ClInclude Include="src\Omotura\Core\AnimatorManager.h" />
     <ClInclude Include="src\Omotura\Core\Camera.h" />
+    <ClInclude Include="src\Omotura\Core\DebugHelpers\DebugDraw.h" />
     <ClInclude Include="src\Omotura\Core\DebugHelpers\DebugMenu.h" />
     <ClInclude Include="src\Omotura\Core\Game.h" />
     <ClInclude Include="src\Omotura\Core\GameObject.h" />
@@ -140,6 +147,7 @@
     <ClInclude Include="src\Omotura\Engine.h" />
     <ClInclude Include="src\Omotura\Input\Input.h" />
     <ClInclude Include="src\Omotura\Input\KeyCodes.h" />
+    <ClInclude Include="src\Omotura\Renderer\Font.h" />
     <ClInclude Include="src\Omotura\Renderer\FrameBuffer.h" />
     <ClInclude Include="src\Omotura\Renderer\Material.h" />
     <ClInclude Include="src\Omotura\Renderer\Mesh.h" />

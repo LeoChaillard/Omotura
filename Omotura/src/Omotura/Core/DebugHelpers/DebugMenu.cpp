@@ -2,12 +2,12 @@
 #include "../Time.h"
 #include "..//Game.h"
 
-#include "../../BackEnd/BackEnd.h"
+#include "../../Asset/AssetManager.h"
+#include "../../Renderer/Font.h"
 #include "../../Input/Input.h"
 
 #include <glm/glm.hpp>
 #include <imgui/imgui.h>
-#include <imgui/imgui_impl_opengl3.h>
 
 namespace Omotura
 {
@@ -16,14 +16,22 @@ namespace Omotura
 		if (Time::IsPaused())
 		{
 			Input::ShowCursor();
+
+			ImGui::SetNextWindowSize(ImVec2(250.0f, 0));
 			ImGui::SetNextWindowPos(ImVec2(BackEnd::GetWindowWidth() / 20.0f, BackEnd::GetWindowHeight() / 20.0f));
+			
+			Shared<Font> pFont = AssetManager::GetAsset<Font>(hashID("arial"));
+			ImGui::PushFont(pFont->ToImFont());
 			ImGui::Begin("Debug Menu", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize);
 
+			ImGui::Separator();
 			DrawRenderingMenu();
 			DrawAnimationMenu();
 			DrawPlayerMenu();
+			DrawCameraMenu();
 
 			ImGui::End();
+			ImGui::PopFont();
 		}
 	}
 
@@ -31,9 +39,20 @@ namespace Omotura
 	{
 		if (ImGui::BeginMenu("Rendering..."))
 		{
-			ImGui::MenuItem("Mesh Options");
-			ImGui::MenuItem("Ligting");
-			ImGui::MenuItem("Shadows");
+			if (ImGui::BeginMenu("Mesh Options..."))
+			{
+				if (ImGui::BeginMenu("Debug Draw Options..."))
+				{					
+					ImGui::EndMenu();
+				}
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Light Options..."))
+			{				
+				ImGui::EndMenu();
+			}
+
 			ImGui::EndMenu();
 		}
 	}
@@ -60,11 +79,20 @@ namespace Omotura
 			if (ImGui::MenuItem("Disable Fly"))
 			{
 				Game::GetInstance()->GetPlayer()->m_bFly = false;
-				Game::GetInstance()->GetPlayer()->MultiplySpeed(0.5f);
+				Game::GetInstance()->GetPlayer()->SetDefaultSpeed();
 				Game::GetInstance()->GetPlayer()->GetAnimator()->SetEnabled(true);
 				Time::PauseOrResume();
 			}
 			ImGui::EndMenu();
 		}
 	}
+
+	void DebugMenu::DrawCameraMenu()
+	{
+		if (ImGui::BeginMenu("Camera..."))
+		{
+			ImGui::EndMenu();
+		}
+	}
+
 }

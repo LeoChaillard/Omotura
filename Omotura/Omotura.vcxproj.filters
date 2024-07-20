@@ -84,6 +84,12 @@
     <None Include="res\shaders\skinning.vert">
       <Filter>res\shaders</Filter>
     </None>
+    <None Include="res\shaders\debug.frag">
+      <Filter>res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\debug.vert">
+      <Filter>res\shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Omotura\Engine.cpp" />
@@ -243,6 +249,15 @@
     </ClCompile>
     <ClCompile Include="src\Omotura\Core\DebugHelpers\DebugMenu.cpp">
       <Filter>src\Omotura\Core\DebugHelpers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\DebugHelpers\DebugDraw.cpp">
+      <Filter>src\Omotura\Core\DebugHelpers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Asset\FontImporter.cpp">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Renderer\Font.cpp">
+      <Filter>src\Omotura\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -441,6 +456,15 @@
     </ClInclude>
     <ClInclude Include="src\Omotura\Core\DebugHelpers\DebugMenu.h">
       <Filter>src\Omotura\Core\DebugHelpers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\DebugHelpers\DebugDraw.h">
+      <Filter>src\Omotura\Core\DebugHelpers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Asset\FontImporter.h">
+      <Filter>src\Omotura\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Renderer\Font.h">
+      <Filter>src\Omotura\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

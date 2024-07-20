@@ -25,8 +25,6 @@ namespace Omotura
 		static std::vector<std::string> m_vstrAssetsLogs;
 
 		static AssetMap m_assets;
-		static std::vector<Shared<Model>> m_vModels;
-		static std::vector<Shared<Texture>> m_vTextures;
 		static std::map<AssetType, AssetList> m_assetListMap;
 
 	public:
@@ -39,16 +37,6 @@ namespace Omotura
 		{
 			Shared<Asset> asset = m_assets[_handle];
 			return std::static_pointer_cast<T>(asset);
-		}
-
-		static const std::vector<Shared<Model>>& GetModels()
-		{
-			return m_vModels;
-		}
-
-		static const std::vector<Shared<Texture>>& GetTextures()
-		{
-			return m_vTextures;
 		}
 
 	private:
