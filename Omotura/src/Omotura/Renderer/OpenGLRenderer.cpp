@@ -10,6 +10,9 @@
 
 #include "../Core/DebugHelpers/DebugMenu.h"
 #include "../Core/DebugHelpers/DebugDraw.h"
+#include "../Core/Terrain/Noise.h"
+
+#include "../Utils/Math.hpp"
 
 #include <glm/glm.hpp>
 #include <imgui/imgui.h>
@@ -26,11 +29,13 @@ namespace Omotura
 		: m_shaderProgram(),
 		m_lightShader(),
 		m_skyboxShader(),
+		m_debugShader(),
+		m_tesselationShader(),
 		m_cubemapTexture()
 	{
 		Init();
 	}
-
+	
 	void OpenGLRenderer::Init()
 	{
 		// Load Assets
@@ -45,7 +50,8 @@ namespace Omotura
 		m_lightShader = Shader((strShaderFolder + "light.vert").c_str(), (strShaderFolder + "light.frag").c_str());
 		m_skyboxShader = Shader((strShaderFolder + "skybox.vert").c_str(), (strShaderFolder + "skybox.frag").c_str());
 		m_debugShader = Shader((strShaderFolder + "debug.vert").c_str(), (strShaderFolder + "debug.frag").c_str());
-
+		m_tesselationShader = Shader((strShaderFolder + "tesselation.vert").c_str(), (strShaderFolder + "tesselation.frag").c_str(), 
+									 (strShaderFolder + "tesselation.tcs").c_str(), (strShaderFolder + "tesselation.tes").c_str());
 
 		// Light shader
 		glm::vec3 lightPos = glm::vec3(0.0f, 5.0f, 2.0f);
@@ -66,17 +72,51 @@ namespace Omotura
 		//glEnable(GL_STENCIL_TEST);	
 		//glCullFace(GL_FRONT);
 		//glFrontFace(GL_CCW);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		
 		// Clear buffers before rendering
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// Pre Render
+		/************TEMPORARY*************/
 
+		// SHOULD HAVE A MESH RENDERER FOR THIS KIND OF RANDOM TEXTURE RENDERING
+
+		// Setup shader
+		m_tesselationShader.Activate();
+		m_tesselationShader.SetMatrixFloat4("model", glm::mat4(1.0f));
+		m_tesselationShader.SetMatrixFloat4("view", _renderData.pPlayerCamera->GetViewMatrix());
+		m_tesselationShader.SetMatrixFloat4("projection", _renderData.pPlayerCamera->GetPerspectiveMatrix());
+		m_tesselationShader.SetInt("heightMap", GL_TEXTURE0);
+		m_terrain.GetHeightMap()->Bind(GL_TEXTURE0);
+
+		m_tesselationShader.SetInt("gTextureHeight0", GL_TEXTURE1);
+		m_terrain.GetTextures()[0]->Bind(GL_TEXTURE1);
+
+		m_tesselationShader.SetInt("gTextureHeight1", GL_TEXTURE2);
+		m_terrain.GetTextures()[1]->Bind(GL_TEXTURE2);
+
+		m_tesselationShader.SetInt("gTextureHeight2", GL_TEXTURE3);
+		m_terrain.GetTextures()[2]->Bind(GL_TEXTURE3);
+
+		m_tesselationShader.SetInt("gTextureHeight3", GL_TEXTURE4);
+		m_terrain.GetTextures()[3]->Bind(GL_TEXTURE4);
+
+		// Draw
+		glBindVertexArray(m_terrain.GetVAO());
+		glDrawArrays(GL_PATCHES, 0, m_terrain.GetNumVertices());
+
+		// Unbind
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+		/************TEMPORARY*************/
+		
+		// Pre Render
+		
 		// Rendering Passes
 		GeometryPass(_renderData);
 		LightingPass(_renderData);
-
+		
 		SkyboxPass(_renderData);
 		DebugPass();
 			

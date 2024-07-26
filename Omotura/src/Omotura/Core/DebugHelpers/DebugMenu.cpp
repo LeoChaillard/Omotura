@@ -5,6 +5,8 @@
 #include "../../Asset/AssetManager.h"
 #include "../../Renderer/Font.h"
 #include "../../Input/Input.h"
+#include "../../Core/Terrain/Noise.h"
+#include "../../Renderer/OpenGLRenderer.h"
 
 #include <glm/glm.hpp>
 #include <imgui/imgui.h>
@@ -29,6 +31,7 @@ namespace Omotura
 			DrawAnimationMenu();
 			DrawPlayerMenu();
 			DrawCameraMenu();
+			DrawTerrainMenu();
 
 			ImGui::End();
 			ImGui::PopFont();
@@ -72,17 +75,21 @@ namespace Omotura
 			if (ImGui::MenuItem("Enable Fly"))
 			{
 				Game::GetInstance()->GetPlayer()->m_bFly = true;
-				Game::GetInstance()->GetPlayer()->MultiplySpeed(2.0f);
 				Game::GetInstance()->GetPlayer()->GetAnimator()->SetEnabled(false);
 				Time::PauseOrResume();
 			}
 			if (ImGui::MenuItem("Disable Fly"))
 			{
 				Game::GetInstance()->GetPlayer()->m_bFly = false;
-				Game::GetInstance()->GetPlayer()->SetDefaultSpeed();
 				Game::GetInstance()->GetPlayer()->GetAnimator()->SetEnabled(true);
 				Time::PauseOrResume();
 			}
+
+			// Speed
+			static int iSpeed = 20;
+			ImGui::SliderInt("Speed", &iSpeed, 20, 100);
+			Game::GetInstance()->GetPlayer()->SetSpeed(iSpeed);
+
 			ImGui::EndMenu();
 		}
 	}
@@ -91,6 +98,49 @@ namespace Omotura
 	{
 		if (ImGui::BeginMenu("Camera..."))
 		{
+			ImGui::EndMenu();
+		}
+	}
+
+	void DebugMenu::DrawTerrainMenu()
+	{
+		if (ImGui::BeginMenu("Terrain..."))
+		{
+			if (ImGui::BeginMenu("Noise Options..."))
+			{
+				// Map Width / Map Height 
+				static int iWidth = 0, iHeight = 0;
+				ImGui::SliderInt("Map Width", &iWidth, 0, 2000);
+				ImGui::SliderInt("Map Height", &iHeight, 0, 2000);
+
+				// Grid Size / Scale
+				static int iGridSize = 0;
+				ImGui::SliderInt("Grid Size / Scale", &iGridSize, 0, 2000);
+
+				// Octaves
+				static int iOctaves = 0;
+				ImGui::SliderInt("Octaves", &iOctaves, 0, 20);
+
+				// Persistance
+				static float fPersistance = 0.0f;
+				ImGui::SliderFloat("Persistance", &fPersistance, 0.0f, 1.0f);
+				
+				// Lacunarity
+				static float fLacunarity = 0.0f;
+				ImGui::SliderFloat("Lacunarity", &fLacunarity, 0.0f, 20.0f);
+
+				// Seed
+				static int iSeed = 0;
+				ImGui::SliderInt("Seed", &iSeed, 0, 20);
+
+				// Generate Map	
+				if (ImGui::Button("Generate Terrain"))
+				{
+					OpenGLRenderer::GetGLRendererInstance()->GetTerrain().GenerateTerrain(iWidth, iHeight, iSeed, iGridSize, iOctaves, fPersistance, fLacunarity);
+				}
+
+				ImGui::EndMenu();
+			}
 			ImGui::EndMenu();
 		}
 	}

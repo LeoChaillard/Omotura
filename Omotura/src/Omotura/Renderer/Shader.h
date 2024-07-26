@@ -21,6 +21,7 @@ namespace Omotura
 		GLuint m_ID;
 		Shader() = default;
 		Shader(const char* _pVertexFile, const char* _pFragmentFile);
+		Shader(const char* _pVertexFile, const char* _pFragmentFile, const char* _pTesselControlFile, const char* _pTesselEvalFile);
 
 		void Activate();
 		void Delete();

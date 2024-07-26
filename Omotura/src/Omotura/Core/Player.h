@@ -40,8 +40,7 @@ namespace Omotura
 		Transform GetTransform();
 
 		/*******DEBUG********/
-		void MultiplySpeed(float _fFactor);
-		void SetDefaultSpeed();
+		void SetSpeed(float _fSpeed);
 		Shared<Animator> GetAnimator();
 
 	private:		

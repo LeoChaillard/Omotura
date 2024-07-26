@@ -108,6 +108,76 @@ namespace Omotura
         return os;
     };
 
+    ////// Vector2 ///////
+    struct Vector2
+    {
+        float x = 0;
+        float y = 0;
+
+        Vector2() = default;
+
+        Vector2(float _x)
+        {
+            this->x = _x;
+            this->y = _x;
+        }
+
+        Vector2(float _x, float _y)
+        {
+            this->x = _x;
+            this->y = _y;
+        }
+
+        Vector2(const Vector2& _vObject)
+        {
+            this->x = _vObject.x;
+            this->y = _vObject.y;
+        }
+
+        Vector2 operator+(const Vector2& _vOther) const
+        {
+            return Vector2(this->x + _vOther.x, this->y + _vOther.y);
+        }
+
+        void operator+=(const Vector2& _vOther)
+        {
+            this->x += _vOther.x;
+            this->y += _vOther.y;
+        }
+
+        Vector2 operator*(float _fValue) const
+        {
+            return Vector2(_fValue * this->x, _fValue * this->y);
+        }
+
+        void operator*=(float _fValue)
+        {
+            this->x *= _fValue;
+            this->y *= _fValue;
+        }
+
+        Vector2 operator-(const Vector2& _vOther) const
+        {
+            return Vector2(this->x - _vOther.x, this->y - _vOther.y);
+        }
+
+        void operator-=(const Vector2& _vOther)
+        {
+            this->x -= _vOther.x;
+            this->y -= _vOther.y;
+        }
+
+        bool operator==(const Vector2& _vOther) const
+        {
+            return (this->x == _vOther.x && this->y == _vOther.y);
+        }
+
+        bool operator!=(const Vector2& _vOther) const
+        {
+            return this->x != _vOther.x || this->y != _vOther.y;
+        }
+    };
+
     ///////Quaternion///////
     struct Quaternion
     {
@@ -238,5 +308,76 @@ namespace Omotura
         Out.y = sclp * Start.y + sclq * end.y;
         Out.z = sclp * Start.z + sclq * end.z;
         Out.w = sclp * Start.w + sclq * end.w;
+    }
+
+    ////// Perlin Noise ///////
+    inline Vector2 RandomGradient(int _iX, int _iY)
+    {
+        // No precomputed gradients, mean this works for any number of grid coordinates
+        const unsigned w = 8 * sizeof(unsigned);
+        const unsigned s = w / 2;
+        unsigned a = _iX, b = _iY;
+        a *= 3284157443;
+
+        b ^= a << s | a >> w - s;
+        b *= 1911520717;
+
+        a ^= b << s | b >> w - s;
+        a *= 2048419325;
+        float random = a * (3.14159265 / ~(~0u >> 1)); // in [0, 2*Pi]
+
+        // Create the vector from the angle
+        Vector2 v;
+        v.x = sin(random);
+        v.y = cos(random);
+
+        return v;
+    }
+
+    // Compute the dot product of the distance and gradient vectors
+    inline float DotGridGradient(int _iX, int _iY, float _fX, float _fY)
+    {
+        // Get gradient from integer coordinates
+        Vector2 vGradient = RandomGradient(_iX, _iY);
+
+        // Compute the distance vector
+        float fDX = _fX - (float)_iX;
+        float fDY = _fY - (float)_iY;
+
+        return (fDX * vGradient.x + fDY * vGradient.y);
+    }
+
+    inline float Interpolate(float _fA0, float _fA1, float _fW)
+    {
+        return (_fA1 - _fA0) * (3.0f - _fW * 2.0f) * _fW * _fW + _fA0;  
+    }
+
+    // Compute the perlin noise for a set of coordinates, the return value is between -1 and 1
+    inline float PerlinNoise(float _fX, float _fY)
+    {
+        // Determine grid cell corner coordinates
+        int iX0 = (int)_fX;
+        int iY0 = (int)_fY; 
+        int iX1 = iX0 + 1;
+        int iY1 = iY0 + 1;
+
+        // Compute interpolation weights
+        float fSX = _fX - (float)iX0;
+        float fSY = _fY - (float)iY0;
+
+        // Compute and interpolate top two corners
+        float fN0 = DotGridGradient(iX0, iY0, _fX, _fY);
+        float fN1 = DotGridGradient(iX1, iY0, _fX, _fY);
+        float fX0 = Interpolate(fN0, fN1, fSX);
+
+        // Compute and interpolate top two corners
+        fN0 = DotGridGradient(iX0, iY1, _fX, _fY);
+        fN1 = DotGridGradient(iX1, iY1, _fX, _fY);
+        float fX1 = Interpolate(fN0, fN1, fSX);
+
+        // Final step: intepolate between the two previously interpolated values, now in y
+        float fValue = Interpolate(fX0, fX1, fSY);
+
+        return fValue;
     }
 }

@@ -46,6 +46,50 @@ namespace Omotura
 		glDeleteShader(fragmentShader);
 	}
 
+	Shader::Shader(const char* _pVertexFile, const char* _pFragmentFile, const char* _pTesselControlFile, const char* _pTesselEvalFile)
+	{
+		std::string strVertexCode = GetFileContents(_pVertexFile);
+		std::string strFragmentCode = GetFileContents(_pFragmentFile);
+		std::string strTesselControlCode = GetFileContents(_pTesselControlFile);
+		std::string strTesselEvalCode = GetFileContents(_pTesselEvalFile);
+
+		const char* vertexSource = strVertexCode.c_str();
+		const char* fragmentSource = strFragmentCode.c_str();
+		const char* tesselControlSource = strTesselControlCode.c_str();
+		const char* tesselEvalSource = strTesselEvalCode.c_str();
+
+		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(vertexShader, 1, &vertexSource, NULL);
+		glCompileShader(vertexShader);
+		CompileLinkErrors(vertexShader, "VERTEX");
+
+		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
+		glCompileShader(fragmentShader);
+		CompileLinkErrors(fragmentShader, "FRAGMENT");
+
+		GLuint tesselControlShader = glCreateShader(GL_TESS_CONTROL_SHADER);
+		glShaderSource(tesselControlShader, 1, &tesselControlSource, NULL);
+		glCompileShader(tesselControlShader);
+		CompileLinkErrors(tesselControlShader, "TESSELATION");
+
+		GLuint tesselEvalShader = glCreateShader(GL_TESS_EVALUATION_SHADER);
+		glShaderSource(tesselEvalShader, 1, &tesselEvalSource, NULL);
+		glCompileShader(tesselEvalShader);
+		CompileLinkErrors(tesselEvalShader, "TESSELATION");
+
+		m_ID = glCreateProgram();
+		glAttachShader(m_ID, vertexShader);
+		glAttachShader(m_ID, fragmentShader);
+		glAttachShader(m_ID, tesselControlShader);
+		glAttachShader(m_ID, tesselEvalShader);
+		glLinkProgram(m_ID);
+		CompileLinkErrors(m_ID, "PROGRAM");
+
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragmentShader);
+	}
+
 	void Shader::CompileLinkErrors(unsigned int _shader, const char* _pType)
 	{
 		GLint hasCompiledLinked;

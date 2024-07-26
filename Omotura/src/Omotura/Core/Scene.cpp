@@ -10,7 +10,7 @@ namespace Omotura
 		m_vpSkinnedModels.push_back(AssetManager::GetAsset<SkinnedModel>(hashID("AKS74U")));
 		m_vpSkinnedModels.push_back(AssetManager::GetAsset<SkinnedModel>(hashID("Glock")));
 		m_vpSkinnedModels.push_back(AssetManager::GetAsset<SkinnedModel>(hashID("Tokarev")));
-		m_vpModels.push_back(AssetManager::GetAsset<Model>(hashID("House")));
+		//m_vpModels.push_back(AssetManager::GetAsset<Model>(hashID("House")));
 
 		// Models transforms
 		glm::mat4 objectModel = glm::mat4(1.0f);
@@ -36,12 +36,12 @@ namespace Omotura
 		m_vpSkinnedModels[2]->SetModelMatrix(objectModel);
 		m_vpSkinnedModels[2]->Hide();
 
-		objectModel = glm::mat4(1.0f);
-		mTranslate = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
-		mRot = glm::rotate(glm::radians(-90.0f), glm::vec3(1.0, 0.0f, 0.0f));
-		mScale = glm::scale(glm::vec3(1.0f));
-		objectModel = mTranslate * mRot * mScale * objectModel;
-		m_vpModels[0]->SetModelMatrix(objectModel);
+		//objectModel = glm::mat4(1.0f);
+		//mTranslate = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
+		//mRot = glm::rotate(glm::radians(-90.0f), glm::vec3(1.0, 0.0f, 0.0f));
+		//mScale = glm::scale(glm::vec3(1.0f));
+		//objectModel = mTranslate * mRot * mScale * objectModel;
+		//m_vpModels[0]->SetModelMatrix(objectModel);
 	}
 
 	void Scene::Update(float _fDeltaTime)

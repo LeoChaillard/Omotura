@@ -2,6 +2,8 @@
 
 #include "RenderData.h"
 
+#include "../Core/Terrain/Terrain.h"
+
 namespace Omotura
 {
 	class OpenGLRenderer
@@ -13,8 +15,12 @@ namespace Omotura
 		Shader m_lightShader;
 		Shader m_skyboxShader;
 		Shader m_debugShader;
+		Shader m_tesselationShader;
 
 		GLuint m_cubemapTexture;
+
+		// Temporary
+		Terrain m_terrain;
 
 	public:
 		OpenGLRenderer();
@@ -23,6 +29,12 @@ namespace Omotura
 		void Init();
 		void RenderGame(const RenderData& _renderData);
 		void Clear();
+
+		// Temporary
+		Terrain& GetTerrain()
+		{
+			return m_terrain;
+		}
 
 		static Shared<OpenGLRenderer> GetGLRendererInstance()
 		{

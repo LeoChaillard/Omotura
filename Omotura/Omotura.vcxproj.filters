@@ -52,11 +52,14 @@
     <Filter Include="ImGui">
       <UniqueIdentifier>{4615f9e5-328b-4b9f-8265-6f374163b116}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Omotura\ImGui_Impl">
-      <UniqueIdentifier>{dd7d9089-d5e7-4f00-a9b0-f7ac77dbfe91}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Omotura\Core\DebugHelpers">
       <UniqueIdentifier>{cc48d45d-5e60-4a8a-aa7c-733c6dc798a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui_Impl">
+      <UniqueIdentifier>{dd7d9089-d5e7-4f00-a9b0-f7ac77dbfe91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Omotura\Core\Terrain">
+      <UniqueIdentifier>{b25c807d-7923-486f-b0e6-6b648e7a75d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,10 +93,21 @@
     <None Include="res\shaders\debug.vert">
       <Filter>res\shaders</Filter>
     </None>
+    <None Include="res\shaders\tesselation.vert">
+      <Filter>res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\tesselation.frag">
+      <Filter>res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\tesselation.tcs">
+      <Filter>res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\tesselation.tes">
+      <Filter>res\shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Omotura\Engine.cpp" />
-    <ClCompile Include="src\Omotura\glad.c" />
     <ClCompile Include="src\Omotura\main.cpp" />
     <ClCompile Include="src\Omotura\stb.cpp" />
     <ClCompile Include="src\Omotura\Core\Animator.cpp">
@@ -239,10 +253,10 @@
       <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="..\include\imgui\imgui_impl_glfw.cpp">
-      <Filter>src\Omotura\ImGui_Impl</Filter>
+      <Filter>ImGui_Impl</Filter>
     </ClCompile>
     <ClCompile Include="..\include\imgui\imgui_impl_opengl3.cpp">
-      <Filter>src\Omotura\ImGui_Impl</Filter>
+      <Filter>ImGui_Impl</Filter>
     </ClCompile>
     <ClCompile Include="src\Omotura\Core\Time.cpp">
       <Filter>src\Omotura\Core</Filter>
@@ -258,6 +272,19 @@
     </ClCompile>
     <ClCompile Include="src\Omotura\Renderer\Font.cpp">
       <Filter>src\Omotura\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\Terrain\Noise.cpp">
+      <Filter>src\Omotura\Core\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\Terrain\Terrain.cpp">
+      <Filter>src\Omotura\Core\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\glad.c" />
+    <ClCompile Include="src\Omotura\Core\Terrain\TextureGenerator.cpp">
+      <Filter>src\Omotura\Core\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Omotura\Core\Terrain\STBImage.cpp">
+      <Filter>src\Omotura\Core\Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -443,13 +470,13 @@
       <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="..\include\imgui\imgui_impl_glfw.h">
-      <Filter>src\Omotura\ImGui_Impl</Filter>
+      <Filter>ImGui_Impl</Filter>
     </ClInclude>
     <ClInclude Include="..\include\imgui\imgui_impl_opengl3.h">
-      <Filter>src\Omotura\ImGui_Impl</Filter>
+      <Filter>ImGui_Impl</Filter>
     </ClInclude>
     <ClInclude Include="..\include\imgui\imgui_impl_opengl3_loader.h">
-      <Filter>src\Omotura\ImGui_Impl</Filter>
+      <Filter>ImGui_Impl</Filter>
     </ClInclude>
     <ClInclude Include="src\Omotura\Core\Time.h">
       <Filter>src\Omotura\Core</Filter>
@@ -465,6 +492,18 @@
     </ClInclude>
     <ClInclude Include="src\Omotura\Renderer\Font.h">
       <Filter>src\Omotura\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Terrain\Noise.h">
+      <Filter>src\Omotura\Core\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Terrain\Terrain.h">
+      <Filter>src\Omotura\Core\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Terrain\TextureGenerator.h">
+      <Filter>src\Omotura\Core\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Omotura\Core\Terrain\STBImage.h">
+      <Filter>src\Omotura\Core\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

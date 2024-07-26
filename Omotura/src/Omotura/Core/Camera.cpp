@@ -10,7 +10,7 @@ namespace Omotura
 	{
 		constexpr float fCameraFOV = 45.0f;
 		constexpr float fCameraNearPlane = 0.1f;
-		constexpr float fCameraFarPlane = 100.0f;
+		constexpr float fCameraFarPlane = 100000.0f;
 	}
 
 	Camera::Camera(int _iViewportWidth, int _iViewportHeight, glm::vec3 _vPosition)

@@ -29,6 +29,10 @@
     <None Include="res\shaders\skinning.vert" />
     <None Include="res\shaders\skybox.frag" />
     <None Include="res\shaders\skybox.vert" />
+    <None Include="res\shaders\tesselation.frag" />
+    <None Include="res\shaders\tesselation.tcs" />
+    <None Include="res\shaders\tesselation.tes" />
+    <None Include="res\shaders\tesselation.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\compressonator\DDS_Helpers.cpp" />
@@ -74,6 +78,10 @@
     <ClCompile Include="src\Omotura\Core\StateMachine\FuncPredicate.cpp" />
     <ClCompile Include="src\Omotura\Core\StateMachine\StateMachine.cpp" />
     <ClCompile Include="src\Omotura\Core\StateMachine\Transition.cpp" />
+    <ClCompile Include="src\Omotura\Core\Terrain\Noise.cpp" />
+    <ClCompile Include="src\Omotura\Core\Terrain\STBImage.cpp" />
+    <ClCompile Include="src\Omotura\Core\Terrain\Terrain.cpp" />
+    <ClCompile Include="src\Omotura\Core\Terrain\TextureGenerator.cpp" />
     <ClCompile Include="src\Omotura\Core\Time.cpp" />
     <ClCompile Include="src\Omotura\Core\Transform.cpp" />
     <ClCompile Include="src\Omotura\Core\UUID.cpp" />
@@ -141,6 +149,10 @@
     <ClInclude Include="src\Omotura\Core\StateMachine\FuncPredicate.h" />
     <ClInclude Include="src\Omotura\Core\StateMachine\StateMachine.h" />
     <ClInclude Include="src\Omotura\Core\StateMachine\Transition.h" />
+    <ClInclude Include="src\Omotura\Core\Terrain\Noise.h" />
+    <ClInclude Include="src\Omotura\Core\Terrain\STBImage.h" />
+    <ClInclude Include="src\Omotura\Core\Terrain\Terrain.h" />
+    <ClInclude Include="src\Omotura\Core\Terrain\TextureGenerator.h" />
     <ClInclude Include="src\Omotura\Core\Time.h" />
     <ClInclude Include="src\Omotura\Core\Transform.h" />
     <ClInclude Include="src\Omotura\Core\UUID.h" />
