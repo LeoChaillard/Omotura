@@ -7,15 +7,17 @@
 
 namespace Omotura
 {
+	extern Game g_gameInstance;
+
 	AimIdleState::AimIdleState()
 	{
-		m_pPlayer = Game::GetInstance()->GetPlayer();
+		m_pPlayer = g_gameInstance.GetPlayer();
 	}
 
 	void AimIdleState::OnEnter()
 	{
 		std::string strWeaponName = m_pPlayer->GetCurrentWeapon()->m_strName;
-		m_pPlayer->GetCurrentWeapon()->SetAnimation(strWeaponName + "_ADS_Idle");
+		g_gameInstance.GetPlayer()->GetAnimator()->SetAnimation(strWeaponName + "_ADS_Idle");
 	}
 
 	void AimIdleState::Update()
@@ -30,6 +32,6 @@ namespace Omotura
 
 	void AimIdleState::OnExit()
 	{
-		m_pPlayer->GetCurrentWeapon()->StopLoopingAnimation();
+		g_gameInstance.GetPlayer()->GetAnimator()->StopLoopingAnimation();
 	}
 }

@@ -1,4 +1,4 @@
-- procedural terrain
+- improve procedural terrain
 
 - UI
 
@@ -6,4 +6,4 @@
 
 - global illumination/ indirect light (raycast, point cloud..., shadow map...)
 
-- inventory (armes, munitions) / Pick up system
+- inventory (weapons/munitions) / Pick up system

@@ -13,33 +13,30 @@
 
 namespace Omotura
 {
+	extern Game g_gameInstance;
+
 	void Engine::Run()
 	{
 		BackEnd::Init(API::OPENGL);
+		g_gameInstance.Init();
+		Renderer::Init();
 
 		while (BackEnd::WindowIsOpen())
 		{
 			BackEnd::BeginFrame();
 			BackEnd::UpdateSubSystems();
 
-			if (!Game::GetInstance()->IsLoaded())
+			if (Input::KeyPressed(OMOTURA_KEY_F3))
 			{
-				Game::GetInstance()->Create();
+				Time::PauseOrResume();
 			}
-			else
+
+			if (!Time::IsPaused())
 			{
-				if (Input::KeyPressed(OMOTURA_KEY_F3))
-				{
-					Time::PauseOrResume();
-				}
-
-				if (!Time::IsPaused())
-				{
-					Game::GetInstance()->Update();
-				}
-
-				Renderer::RenderFrame();
+				g_gameInstance.Update();
 			}
+
+			Renderer::RenderFrame();			
 
 			BackEnd::EndFrame();
 		}

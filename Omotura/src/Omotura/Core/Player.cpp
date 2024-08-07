@@ -22,24 +22,28 @@
 namespace Omotura
 {
 	Player::Player()
-		: m_fMaxSpeed(constants::fPlayerSpeed),
+		: m_pCurrentWeapon(nullptr),
+		m_fMaxSpeed(constants::fPlayerSpeed),
 		m_fSpeed(constants::fPlayerSpeed),
 		m_vFacingDir()
 	{
 		m_pCamera = CreateShared<Camera>(BackEnd::GetWindowWidth(), BackEnd::GetWindowHeight(), glm::vec3(0.0f, 2.0f, 0.0f));
-		m_pCurrentWeapon = AssetManager::GetAsset<SkinnedModel>(hashID("AKS74U"));
-		
-		// Register callbacks
-		PlayerInput::RegisterMoveCallback([this] (const Vector3& _vDir, const Quaternion& _qOrientation) {
-			this->OnMove(_vDir, _qOrientation);
-		});
-
-		// Register animator
-		AnimatorManager::Register(m_pAnimator);
 	}
 
 	void Player::Init()
 	{
+		// Register callbacks
+		PlayerInput::RegisterMoveCallback([this](const Vector3& _vDir, const Quaternion& _qOrientation) {
+			this->OnMove(_vDir, _qOrientation);
+			});
+
+		// Register animator
+		AnimatorManager::Register(m_pAnimator);
+
+		// Set default weapon
+		m_pCurrentWeapon = AssetManager::GetAsset<Mesh>(hashID("AKS74U"));
+		m_pAnimator->SetAnimatedMesh(m_pCurrentWeapon->m_strName);
+
 		// Animation states
 		Shared<AimTransitionState> aimTransitionState = CreateShared<AimTransitionState>();
 		Shared<AimAttackState> aimAttackState = CreateShared<AimAttackState>();
@@ -54,7 +58,7 @@ namespace Omotura
 
 		// Draw Transition
 		m_pAnimator->At(drawState, m_pIdleState, FuncPredicate([this]() {
-			return m_pCurrentWeapon->CurrentAnimationFinished();
+			return m_pAnimator->CurrentAnimationFinished();
 		}));
 		
 		// Idle Transitions
@@ -101,7 +105,7 @@ namespace Omotura
 		}));
 
 		m_pAnimator->At(aimTransitionState, aimIdleState, FuncPredicate([this]() {
-			return Input::KeyDown(OMOTURA_MOUSE_BUTTON_RIGHT) && m_pCurrentWeapon->CurrentAnimationFinished();
+			return Input::KeyDown(OMOTURA_MOUSE_BUTTON_RIGHT) && m_pAnimator->CurrentAnimationFinished();
 		}));
 
 		m_pAnimator->At(aimIdleState, aimTransitionState, FuncPredicate([this]() {
@@ -125,29 +129,29 @@ namespace Omotura
 		}));
 
 		m_pAnimator->At(aimAttackState, aimIdleState, FuncPredicate([this]() {
-			return !Input::KeyDown(OMOTURA_MOUSE_BUTTON_RIGHT) || (this->m_vFacingDir == Vector3(0.0f) && m_pCurrentWeapon->CurrentAnimationFinished());
+			return !Input::KeyDown(OMOTURA_MOUSE_BUTTON_RIGHT) || (this->m_vFacingDir == Vector3(0.0f) && m_pAnimator->CurrentAnimationFinished());
 		}));
 
 		m_pAnimator->At(aimAttackState, aimWalkState, FuncPredicate([this]() {
-			return !Input::KeyDown(OMOTURA_MOUSE_BUTTON_RIGHT) || (this->m_vFacingDir != Vector3(0.0f) && m_pCurrentWeapon->CurrentAnimationFinished());
+			return !Input::KeyDown(OMOTURA_MOUSE_BUTTON_RIGHT) || (this->m_vFacingDir != Vector3(0.0f) && m_pAnimator->CurrentAnimationFinished());
 		}));
 
 		// Attack Transitions
 		m_pAnimator->At(attackState, m_pIdleState, FuncPredicate([this]() {
-			return this->m_vFacingDir == Vector3(0.0f) && m_pCurrentWeapon->CurrentAnimationFinished();
+			return this->m_vFacingDir == Vector3(0.0f) && m_pAnimator->CurrentAnimationFinished();
 		}));
 
 		m_pAnimator->At(attackState, m_pWalkState, FuncPredicate([this]() {
-			return this->m_vFacingDir != Vector3(0.0f) && m_pCurrentWeapon->CurrentAnimationFinished();
+			return this->m_vFacingDir != Vector3(0.0f) && m_pAnimator->CurrentAnimationFinished();
 		}));
 
 		// Reload Transitions
 		m_pAnimator->At(reloadState, m_pIdleState, FuncPredicate([this]() {
-			return this->m_vFacingDir == Vector3(0.0f) && m_pCurrentWeapon->CurrentAnimationFinished();
+			return this->m_vFacingDir == Vector3(0.0f) && m_pAnimator->CurrentAnimationFinished();
 		}));
 
 		m_pAnimator->At(reloadState, m_pWalkState, FuncPredicate([this]() {
-			return this->m_vFacingDir != Vector3(0.0f) && m_pCurrentWeapon->CurrentAnimationFinished();
+			return this->m_vFacingDir != Vector3(0.0f) && m_pAnimator->CurrentAnimationFinished();
 		}));
 
 		m_pAnimator->SetDefaultState(drawState);
@@ -159,25 +163,28 @@ namespace Omotura
 		if (Input::KeyPressed(OMOTURA_KEY_1))
 		{
 			m_pCurrentWeapon->Hide();
-			m_pCurrentWeapon = AssetManager::GetAsset<SkinnedModel>(hashID("AKS74U"));
+			m_pCurrentWeapon = AssetManager::GetAsset<Mesh>(hashID("AKS74U"));
+			m_pAnimator->SetAnimatedMesh(m_pCurrentWeapon->m_strName);
 			m_pCurrentWeapon->Show();
-			m_pCurrentWeapon->ResetAnimation();
+			m_pAnimator->ResetAnimation();
 			m_pAnimator->ResetToDefault();
 		}
 		if (Input::KeyPressed(OMOTURA_KEY_2))
 		{
 			m_pCurrentWeapon->Hide();
-			m_pCurrentWeapon = AssetManager::GetAsset<SkinnedModel>(hashID("Glock"));
+			m_pCurrentWeapon = AssetManager::GetAsset<Mesh>(hashID("Glock"));
+			m_pAnimator->SetAnimatedMesh(m_pCurrentWeapon->m_strName);
 			m_pCurrentWeapon->Show();
-			m_pCurrentWeapon->ResetAnimation();
+			m_pAnimator->ResetAnimation();
 			m_pAnimator->ResetToDefault();
 		}
 		if (Input::KeyPressed(OMOTURA_KEY_3))
 		{
 			m_pCurrentWeapon->Hide();
-			m_pCurrentWeapon = AssetManager::GetAsset<SkinnedModel>(hashID("Tokarev"));
+			m_pCurrentWeapon = AssetManager::GetAsset<Mesh>(hashID("Tokarev"));
+			m_pAnimator->SetAnimatedMesh(m_pCurrentWeapon->m_strName);
 			m_pCurrentWeapon->Show();
-			m_pCurrentWeapon->ResetAnimation();
+			m_pAnimator->ResetAnimation();
 			m_pAnimator->ResetToDefault();
 		}
 
@@ -229,7 +236,7 @@ namespace Omotura
 		return m_pCamera;
 	}
 
-	Shared<SkinnedModel> Player::GetCurrentWeapon()
+	Shared<Mesh> Player::GetCurrentWeapon()
 	{
 		return m_pCurrentWeapon;
 	}

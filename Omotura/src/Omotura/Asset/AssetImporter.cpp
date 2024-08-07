@@ -1,10 +1,10 @@
 #include "AssetImporter.h"
 #include "TextureImporter.h"
-#include "ModelImporter.h"
-#include "SkinnedModelImporter.h"
+#include "MeshImporter.h"
 #include "AnimationImporter.h"
 #include "AudioImporter.h"
 #include "FontImporter.h"
+#include "ShaderImporter.h"
 
 #include <memory>
 #include <map>
@@ -18,11 +18,12 @@ namespace Omotura
 	{
 		{ AssetType::TEXTURE2D, TextureImporter::LoadCompressedTexture2D },
 		{ AssetType::CUBETEXTURE, TextureImporter::LoadCompressedCubeTexture },
-		{ AssetType::MODEL, ModelImporter::LoadModel },
-		{ AssetType::SKINNEDMODEL, SkinnedModelImporter::LoadSkinnedModel },
+		{ AssetType::MESH, MeshImporter::LoadMesh },
+		{ AssetType::SKINNEDMESH, MeshImporter::LoadSkinnedMesh },
 		{ AssetType::ANIMATION, AnimationImporter::LoadAnimation },
 		{ AssetType::AUDIO, AudioImporter::LoadAudioClip },
-		{ AssetType::FONT, FontImporter::LoadFont }
+		{ AssetType::FONT, FontImporter::LoadFont },
+		{ AssetType::SHADER, ShaderImporter::LoadShader }
 	};
 
 	Shared<Asset> AssetImporter::LoadAsset(const AssetInfo& _infos)

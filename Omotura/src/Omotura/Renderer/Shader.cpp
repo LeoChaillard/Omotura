@@ -1,93 +1,138 @@
 #include "Shader.h"
 
+#include "../Utils/Utils.hpp"
+#include "../Common/Common.h"
+
+#include <sstream>
+
 namespace Omotura
 {
-	std::string GetFileContents(const char* _pFileName)
+	Shader::Shader()
+		: m_strFilePath(),
+		m_shaderSources(),
+		m_ID()
 	{
-		std::ifstream in(_pFileName, std::ios::binary);
-		if (in)
+	}
+
+	void Shader::Load(const char* _pShaderFilePath)
+	{
+		m_strFilePath = _pShaderFilePath;
+
+		std::string strShaderCode = Utils::GetFileContents(_pShaderFilePath);
+
+		if (!strShaderCode.empty())
 		{
-			std::string strContents;
-			in.seekg(0, std::ios::end);
-			strContents.resize(in.tellg());
-			in.seekg(0, std::ios::beg);
-			in.read(&strContents[0], strContents.size());
-			in.close();
-			return strContents;
+			ParseShader(strShaderCode.c_str());
+			CreateProgram();
 		}
-		throw(errno);
 	}
 
-	Shader::Shader(const char* _pVertexFile, const char* _pFragmentFile)
+	void Shader::HotloadShaders()
 	{
-		std::string strVertexCode = GetFileContents(_pVertexFile);
-		std::string strFragmentCode = GetFileContents(_pFragmentFile);
+		if (m_strFilePath.empty())
+		{
+			return;
+		}
 
-		const char* vertexSource = strVertexCode.c_str();
-		const char* fragmentSource = strFragmentCode.c_str();
+		std::string strShaderCode = Utils::GetFileContents(m_strFilePath.c_str());
 
-		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertexShader, 1, &vertexSource, NULL);
-		glCompileShader(vertexShader);
-		CompileLinkErrors(vertexShader, "VERTEX");
+		if (!strShaderCode.empty())
+		{
+			ParseShader(strShaderCode.c_str());
+			CreateProgram();
+		}
 
-		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
-		glCompileShader(fragmentShader);
-		CompileLinkErrors(fragmentShader, "FRAGMENT");
+	}
+	
+	void Shader::ParseShader(const char* _pShaderCode)
+	{
+		std::stringstream stream(_pShaderCode);
+		ShaderType type = ShaderType::NONE;
 
-		m_ID = glCreateProgram();
-		glAttachShader(m_ID, vertexShader);
-		glAttachShader(m_ID, fragmentShader);
-		glLinkProgram(m_ID);
-		CompileLinkErrors(m_ID, "PROGRAM");
-
-		glDeleteShader(vertexShader);
-		glDeleteShader(fragmentShader);
+		std::string strLine;
+		while (getline(stream, strLine))
+		{
+			if (strLine.find("#shader") != std::string::npos)
+			{
+				if (strLine.find("vertex") != std::string::npos)
+				{
+					type = ShaderType::VERTEX;
+				}
+				else if (strLine.find("fragment") != std::string::npos)
+				{
+					type = ShaderType::FRAGMENT;
+				}
+				else if (strLine.find("tess control") != std::string::npos)
+				{
+					type = ShaderType::TESS_CONTROL;
+				}
+				else if (strLine.find("tess evaluation") != std::string::npos)
+				{
+					type = ShaderType::TESS_EVALUATION;
+				}
+			}
+			else
+			{
+				m_shaderSources[type] += (strLine + "\n");
+			}
+		}
 	}
 
-	Shader::Shader(const char* _pVertexFile, const char* _pFragmentFile, const char* _pTesselControlFile, const char* _pTesselEvalFile)
+	void Shader::CreateProgram()
 	{
-		std::string strVertexCode = GetFileContents(_pVertexFile);
-		std::string strFragmentCode = GetFileContents(_pFragmentFile);
-		std::string strTesselControlCode = GetFileContents(_pTesselControlFile);
-		std::string strTesselEvalCode = GetFileContents(_pTesselEvalFile);
-
-		const char* vertexSource = strVertexCode.c_str();
-		const char* fragmentSource = strFragmentCode.c_str();
-		const char* tesselControlSource = strTesselControlCode.c_str();
-		const char* tesselEvalSource = strTesselEvalCode.c_str();
-
-		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertexShader, 1, &vertexSource, NULL);
-		glCompileShader(vertexShader);
-		CompileLinkErrors(vertexShader, "VERTEX");
-
-		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
-		glCompileShader(fragmentShader);
-		CompileLinkErrors(fragmentShader, "FRAGMENT");
-
-		GLuint tesselControlShader = glCreateShader(GL_TESS_CONTROL_SHADER);
-		glShaderSource(tesselControlShader, 1, &tesselControlSource, NULL);
-		glCompileShader(tesselControlShader);
-		CompileLinkErrors(tesselControlShader, "TESSELATION");
-
-		GLuint tesselEvalShader = glCreateShader(GL_TESS_EVALUATION_SHADER);
-		glShaderSource(tesselEvalShader, 1, &tesselEvalSource, NULL);
-		glCompileShader(tesselEvalShader);
-		CompileLinkErrors(tesselEvalShader, "TESSELATION");
-
 		m_ID = glCreateProgram();
-		glAttachShader(m_ID, vertexShader);
-		glAttachShader(m_ID, fragmentShader);
-		glAttachShader(m_ID, tesselControlShader);
-		glAttachShader(m_ID, tesselEvalShader);
+
+		if (m_shaderSources.find(ShaderType::VERTEX) != m_shaderSources.end())
+		{
+			std::string strVertexSource = m_shaderSources[ShaderType::VERTEX];
+			const char* pVertexsSource = strVertexSource.c_str();
+			GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+			glShaderSource(vertexShader, 1, &pVertexsSource, NULL);
+			glCompileShader(vertexShader);
+			CompileLinkErrors(vertexShader, "VERTEX");
+			glAttachShader(m_ID, vertexShader);
+			glDeleteShader(vertexShader);
+		}
+
+		if (m_shaderSources.find(ShaderType::TESS_CONTROL) != m_shaderSources.end())
+		{
+			std::string strTessControlSource = m_shaderSources[ShaderType::TESS_CONTROL];
+			const char* pTessControlSource = strTessControlSource.c_str();
+			GLuint tessControlShader = glCreateShader(GL_TESS_CONTROL_SHADER);
+			glShaderSource(tessControlShader, 1, &pTessControlSource, NULL);
+			glCompileShader(tessControlShader);
+			CompileLinkErrors(tessControlShader, "TESSELATION");
+			glAttachShader(m_ID, tessControlShader);
+			glDeleteShader(tessControlShader);
+
+		}
+
+		if (m_shaderSources.find(ShaderType::TESS_EVALUATION) != m_shaderSources.end())
+		{
+			std::string strTessEvalSource = m_shaderSources[ShaderType::TESS_EVALUATION];
+			const char* pTessEvalSource = strTessEvalSource.c_str();
+			GLuint tessEvalShader = glCreateShader(GL_TESS_EVALUATION_SHADER);
+			glShaderSource(tessEvalShader, 1, &pTessEvalSource, NULL);
+			glCompileShader(tessEvalShader);
+			CompileLinkErrors(tessEvalShader, "TESSELATION");
+			glAttachShader(m_ID, tessEvalShader);
+			glDeleteShader(tessEvalShader);
+		}
+
+		if (m_shaderSources.find(ShaderType::FRAGMENT) != m_shaderSources.end())
+		{
+			std::string strFragmentSource = m_shaderSources[ShaderType::FRAGMENT];
+			const char* pFragmentSource = strFragmentSource.c_str();
+			GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+			glShaderSource(fragmentShader, 1, &pFragmentSource, NULL);
+			glCompileShader(fragmentShader);
+			CompileLinkErrors(fragmentShader, "FRAGMENT");
+			glAttachShader(m_ID, fragmentShader);
+			glDeleteShader(fragmentShader);
+		}
+
 		glLinkProgram(m_ID);
 		CompileLinkErrors(m_ID, "PROGRAM");
-
-		glDeleteShader(vertexShader);
-		glDeleteShader(fragmentShader);
 	}
 
 	void Shader::CompileLinkErrors(unsigned int _shader, const char* _pType)
@@ -126,29 +171,68 @@ namespace Omotura
 		glDeleteProgram(m_ID);
 	}
 
+	int Shader::FindUniformLocation(const std::string& _strUniform)
+	{
+		UniformHandle handle = hashID(_strUniform.c_str());
+		if (m_uniformCache.find(handle) == m_uniformCache.end())
+		{
+			int iAddr = glGetUniformLocation(m_ID, _strUniform.c_str());
+			if (iAddr == -1)
+			{
+				return -1;
+			}
+			else
+			{
+				m_uniformCache[handle] = iAddr;
+			}
+			return iAddr;
+		}
+		return m_uniformCache[handle];
+	}
+
 	void Shader::SetInt(const char* _pUniform, int _iValue)
 	{
-		glUniform1i(glGetUniformLocation(m_ID, _pUniform), _iValue);
+		int iAddr = FindUniformLocation(std::string(_pUniform));
+		if (iAddr != -1)
+		{
+			glUniform1i(iAddr, _iValue);
+		}
 	}
 
 	void Shader::SetFloat(const char* _pUniform, float _fValue)
 	{
-		glUniform1f(glGetUniformLocation(m_ID, _pUniform), _fValue);
+		int iAddr = FindUniformLocation(std::string(_pUniform));
+		if (iAddr != -1)
+		{
+			glUniform1f(iAddr, _fValue);
+		}
 	}
 
 	void Shader::SetFloat3(const char* _pUniform, float _fX, float _fY, float _fZ)
 	{
-		glUniform3f(glGetUniformLocation(m_ID, _pUniform), _fX, _fY, _fZ);
+		int iAddr = FindUniformLocation(std::string(_pUniform));
+		if (iAddr != -1)
+		{
+			glUniform3f(iAddr, _fX, _fY, _fZ);
+		}
 	}
 
 	void Shader::SetFloat4(const char* _pUniform, float _fX, float _fY, float _fZ, float _fW)
 	{
-		glUniform4f(glGetUniformLocation(m_ID, _pUniform), _fX, _fY, _fZ, _fW);
+		int iAddr = FindUniformLocation(std::string(_pUniform));
+		if (iAddr != -1)
+		{
+			glUniform4f(iAddr, _fX, _fY, _fZ, _fW);
+		}
 	}
 
 	void Shader::SetMatrixFloat4(const char* _pUniform, const glm::mat4& _matrix)
 	{
-		glUniformMatrix4fv(glGetUniformLocation(m_ID, _pUniform), 1, GL_FALSE, glm::value_ptr(_matrix));
+		int iAddr = FindUniformLocation(std::string(_pUniform));
+		if (iAddr != -1)
+		{
+			glUniformMatrix4fv(iAddr, 1, GL_FALSE, glm::value_ptr(_matrix));
+		}
 	}
 
 	void Shader::SetDirLight(const DirLight& _dirLight)

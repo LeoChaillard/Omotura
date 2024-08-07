@@ -4,15 +4,17 @@
 
 #include "../../Asset/AssetManager.h"
 #include "../../Renderer/Font.h"
+#include "../../Renderer/Renderer.h"
 #include "../../Input/Input.h"
 #include "../../Core/Terrain/Noise.h"
-#include "../../Renderer/OpenGLRenderer.h"
 
 #include <glm/glm.hpp>
 #include <imgui/imgui.h>
 
 namespace Omotura
 {
+	extern Game g_gameInstance;
+
 	void DebugMenu::Draw()
 	{
 		if (Time::IsPaused())
@@ -74,21 +76,21 @@ namespace Omotura
 		{
 			if (ImGui::MenuItem("Enable Fly"))
 			{
-				Game::GetInstance()->GetPlayer()->m_bFly = true;
-				Game::GetInstance()->GetPlayer()->GetAnimator()->SetEnabled(false);
+				g_gameInstance.GetPlayer()->m_bFly = true;
+				g_gameInstance.GetPlayer()->GetAnimator()->SetEnabled(false);
 				Time::PauseOrResume();
 			}
 			if (ImGui::MenuItem("Disable Fly"))
 			{
-				Game::GetInstance()->GetPlayer()->m_bFly = false;
-				Game::GetInstance()->GetPlayer()->GetAnimator()->SetEnabled(true);
+				g_gameInstance.GetPlayer()->m_bFly = false;
+				g_gameInstance.GetPlayer()->GetAnimator()->SetEnabled(true);
 				Time::PauseOrResume();
 			}
 
 			// Speed
 			static int iSpeed = 20;
 			ImGui::SliderInt("Speed", &iSpeed, 20, 100);
-			Game::GetInstance()->GetPlayer()->SetSpeed(iSpeed);
+			g_gameInstance.GetPlayer()->SetSpeed((float)iSpeed);
 
 			ImGui::EndMenu();
 		}
@@ -136,7 +138,8 @@ namespace Omotura
 				// Generate Map	
 				if (ImGui::Button("Generate Terrain"))
 				{
-					OpenGLRenderer::GetGLRendererInstance()->GetTerrain().GenerateTerrain(iWidth, iHeight, iSeed, iGridSize, iOctaves, fPersistance, fLacunarity);
+					Shared<Terrain> pTerrain = g_gameInstance.GetScene().GetTerrain();
+					pTerrain->GenerateTerrain(iWidth, iHeight, iSeed, iGridSize, iOctaves, fPersistance, fLacunarity);
 				}
 
 				ImGui::EndMenu();

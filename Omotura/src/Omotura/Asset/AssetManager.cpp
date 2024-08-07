@@ -16,11 +16,12 @@ namespace Omotura
 	{
 		AssetType::TEXTURE2D,
 		AssetType::CUBETEXTURE,
-		AssetType::SKINNEDMODEL,
-		AssetType::MODEL,
+		AssetType::MESH,
+		AssetType::SKINNEDMESH,
 		AssetType::ANIMATION,
 		AssetType::AUDIO,
-		AssetType::FONT
+		AssetType::FONT,
+		AssetType::SHADER
 	};
 
 	// Allowed extensions
@@ -28,11 +29,12 @@ namespace Omotura
 	{
 		{ AssetType::TEXTURE2D, ".png .jpg .jpeg" },
 		{ AssetType::CUBETEXTURE, ".png" },
-		{ AssetType::MODEL, ".fbx .obj" },
-		{ AssetType::SKINNEDMODEL, ".gltf .glb" },
+		{ AssetType::MESH, ".fbx .obj" },
+		{ AssetType::SKINNEDMESH, ".gltf .glb" },
 		{ AssetType::ANIMATION, ".fbx" },
 		{ AssetType::AUDIO, ".wav" },
-		{ AssetType::FONT, ".ttf" }
+		{ AssetType::FONT, ".ttf" },
+		{ AssetType::SHADER, ".shader" }
 	};
 
 	std::vector<std::string> AssetManager::m_vstrAssetsLogs;

@@ -6,7 +6,7 @@ namespace Omotura
 
 	void AnimatorManager::Update()
 	{
-		int iSize = m_vRegisteredAnimators.size();
+		int iSize = (int)m_vRegisteredAnimators.size();
 		for (int i = 0; i < iSize; i++)
 		{
 			if (m_vRegisteredAnimators[i]->IsEnabled())
@@ -18,7 +18,7 @@ namespace Omotura
 
 	void AnimatorManager::FixedUpdate()
 	{
-		int iSize = m_vRegisteredAnimators.size();
+		int iSize = (int)m_vRegisteredAnimators.size();
 		for (int i = 0; i < iSize; i++)
 		{			
 			if (m_vRegisteredAnimators[i]->IsEnabled())

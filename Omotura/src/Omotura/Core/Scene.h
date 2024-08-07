@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../Renderer/SkinnedModel.h"
-#include "../Renderer/Model.h"
+#include "Terrain/Terrain.h"
+
+#include "../Renderer/Mesh.h"
 
 #include <vector>
 
@@ -10,18 +11,18 @@ namespace Omotura
 	class Scene
 	{
 	private:
-		std::vector<Shared<SkinnedModel>> m_vpSkinnedModels;
-		std::vector<Shared<Model>> m_vpModels;
-		std::vector<std::vector<glm::mat4>> m_vAllBoneTransforms;
+		// Scene Objects
+		std::vector<Shared<Mesh>> m_vpMeshes;
+		Shared<Terrain> m_pTerrain;
 
 	public:
 		Scene();
 		~Scene() = default;
 
+		void Init();
 		void Update(float _fDeltaTime);
 
-		const std::vector<Shared<SkinnedModel>>& GetSkinnedModels() const;
-		const std::vector<Shared<Model>>& GetModels() const;
-		const std::vector<std::vector<glm::mat4>>& GetAllBoneTransforms() const;
+		const std::vector<Shared<Mesh>>& GetMeshes() const;
+		Shared<Terrain> GetTerrain() const;
 	};
 }

@@ -7,32 +7,25 @@
 #include "../Core/Light.h"
 
 #include "Mesh.h"
-#include "Model.h"
-#include "SkinnedModel.h"
+#include "MeshRenderer.h"
 
 namespace Omotura
 {
 	struct RenderItem3D
 	{
-		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		glm::mat4 inverseModelMatrix = glm::mat4(1.0f);
-		Shared<Model> model;
-	};
-
-	struct SkinnedRenderItem3D
-	{
-		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		glm::mat4 inverseModelMatrix = glm::mat4(1.0f);
-		std::vector<glm::mat4> vBoneTransforms;
-		Shared<SkinnedModel> skinnedModel;
+		Shared<Mesh> pMesh;
 	};
 
 	struct RenderData
 	{
-		// Render Items
-		std::vector<SkinnedRenderItem3D> vGeometrySkinnedRenderItems;
+		// Geometry
 		std::vector<RenderItem3D> vGeometryRenderItems;
-		Shared<Model> pSkyboxModel;
+
+		// Skybox
+		Shared<Mesh> pSkybox;
+
+		// Terrain
+		Shared<Mesh> pTerrain;
 
 		// Lights
 		DirLight dirLight;

@@ -3,8 +3,6 @@
 #include "AssetInfo.h"
 
 #include "../Common/Common.h"
-#include "../Renderer/Model.h"
-#include "../Renderer/Texture.h"
 
 #include <string>
 #include <vector>
@@ -37,6 +35,11 @@ namespace Omotura
 		{
 			Shared<Asset> asset = m_assets[_handle];
 			return std::static_pointer_cast<T>(asset);
+		}
+
+		static void AddAsset(AssetHandle _handle, Shared<Asset> _pAsset)
+		{
+			m_assets[_handle] = _pAsset;
 		}
 
 	private:

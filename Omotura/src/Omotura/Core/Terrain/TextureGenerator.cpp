@@ -72,7 +72,7 @@ namespace Omotura
 
 	void TextureGenerator::CalcTextureRegions(float _fMinHeight, float _fMaxHeight)
 	{
-		int iSize = m_vTiles.size();;
+		int iSize = (int)m_vTiles.size();;
 		float fHeightRange = _fMaxHeight - _fMinHeight;
 		float fRangePerTile = fHeightRange / iSize;
 

@@ -21,6 +21,9 @@ namespace Omotura
 		int m_iViewportWidth;
 		int m_iViewportHeight;
 
+		// Params
+		bool m_bHasTranlation;
+
 	public:
 		Camera(int _iWidth, int _iHeight, glm::vec3 _vPosition);
 
@@ -32,5 +35,8 @@ namespace Omotura
 		glm::mat4 GetInverseViewMatrix();
 
 		const Transform& GetTransform() const;
+
+		// Params
+		void SetTranslation(bool _hasTranslation);
 	};
 }

@@ -10,23 +10,20 @@
 
 namespace Omotura
 {
+	Game g_gameInstance;
+
 	Game::Game()
 		: m_scene(),
-		m_fDeltaTimeAccumulator(),
-		m_bIsLoaded(false)
-	{
-	}
-
-	void Game::Create()
+		m_pPlayer(nullptr),
+		m_fDeltaTimeAccumulator()
 	{
 		m_pPlayer = CreateShared<Player>();
-		m_pPlayer->Init();
-		m_bIsLoaded = true;
 	}
 
-	bool Game::IsLoaded()
+	void Game::Init()
 	{
-		return m_bIsLoaded;
+		m_scene.Init();
+		m_pPlayer->Init();
 	}
 
 	void Game::Update()
@@ -70,7 +67,7 @@ namespace Omotura
 		return m_pPlayer->GetCamera();
 	}
 
-	const Scene& Game::GetScene()
+	const Scene& Game::GetScene() const
 	{
 		return m_scene;
 	}

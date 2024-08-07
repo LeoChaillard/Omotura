@@ -314,17 +314,17 @@ namespace Omotura
     inline Vector2 RandomGradient(int _iX, int _iY)
     {
         // No precomputed gradients, mean this works for any number of grid coordinates
-        const unsigned w = 8 * sizeof(unsigned);
-        const unsigned s = w / 2;
-        unsigned a = _iX, b = _iY;
+        const unsigned long w = 8 * sizeof(unsigned long);
+        const unsigned long s = w / 2;
+        unsigned long a = _iX, b = _iY;
         a *= 3284157443;
 
-        b ^= a << s | a >> w - s;
-        b *= 1911520717;
+        b ^= (unsigned long long)a << s | (unsigned long long)a >> (w - s);
+        b *= 1911520717;    
 
-        a ^= b << s | b >> w - s;
+        a ^= (unsigned long long)b << s | (unsigned long long)b >> (w - s);
         a *= 2048419325;
-        float random = a * (3.14159265 / ~(~0u >> 1)); // in [0, 2*Pi]
+        float random = (float)(a * (3.14159265 / ~(~0u >> 1))); // in [0, 2*Pi]
 
         // Create the vector from the angle
         Vector2 v;

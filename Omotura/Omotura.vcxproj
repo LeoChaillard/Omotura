@@ -19,20 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\shaders\debug.frag" />
-    <None Include="res\shaders\debug.vert" />
-    <None Include="res\shaders\default.frag" />
-    <None Include="res\shaders\default.vert" />
-    <None Include="res\shaders\light.frag" />
-    <None Include="res\shaders\light.vert" />
-    <None Include="res\shaders\skinning.frag" />
-    <None Include="res\shaders\skinning.vert" />
-    <None Include="res\shaders\skybox.frag" />
-    <None Include="res\shaders\skybox.vert" />
-    <None Include="res\shaders\tesselation.frag" />
-    <None Include="res\shaders\tesselation.tcs" />
-    <None Include="res\shaders\tesselation.tes" />
-    <None Include="res\shaders\tesselation.vert" />
+    <None Include="res\shaders\debug.shader" />
+    <None Include="res\shaders\default.shader" />
+    <None Include="res\shaders\light.shader" />
+    <None Include="res\shaders\skinning.shader" />
+    <None Include="res\shaders\skybox.shader" />
+    <None Include="res\shaders\tesselation.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\compressonator\DDS_Helpers.cpp" />
@@ -42,6 +34,7 @@
     <ClCompile Include="..\include\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="..\include\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\include\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\Omotura\API\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Omotura\API\OpenGLTexture.cpp" />
     <ClCompile Include="src\Omotura\Asset\AnimationImporter.cpp" />
     <ClCompile Include="src\Omotura\Asset\Asset.cpp" />
@@ -49,8 +42,8 @@
     <ClCompile Include="src\Omotura\Asset\AssetManager.cpp" />
     <ClCompile Include="src\Omotura\Asset\AudioImporter.cpp" />
     <ClCompile Include="src\Omotura\Asset\FontImporter.cpp" />
-    <ClCompile Include="src\Omotura\Asset\ModelImporter.cpp" />
-    <ClCompile Include="src\Omotura\Asset\SkinnedModelImporter.cpp" />
+    <ClCompile Include="src\Omotura\Asset\MeshImporter.cpp" />
+    <ClCompile Include="src\Omotura\Asset\ShaderImporter.cpp" />
     <ClCompile Include="src\Omotura\Asset\TextureImporter.cpp" />
     <ClCompile Include="src\Omotura\Audio\Audio.cpp" />
     <ClCompile Include="src\Omotura\Audio\AudioClip.cpp" />
@@ -91,12 +84,12 @@
     <ClCompile Include="src\Omotura\main.cpp" />
     <ClCompile Include="src\Omotura\Renderer\Font.cpp" />
     <ClCompile Include="src\Omotura\Renderer\FrameBuffer.cpp" />
-    <ClCompile Include="src\Omotura\Renderer\Model.cpp" />
-    <ClCompile Include="src\Omotura\Renderer\OpenGLRenderer.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\Mesh.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\MeshRenderer.cpp" />
     <ClCompile Include="src\Omotura\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Omotura\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Omotura\Renderer\SkinnedModel.cpp" />
     <ClCompile Include="src\Omotura\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Omotura\Renderer\TextureRenderer.cpp" />
     <ClCompile Include="src\Omotura\stb.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -109,7 +102,9 @@
     <ClInclude Include="..\include\imgui\imstb_rectpack.h" />
     <ClInclude Include="..\include\imgui\imstb_textedit.h" />
     <ClInclude Include="..\include\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\Omotura\API\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Omotura\API\OpenGLTexture.h" />
+    <ClInclude Include="src\Omotura\API\RendererAPI.h" />
     <ClInclude Include="src\Omotura\Asset\AnimationImporter.h" />
     <ClInclude Include="src\Omotura\Asset\Asset.h" />
     <ClInclude Include="src\Omotura\Asset\AssetImporter.h" />
@@ -117,8 +112,8 @@
     <ClInclude Include="src\Omotura\Asset\AssetManager.h" />
     <ClInclude Include="src\Omotura\Asset\AudioImporter.h" />
     <ClInclude Include="src\Omotura\Asset\FontImporter.h" />
-    <ClInclude Include="src\Omotura\Asset\ModelImporter.h" />
-    <ClInclude Include="src\Omotura\Asset\SkinnedModelImporter.h" />
+    <ClInclude Include="src\Omotura\Asset\MeshImporter.h" />
+    <ClInclude Include="src\Omotura\Asset\ShaderImporter.h" />
     <ClInclude Include="src\Omotura\Asset\TextureImporter.h" />
     <ClInclude Include="src\Omotura\Audio\Audio.h" />
     <ClInclude Include="src\Omotura\Audio\AudioClip.h" />
@@ -163,14 +158,15 @@
     <ClInclude Include="src\Omotura\Renderer\FrameBuffer.h" />
     <ClInclude Include="src\Omotura\Renderer\Material.h" />
     <ClInclude Include="src\Omotura\Renderer\Mesh.h" />
-    <ClInclude Include="src\Omotura\Renderer\Model.h" />
-    <ClInclude Include="src\Omotura\Renderer\OpenGLRenderer.h" />
+    <ClInclude Include="src\Omotura\Renderer\MeshRenderer.h" />
     <ClInclude Include="src\Omotura\Renderer\RenderData.h" />
     <ClInclude Include="src\Omotura\Renderer\Renderer.h" />
     <ClInclude Include="src\Omotura\Renderer\RendererCommon.h" />
     <ClInclude Include="src\Omotura\Renderer\Shader.h" />
-    <ClInclude Include="src\Omotura\Renderer\SkinnedModel.h" />
+    <ClInclude Include="src\Omotura\Renderer\SingleRenderer.h" />
+    <ClInclude Include="src\Omotura\Renderer\SkinnedMesh.h" />
     <ClInclude Include="src\Omotura\Renderer\Texture.h" />
+    <ClInclude Include="src\Omotura\Renderer\TextureRenderer.h" />
     <ClInclude Include="src\Omotura\Utils\Math.hpp" />
     <ClInclude Include="src\Omotura\Utils\Utils.hpp" />
   </ItemGroup>
@@ -263,6 +259,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -281,6 +278,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

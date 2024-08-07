@@ -8,15 +8,17 @@
 
 namespace Omotura
 {
+	extern Game g_gameInstance;
+
 	DrawState::DrawState()
 	{
-		m_pPlayer = Game::GetInstance()->GetPlayer();
+		m_pPlayer = g_gameInstance.GetPlayer();
 	}
 
 	void DrawState::OnEnter()
 	{
 		std::string strWeaponName = m_pPlayer->GetCurrentWeapon()->m_strName;
-		m_pPlayer->GetCurrentWeapon()->SetAnimation(strWeaponName + "_Draw", false);
+		g_gameInstance.GetPlayer()->GetAnimator()->SetAnimation(strWeaponName + "_Draw", false);
 		Audio::Play(strWeaponName + "_FirstDraw", 0.1f, false);
 	}
 

@@ -13,13 +13,14 @@ namespace Omotura
 	{
 		NONE = 0,
 		ANIMATION,
-		MODEL,
-		SKINNEDMODEL,
+		MESH,
+		SKINNEDMESH,
 		MATERIAL,
 		TEXTURE2D,
 		CUBETEXTURE,
 		AUDIO,
-		FONT
+		FONT,
+		SHADER
 	};
 
 	std::string GetStringFromType(AssetType _type);

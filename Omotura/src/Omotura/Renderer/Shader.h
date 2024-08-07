@@ -1,28 +1,50 @@
 #pragma once
 
+#include "../Asset/Asset.h"
 #include "../Core/Light.h"
 
 #include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <string>
-#include <fstream>
-#include <sstream>
 #include <iostream>
 #include <cerrno>
+#include <unordered_map>
 
 namespace Omotura
 {
-	std::string GetFileContents(const char* _pFileName);
-
-	class Shader
+	enum class ShaderType
 	{
-	public:
-		GLuint m_ID;
-		Shader() = default;
-		Shader(const char* _pVertexFile, const char* _pFragmentFile);
-		Shader(const char* _pVertexFile, const char* _pFragmentFile, const char* _pTesselControlFile, const char* _pTesselEvalFile);
+		NONE = -1,
+		VERTEX = 0,
+		FRAGMENT = 1,
+		TESS_CONTROL = 2,
+		TESS_EVALUATION = 3
+	};
 
+	struct ShaderSources
+	{
+		const char* pVertexShader;
+		const char* pFragmentShader;
+		const char* pTesselControlShader;
+		const char* pTesselEvalShader;
+	};
+
+	class Shader : public Asset
+	{
+	private:
+		std::string m_strFilePath;
+		std::unordered_map<ShaderType, std::string> m_shaderSources;
+		GLuint m_ID;
+
+		using UniformHandle = UUID;
+		std::unordered_map<UniformHandle, int> m_uniformCache;
+
+	public:
+		Shader();
+
+		void Load(const char* _pShaderFilePath);
+		void HotloadShaders();
 		void Activate();
 		void Delete();
 
@@ -38,7 +60,13 @@ namespace Omotura
 		void SetPointLight(const PointLight& _pointLight, int _iIndex);
 		void SetSpotLight(const SpotLight& _spotLight, int _iIndex);
 
+		static AssetType GetStaticType() { return AssetType::SHADER; }
+		virtual AssetType GetType() const { return GetStaticType(); }
+
 	private:
+		void ParseShader(const char* _pShaderCode);
+		void CreateProgram();
 		void CompileLinkErrors(unsigned int _shader, const char* _pType);
+		int FindUniformLocation(const std::string& _strUniform);
 	};
 }

@@ -8,15 +8,17 @@
 
 namespace Omotura
 {
+	extern Game g_gameInstance;
+
 	ReloadState::ReloadState()
 	{
-		m_pPlayer = Game::GetInstance()->GetPlayer();
+		m_pPlayer = g_gameInstance.GetPlayer();
 	}
 
 	void ReloadState::OnEnter()
 	{
 		std::string strWeaponName = m_pPlayer->GetCurrentWeapon()->m_strName;
-		m_pPlayer->GetCurrentWeapon()->SetAnimation(strWeaponName + "_Reload", false);
+		g_gameInstance.GetPlayer()->GetAnimator()->SetAnimation(strWeaponName + "_Reload", false);
 		Audio::Play(strWeaponName + "_Reload", 0.1f, false);
 	}
 

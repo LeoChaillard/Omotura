@@ -2,8 +2,9 @@
 
 #include "Transform.h"
 #include "GameObject.h"
+#include "Camera.h"
 
-#include "../Renderer/SkinnedModel.h"
+#include "../Renderer/Mesh.h"
 
 namespace Omotura
 {
@@ -20,7 +21,7 @@ namespace Omotura
 
 	private:
 		Shared<Camera> m_pCamera;
-		Shared<SkinnedModel> m_pCurrentWeapon;
+		Shared<Mesh> m_pCurrentWeapon;
 
 		// Movement
 		float m_fMaxSpeed;
@@ -36,7 +37,7 @@ namespace Omotura
 		void FixedUpdate();
 
 		Shared<Camera> GetCamera();
-		Shared<SkinnedModel> GetCurrentWeapon();
+		Shared<Mesh> GetCurrentWeapon();
 		Transform GetTransform();
 
 		/*******DEBUG********/

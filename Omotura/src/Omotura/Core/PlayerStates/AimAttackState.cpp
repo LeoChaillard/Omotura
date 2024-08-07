@@ -7,9 +7,11 @@
 
 namespace Omotura
 {
+	extern Game g_gameInstance;
+
 	AimAttackState::AimAttackState()
 	{
-		m_pPlayer = Game::GetInstance()->GetPlayer();
+		m_pPlayer = g_gameInstance.GetPlayer();
 		std::random_device rd;
 		mt = std::mt19937(rd());
 		dist = std::uniform_real_distribution<double>(1.0, 3.0);
@@ -17,9 +19,9 @@ namespace Omotura
 
 	void AimAttackState::OnEnter()
 	{
-		int iNum = dist(mt);
+		int iNum = (int)dist(mt);
 		std::string strWeaponName = m_pPlayer->GetCurrentWeapon()->m_strName;
-		m_pPlayer->GetCurrentWeapon()->SetAnimation(strWeaponName + "_ADS_Fire" + std::to_string(iNum), false, 3.0f);
+		g_gameInstance.GetPlayer()->GetAnimator()->SetAnimation(strWeaponName + "_ADS_Fire" + std::to_string(iNum), false, 3.0f);
 		Audio::Play(strWeaponName + "_Fire" + std::to_string(iNum), 0.1f, false);
 	}
 

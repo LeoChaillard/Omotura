@@ -5,10 +5,22 @@
 #include <filesystem>
 #include <string>
 
+#include <fstream>
+#include <sstream>
+
 namespace Omotura
 {
+	namespace
+	{
+		const char* m_pResourcesFolderRelative = "/res";
+		const char* m_pCookingFolderRelative = "/res/cooking";
+		const char* m_pEngineName = "Omotura";
+		const char* m_pNoTextureName = "NoTexture";
+	}
+
 	class Utils
 	{
+
 	public:
 		static const std::string& GetResourcesFolder()
 		{
@@ -16,7 +28,7 @@ namespace Omotura
 			if (strResourcesFolder.empty())
 			{
 				std::string strCurrentFolder = std::filesystem::current_path().string();
-				strResourcesFolder = strCurrentFolder + "/res";
+				strResourcesFolder = strCurrentFolder + m_pResourcesFolderRelative;
 			}
 			return strResourcesFolder;
 		}
@@ -27,7 +39,7 @@ namespace Omotura
 			if (strCookingFolder.empty())
 			{
 				std::string strCurrentFolder = std::filesystem::current_path().string();
-				strCookingFolder = strCurrentFolder + "/res/cooking";
+				strCookingFolder = strCurrentFolder + m_pCookingFolderRelative;
 			}
 			return strCookingFolder;
 		}
@@ -37,9 +49,19 @@ namespace Omotura
 			static std::string strEngineName;
 			if (strEngineName.empty())
 			{
-				strEngineName = "Omotura";
+				strEngineName = m_pEngineName;
 			}
 			return strEngineName;
+		}
+
+		static const std::string& GetNoTextureName()
+		{
+			static std::string strNoTexture;
+			if (strNoTexture.empty())
+			{
+				strNoTexture = m_pNoTextureName;
+			}
+			return strNoTexture;
 		}
 
 		static std::string GetAssetFolderNameFromType(AssetType _type)
@@ -47,14 +69,31 @@ namespace Omotura
 			switch (_type)
 			{
 				case AssetType::ANIMATION: return "animations";
-				case AssetType::MODEL: return "models";
-				case AssetType::SKINNEDMODEL: return "models";
+				case AssetType::MESH: return "models";
+				case AssetType::SKINNEDMESH: return "models";
 				case AssetType::TEXTURE2D: return "textures";
 				case AssetType::CUBETEXTURE: return "textures/skybox";
 				case AssetType::AUDIO: return "audio";
 				case AssetType::FONT: return "fonts";
+				case AssetType::SHADER: return "shaders";
 			}
 			return std::string();
+		}
+
+		static std::string GetFileContents(const char* _pFileName)
+		{
+			std::ifstream in(_pFileName, std::ios::binary);
+			if (in)
+			{
+				std::string strContents;
+				in.seekg(0, std::ios::end);
+				strContents.resize(in.tellg());
+				in.seekg(0, std::ios::beg);
+				in.read(&strContents[0], strContents.size());
+				in.close();
+				return strContents;
+			}
+			throw(errno);
 		}
 	};
 }

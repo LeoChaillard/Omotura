@@ -8,6 +8,8 @@
 
 namespace Omotura
 {
+	extern Game g_gameInstance;
+
 	namespace constants
 	{
 		const char* pDefaultStepFile = "player_step_1";
@@ -15,7 +17,7 @@ namespace Omotura
 
 	WalkState::WalkState()
 	{
-		m_pPlayer = Game::GetInstance()->GetPlayer();
+		m_pPlayer = g_gameInstance.GetPlayer();
 		m_strFileName = std::string(constants::pDefaultStepFile);
 		std::random_device rd;
 		mt = std::mt19937(rd());
@@ -25,7 +27,7 @@ namespace Omotura
 	void WalkState::OnEnter()
 	{
 		std::string strWeaponName = m_pPlayer->GetCurrentWeapon()->m_strName;
-		m_pPlayer->GetCurrentWeapon()->SetAnimation(strWeaponName + "_Walk");
+		g_gameInstance.GetPlayer()->GetAnimator()->SetAnimation(strWeaponName + "_Walk");
 		Audio::Play(m_strFileName, 0.01f, false);
 	}
 
@@ -33,7 +35,7 @@ namespace Omotura
 	{		
 		if (Audio::IsAudioFinished(m_strFileName))
 		{
-			int iNum = dist(mt);
+			int iNum = (int)dist(mt);
 			m_strFileName = "player_step_" + std::to_string(iNum);
 			Audio::Play(m_strFileName, 0.01f, false);
 		}
@@ -46,6 +48,6 @@ namespace Omotura
 
 	void WalkState::OnExit()
 	{
-		m_pPlayer->GetCurrentWeapon()->StopLoopingAnimation();
+		g_gameInstance.GetPlayer()->GetAnimator()->StopLoopingAnimation();
 	}
 }

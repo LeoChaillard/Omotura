@@ -16,7 +16,8 @@ namespace Omotura
 	Camera::Camera(int _iViewportWidth, int _iViewportHeight, glm::vec3 _vPosition)
 		: m_transform(),
 		m_iViewportWidth(_iViewportWidth),
-		m_iViewportHeight(_iViewportHeight)
+		m_iViewportHeight(_iViewportHeight),
+		m_bHasTranlation(true)
 	{		
 		m_transform.m_vWorldPosition = Vector3(0.0f, 2.0f, 10.0f);
 		m_transform.m_vLocalPosition = Vector3(0.0f, 0.85f, 0.1f);
@@ -32,7 +33,8 @@ namespace Omotura
 
 	glm::mat4 Camera::GetViewMatrix()
 	{
-		return glm::mat4_cast(glm::inverse(m_transform.m_quaternion.ToGLM())) * glm::translate(-m_transform.m_vWorldPosition.ToGLM());
+		return m_bHasTranlation ? glm::mat4_cast(glm::inverse(m_transform.m_quaternion.ToGLM())) * glm::translate(-m_transform.m_vWorldPosition.ToGLM())
+								: GetOrientation() * glm::mat4(1.0f);
 	}
 
 	glm::mat4 Camera::GetPerspectiveMatrix()
@@ -53,5 +55,11 @@ namespace Omotura
 	const Transform& Camera::GetTransform() const
 	{
 		return m_transform;
+	}
+
+
+	void Camera::SetTranslation(bool _hasTranslation)
+	{
+		m_bHasTranlation = _hasTranslation;
 	}
 }

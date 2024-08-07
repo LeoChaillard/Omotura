@@ -15,6 +15,7 @@ namespace Omotura
 	{
 	private:
 		bool m_bVisible;
+
 	protected:
 		Transform m_transform;
 
@@ -25,8 +26,8 @@ namespace Omotura
 	public:
 		GameObject();
 
-		void Hide();
 		void Show();
-		bool IsHidden();
+		void Hide();
+		bool IsVisible();
 	};
 }

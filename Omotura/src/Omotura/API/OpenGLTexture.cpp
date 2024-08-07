@@ -123,8 +123,8 @@ namespace Omotura
 
 		GLenum glFormat = ImageFormatToGLFormat(m_specifications.format);
 
-		int iSize = _vpData.size();
-		for (GLuint iFace = 0; iFace < iSize; iFace++)
+		int iSize = (int)_vpData.size();
+		for (int iFace = 0; iFace < iSize; iFace++)
 		{
 			glTexImage2D
 			(
@@ -156,8 +156,8 @@ namespace Omotura
 
 		GLenum glFormat = CompressedImageFormatToGLFormat(m_specifications.format);
 
-		int iSize = _vpData.size();
-		for (GLuint iFace = 0; iFace < iSize; iFace++)
+		int iSize = (int)_vpData.size();
+		for (int iFace = 0; iFace < iSize; iFace++)
 		{
 			glCompressedTexImage2D(
 				GL_TEXTURE_CUBE_MAP_POSITIVE_X + iFace,
@@ -170,6 +170,8 @@ namespace Omotura
 				_vpData[iFace]
 			);
 		}
+
+		glBindTexture(m_textureTarget, 0);
 	}
 
 	void OpenGLCubeTexture::Bind(GLenum _textureUnit)

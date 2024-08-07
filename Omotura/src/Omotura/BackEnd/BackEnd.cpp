@@ -42,37 +42,37 @@ namespace Omotura
 			glfwMakeContextCurrent(m_pWindow);
 			gladLoadGL();
 			glViewport(0, 0, constants::iWidth, constants::iHeight);
-
-			// Setup Dear ImGui context
-			IMGUI_CHECKVERSION();
-			ImGui::CreateContext();
-			ImGuiIO& io = ImGui::GetIO(); (void)io;
-			io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;	// Enable Keyboard Controls
-
-			// Setup Dear ImGui style
-			ImGui::StyleColorsDark();
-
-			// Setup Platform/Renderer backends
-			ImGui_ImplGlfw_InitForOpenGL(m_pWindow, true);
-			ImGui_ImplOpenGL3_Init("#version 330");
-
-			// Load default font
-			io.Fonts->AddFontDefault();
-
-			// Setup style parameters
-			ImGui::GetStyle().WindowMinSize = ImVec2(250.0f, 100.0f);
-
-			// Setup colors
-			ImVec4* pColors = ImGui::GetStyle().Colors;
-			pColors[ImGuiCol_Text] = ImVec4(200.0f, 200.0f, 200.0f, 1.0f);
-			pColors[ImGuiCol_WindowBg] = ImVec4(0.1f, 0.1f, 0.1f, 0.5f);
-			pColors[ImGuiCol_PopupBg] = ImVec4(0.1f, 0.1f, 0.1f, 0.5f);
-			pColors[ImGuiCol_TitleBg] = ImVec4(0.1f, 0.1f, 0.1f, 0.5f);
-			pColors[ImGuiCol_TitleBgActive] = ImVec4(0.1f, 0.1f, 0.1f, 0.5f);
-			pColors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.1f, 0.1f, 0.1f, 0.5f);
 		}
+
+		// Setup Dear ImGui context
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;	// Enable Keyboard Controls
+
+		// Setup Dear ImGui style
+		ImGui::StyleColorsDark();
+
+		// Setup Platform/Renderer backends
+		ImGui_ImplGlfw_InitForOpenGL(m_pWindow, true);
+		ImGui_ImplOpenGL3_Init("#version 330");
+
+		// Load default font
+		io.Fonts->AddFontDefault();
+
+		// Setup style parameters
+		ImGui::GetStyle().WindowMinSize = ImVec2(250.0f, 100.0f);
+
+		// Setup colors
+		ImVec4* pColors = ImGui::GetStyle().Colors;
+		pColors[ImGuiCol_Text] = ImVec4(200.0f, 200.0f, 200.0f, 1.0f);
+		pColors[ImGuiCol_WindowBg] = ImVec4(0.1f, 0.1f, 0.1f, 0.5f);
+		pColors[ImGuiCol_PopupBg] = ImVec4(0.1f, 0.1f, 0.1f, 0.5f);
+		pColors[ImGuiCol_TitleBg] = ImVec4(0.1f, 0.1f, 0.1f, 0.5f);
+		pColors[ImGuiCol_TitleBgActive] = ImVec4(0.1f, 0.1f, 0.1f, 0.5f);
+		pColors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.1f, 0.1f, 0.1f, 0.5f);
 		
-		// Init Subsystems (Input, Audio, Physics...)
+		// Init Subsystems
 		Audio::Init();
 		Input::Init();
 		AssetManager::Init();

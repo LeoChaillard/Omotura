@@ -8,8 +8,10 @@
 
 namespace Omotura
 {
+	extern Game g_gameInstance;
+
 	std::queue<DrawCommand> DebugDraw::m_drawQueue;
-	Shader DebugDraw::m_debugShader;
+	Shared<Shader> DebugDraw::m_pDebugShader;
 
 	/******************ADD QUEUE********************/
 	void DebugDraw::AddLine(const Vector3& _vFrom,
@@ -205,9 +207,9 @@ namespace Omotura
 	}
 
 	/******************DRAW PRIMITIVES********************/
-	void DebugDraw::DrawPrimitives(Shader& _shader)
+	void DebugDraw::DrawPrimitives(Shared<Shader> _pShader)
 	{
-		m_debugShader = _shader;
+		m_pDebugShader = _pShader;
 		while (!m_drawQueue.empty())
 		{
 			const DrawCommand& command = m_drawQueue.front();
@@ -247,11 +249,11 @@ namespace Omotura
 		glEnableVertexAttribArray(0);
 
 		// Setup shader
-		m_debugShader.Activate();
-		m_debugShader.SetFloat3("color", pLine->vColor.x, pLine->vColor.y, pLine->vColor.z);
-		m_debugShader.SetMatrixFloat4("modelMatrix", glm::mat4(1.0f));
-		m_debugShader.SetMatrixFloat4("viewMatrix", Game::GetInstance()->GetPlayerCamera()->GetViewMatrix());
-		m_debugShader.SetMatrixFloat4("projectionMatrix", Game::GetInstance()->GetPlayerCamera()->GetPerspectiveMatrix());
+		m_pDebugShader->Activate();
+		m_pDebugShader->SetFloat3("color", pLine->vColor.x, pLine->vColor.y, pLine->vColor.z);
+		m_pDebugShader->SetMatrixFloat4("modelMatrix", glm::mat4(1.0f));
+		m_pDebugShader->SetMatrixFloat4("viewMatrix", g_gameInstance.GetPlayerCamera()->GetViewMatrix());
+		m_pDebugShader->SetMatrixFloat4("projectionMatrix", g_gameInstance.GetPlayerCamera()->GetPerspectiveMatrix());
 
 		// Draw
 		glLineWidth(1.0f);
@@ -306,7 +308,7 @@ namespace Omotura
 		
 		// Compute the vertices' position on the circle		
 		int iNumOfSides = 360;
-		int iVertices = iNumOfSides * 2.0f;
+		int iVertices = iNumOfSides * 2;
 		for (int i = 1; i < iVertices; i++) 
 		{
 			glm::vec3 vResult = (A * pCircle->fRadius * cos(i * 2.0f * glm::pi<float>() / iNumOfSides)) 
@@ -328,15 +330,15 @@ namespace Omotura
 		glEnableVertexAttribArray(0);
 
 		// Setup shader
-		m_debugShader.Activate();
-		m_debugShader.SetFloat3("color", pCircle->vColor.x, pCircle->vColor.y, pCircle->vColor.z);
-		m_debugShader.SetMatrixFloat4("modelMatrix", glm::mat4(1.0f));
-		m_debugShader.SetMatrixFloat4("viewMatrix", Game::GetInstance()->GetPlayerCamera()->GetViewMatrix());
-		m_debugShader.SetMatrixFloat4("projectionMatrix", Game::GetInstance()->GetPlayerCamera()->GetPerspectiveMatrix());
+		m_pDebugShader->Activate();
+		m_pDebugShader->SetFloat3("color", pCircle->vColor.x, pCircle->vColor.y, pCircle->vColor.z);
+		m_pDebugShader->SetMatrixFloat4("modelMatrix", glm::mat4(1.0f));
+		m_pDebugShader->SetMatrixFloat4("viewMatrix", g_gameInstance.GetPlayerCamera()->GetViewMatrix());
+		m_pDebugShader->SetMatrixFloat4("projectionMatrix", g_gameInstance.GetPlayerCamera()->GetPerspectiveMatrix());
 
 		// Draw
 		glLineWidth(1.0f);
-		glDrawArrays(GL_LINE_STRIP, 0, vVertices.size());
+		glDrawArrays(GL_LINE_STRIP, 0, (GLsizei)vVertices.size());
 
 		// Unbind
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -384,15 +386,15 @@ namespace Omotura
 		glEnableVertexAttribArray(0);
 
 		// Setup shader
-		m_debugShader.Activate();
-		m_debugShader.SetFloat3("color", pAxes->vColor.x, pAxes->vColor.y, pAxes->vColor.z);
-		m_debugShader.SetMatrixFloat4("modelMatrix", modelMatrix);
-		m_debugShader.SetMatrixFloat4("viewMatrix", Game::GetInstance()->GetPlayerCamera()->GetViewMatrix());
-		m_debugShader.SetMatrixFloat4("projectionMatrix", Game::GetInstance()->GetPlayerCamera()->GetPerspectiveMatrix());
+		m_pDebugShader->Activate();
+		m_pDebugShader->SetFloat3("color", pAxes->vColor.x, pAxes->vColor.y, pAxes->vColor.z);
+		m_pDebugShader->SetMatrixFloat4("modelMatrix", modelMatrix);
+		m_pDebugShader->SetMatrixFloat4("viewMatrix", g_gameInstance.GetPlayerCamera()->GetViewMatrix());
+		m_pDebugShader->SetMatrixFloat4("projectionMatrix", g_gameInstance.GetPlayerCamera()->GetPerspectiveMatrix());
 
 		// Draw
 		glLineWidth(1.0f);
-		glDrawArrays(GL_LINES, 0, vVertices.size());
+		glDrawArrays(GL_LINES, 0, (GLsizei)vVertices.size());
 
 		// Unbind
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -420,15 +422,15 @@ namespace Omotura
 		glEnableVertexAttribArray(0);
 
 		// Setup shader
-		m_debugShader.Activate();
-		m_debugShader.SetFloat3("color", pTriangle->vColor.x, pTriangle->vColor.y, pTriangle->vColor.z);
-		m_debugShader.SetMatrixFloat4("modelMatrix", glm::mat4(1.0f));
-		m_debugShader.SetMatrixFloat4("viewMatrix", Game::GetInstance()->GetPlayerCamera()->GetViewMatrix());
-		m_debugShader.SetMatrixFloat4("projectionMatrix", Game::GetInstance()->GetPlayerCamera()->GetPerspectiveMatrix());
+		m_pDebugShader->Activate();
+		m_pDebugShader->SetFloat3("color", pTriangle->vColor.x, pTriangle->vColor.y, pTriangle->vColor.z);
+		m_pDebugShader->SetMatrixFloat4("modelMatrix", glm::mat4(1.0f));
+		m_pDebugShader->SetMatrixFloat4("viewMatrix", g_gameInstance.GetPlayerCamera()->GetViewMatrix());
+		m_pDebugShader->SetMatrixFloat4("projectionMatrix", g_gameInstance.GetPlayerCamera()->GetPerspectiveMatrix());
 
 		// Draw
 		glLineWidth(1.0f);
-		glDrawArrays(GL_LINE_LOOP, 0, vVertices.size());
+		glDrawArrays(GL_LINE_LOOP, 0, (GLsizei)vVertices.size());
 
 		// Unbind
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -483,14 +485,14 @@ namespace Omotura
 		glEnableVertexAttribArray(0);
 
 		// Setup shader
-		m_debugShader.Activate();
-		m_debugShader.SetFloat3("color", pAABB->vColor.x, pAABB->vColor.y, pAABB->vColor.z);
-		m_debugShader.SetMatrixFloat4("viewMatrix", Game::GetInstance()->GetPlayerCamera()->GetViewMatrix());
-		m_debugShader.SetMatrixFloat4("projectionMatrix", Game::GetInstance()->GetPlayerCamera()->GetPerspectiveMatrix());
+		m_pDebugShader->Activate();
+		m_pDebugShader->SetFloat3("color", pAABB->vColor.x, pAABB->vColor.y, pAABB->vColor.z);
+		m_pDebugShader->SetMatrixFloat4("viewMatrix", g_gameInstance.GetPlayerCamera()->GetViewMatrix());
+		m_pDebugShader->SetMatrixFloat4("projectionMatrix", g_gameInstance.GetPlayerCamera()->GetPerspectiveMatrix());
 
 		if (!_bFromOBB)
 		{
-			m_debugShader.SetMatrixFloat4("modelMatrix", glm::mat4(1.0f));
+			m_pDebugShader->SetMatrixFloat4("modelMatrix", glm::mat4(1.0f));
 		}
 
 		// Draw
@@ -534,8 +536,8 @@ namespace Omotura
 		command.pPrimitive = CreateShared<AABB>(aabb);
 
 		// Setup shader
-		m_debugShader.Activate();
-		m_debugShader.SetMatrixFloat4("modelMatrix", modelMatrix);
+		m_pDebugShader->Activate();
+		m_pDebugShader->SetMatrixFloat4("modelMatrix", modelMatrix);
 
 		DrawAABB(command, true);
 	}

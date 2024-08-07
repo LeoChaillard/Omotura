@@ -17,16 +17,13 @@ namespace Omotura
 	}
 
 	Terrain::Terrain()
-		: m_vRegions(),
-		m_pTexture(nullptr),
-		m_vfNoiseMap()
+		: m_vfNoiseMap(),
+		m_mesh()
 	{		
-		//m_vRegions.push_back(Region(0.4f, Vector3(0.0f, 0.0f, 1.0f)));
-		//m_vRegions.push_back(Region(0.45f, Vector3(0.98f, 0.98f, 0.73f)));
-		//m_vRegions.push_back(Region(0.6f, Vector3(0.0f, 1.0f, 0.0f)));
-		//m_vRegions.push_back(Region(0.7f, Vector3(0.36f, 0.28f, 0.071f)));
-		//m_vRegions.push_back(Region(0.9f, Vector3(0.24f, 0.16f, 0.035f)));
-		//m_vRegions.push_back(Region(1.0f, Vector3(0.95f, 0.95f, 0.95f)));
+	}
+
+	void Terrain::Init()
+	{
 		GenerateTerrain(constants::iDefaultChunk, constants::iDefaultChunk, 21, 100, 12, 0.5f, 2.0f);
 	}
 
@@ -37,85 +34,65 @@ namespace Omotura
 
 		// Initiating pixel array
 		uint8_t* pHeights = new uint8_t[_iMapWidth * _iMapHeight * constants::iTextureChannels];
-		//uint8_t* pPixels = new uint8_t[_iMapWidth * _iMapHeight * 4];
 		for (int x = 0; x < _iMapWidth; x++)
 		{
 			for (int y = 0; y < _iMapHeight; y++)
 			{
 				int iIndexHeight = (y * _iMapWidth + x)  * constants::iTextureChannels;
-				int iIndexPixel = (y * _iMapWidth + x)  * 4.0f;
+				int iIndexPixel = (y * _iMapWidth + x)  * 4;
 		
 				// Convert -1 to 1 into 255 to 0	
 				float fHeight = (m_vfNoiseMap[x][y] + 1.0f) * 0.5f;
-				pHeights[iIndexHeight] = fHeight * 255.0f;
-		
-				//for (const Region& region : m_vRegions)
-				//{
-				//	if (fHeight <= region.fHeight)
-				//	{
-				//		Vector3 vColor = region.vColor;
-				//		pPixels[iIndexPixel] = vColor.x * 255.0f;
-				//		pPixels[iIndexPixel + 1] = vColor.y * 255.0f;
-				//		pPixels[iIndexPixel + 2] = vColor.z * 255.0f;
-				//		pPixels[iIndexPixel + 3] = 255.0f;
-				//		break;
-				//	}
-				//
-				//}
+				pHeights[iIndexHeight] = (uint8_t)(fHeight * 255.0f);
 			}
 		}
 		
 		// Generate mesh vertices
-		std::vector<float> vVertices;
-		vVertices.reserve(constants::iRes * constants::iRes * 4 * 5);
+		std::vector<Vector3> vVertices;
+		std::vector<Vector2> vUVs;
+		vVertices.reserve(constants::iRes * constants::iRes * 4);
+		vUVs.reserve(constants::iRes * constants::iRes * 4);
 
 		int iRes = constants::iRes;
 		for (int i = 0; i <= iRes - 1; i++)
 		{
-			for (unsigned j = 0; j <= iRes - 1; j++)
+			for (int j = 0; j <= iRes - 1; j++)
 			{
-				vVertices.push_back(-_iMapWidth / 2.0f + _iMapWidth * i / (float)iRes); // v.x
-				vVertices.push_back(0.0f); // v.y
-				vVertices.push_back(-_iMapHeight / 2.0f + _iMapHeight * j / (float)iRes); // v.z
-				vVertices.push_back(i / (float)iRes); // u
-				vVertices.push_back(j / (float)iRes); // v
+				vVertices.push_back(Vector3(-_iMapHeight / 2.0f + _iMapHeight * j / (float)iRes, // v.z
+									0.0f, // v.y
+									-_iMapWidth / 2.0f + _iMapWidth * i / (float)iRes)); // v.x
+				vUVs.push_back(Vector2(i / (float)iRes, // u
+									  j / (float)iRes)); // v
 
-				vVertices.push_back(-_iMapWidth / 2.0f + _iMapWidth * (i + 1) / (float)iRes); // v.x
-				vVertices.push_back(0.0f); // v.y
-				vVertices.push_back(-_iMapHeight / 2.0f + _iMapHeight * j / (float)iRes); // v.z
-				vVertices.push_back((i + 1) / (float)iRes); // u
-				vVertices.push_back(j / (float)iRes); // v
+				vVertices.push_back(Vector3(-_iMapHeight / 2.0f + _iMapHeight * j / (float)iRes, // v.z
+											0.0f, // v.y
+											-_iMapWidth / 2.0f + _iMapWidth * (i + 1) / (float)iRes)); // v.x
+				vUVs.push_back(Vector2((i + 1) / (float)iRes, // u
+									   j / (float)iRes)); // v
 
-				vVertices.push_back(-_iMapWidth / 2.0f + _iMapWidth * i / (float)iRes); // v.x
-				vVertices.push_back(0.0f); // v.y
-				vVertices.push_back(-_iMapHeight / 2.0f + _iMapHeight * (j + 1) / (float)iRes); // v.z
-				vVertices.push_back(i / (float)iRes); // u
-				vVertices.push_back((j + 1) / (float)iRes); // v
+				vVertices.push_back(Vector3(-_iMapHeight / 2.0f + _iMapHeight * (j + 1) / (float)iRes, // v.z
+											0.0f, // v.y
+											-_iMapWidth / 2.0f + _iMapWidth * i / (float)iRes)); // v.x
+				vUVs.push_back(Vector2(i  / (float)iRes, // u
+									 (j + 1) / (float)iRes)); // v
 
-				vVertices.push_back(-_iMapWidth / 2.0f + _iMapWidth * (i + 1) / (float)iRes); // v.x
-				vVertices.push_back(0.0f); // v.y
-				vVertices.push_back(-_iMapHeight / 2.0f + _iMapHeight * (j + 1) / (float)iRes); // v.z
-				vVertices.push_back((i + 1) / (float)iRes); // u
-				vVertices.push_back((j + 1) / (float)iRes); // v				
+				vVertices.push_back(Vector3(-_iMapHeight / 2.0f + _iMapHeight * (j + 1) / (float)iRes, // v.z
+											0.0f, // v.y
+											-_iMapWidth / 2.0f + _iMapWidth * (i + 1) / (float)iRes)); // v.x
+				vUVs.push_back(Vector2((i + 1) / (float)iRes, // u
+									  (j + 1) / (float)iRes)); // v			
 			}
 		}
+		m_mesh.SetUVs(vUVs);
+		m_mesh.SetVertices(vVertices);
+		m_mesh.SetTopology(MeshTopology::PATCHES);
+
+		// Create a submesh
+		std::vector<SubMeshDescriptor> vSubMeshes;
+		vSubMeshes.push_back(SubMeshDescriptor(0, (uint32_t)vVertices.size(), 0, 0, 0));
+		m_mesh.SetSubMeshes(vSubMeshes);
 			
-		// Bind data / attribute
-		GLuint terrainVBO;
-		glGenVertexArrays(1, &m_VAO);
-		glBindVertexArray(m_VAO);
-		
-		glGenBuffers(1, &terrainVBO);
-		glBindBuffer(GL_ARRAY_BUFFER, terrainVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vVertices[0]) * vVertices.size(), vVertices.data(), GL_STATIC_DRAW);
-		
-		// Position attribute
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
-		
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-		glEnableVertexAttribArray(1);
-		
+		// Set vertices per patch
 		glPatchParameteri(GL_PATCH_VERTICES, constants::iNumPatchPoints);
 
 		// Settings the specs
@@ -124,36 +101,24 @@ namespace Omotura
 		specs.iHeight = _iMapHeight;
 		specs.format = ImageFormat::RED;
 		
-		// Creating the height map
-		m_pHeightMap = CreateShared<OpenGLTexture2D>(specs, pHeights, false);
-
-		// Creating the terarin texture
-		//specs.format = ImageFormat::RGBA;
-		//m_pTexture = CreateShared<OpenGLTexture2D>(specs, pPixels, false);
+		// Create height map texture
+		Shared<Texture> pHeightMap = CreateShared<OpenGLTexture2D>(specs, pHeights, false);
+		AssetManager::AddAsset(hashID("HeightMap"), pHeightMap);
 		
-		//TextureGenerator texGen;
-		//const std::string& strTextureFolder = Utils::GetResourcesFolder() + PATH_SEPARATOR + Utils::GetAssetFolderNameFromType(AssetType::TEXTURE2D) + PATH_SEPARATOR;
-		//texGen.AddTile((strTextureFolder + "Water.png").c_str());
-		//texGen.AddTile((strTextureFolder + "Sandy grass.png").c_str());
-		//texGen.AddTile((strTextureFolder + "Grass.png").c_str());
-		//texGen.AddTile((strTextureFolder + "Rocks 1.png").c_str());
-		//texGen.AddTile((strTextureFolder + "Rocks 2.png").c_str());
-		//texGen.AddTile((strTextureFolder + "Snow.png").c_str());		
-		//m_pTexture = texGen.GenerateTexture(512, *this, 0.0f, 64.0f);
+		// Set materials
+		std::vector<Material> vMaterials;
+		vMaterials.push_back(Material(hashID("HeightMap")));
+		vMaterials.push_back(Material(hashID("Water")));
+		vMaterials.push_back(Material(hashID("Grass")));
+		vMaterials.push_back(Material(hashID("Rocks 1")));
+		vMaterials.push_back(Material(hashID("Rocks 2")));
+		vMaterials.push_back(Material(hashID("Snow")));
+		m_mesh.SetMaterials(vMaterials);
 
-		const std::string& strTextureFolder = Utils::GetResourcesFolder() + PATH_SEPARATOR + Utils::GetAssetFolderNameFromType(AssetType::TEXTURE2D) + PATH_SEPARATOR;
-	
-		m_vpTextures.push_back(AssetManager::GetAsset<Texture2D>(hashID("Water")));
-		m_vpTextures.push_back(AssetManager::GetAsset<Texture2D>(hashID("Grass")));
-		m_vpTextures.push_back(AssetManager::GetAsset<Texture2D>(hashID("Rocks 1")));
-		m_vpTextures.push_back(AssetManager::GetAsset<Texture2D>(hashID("Rocks 2")));
-		m_vpTextures.push_back(AssetManager::GetAsset<Texture2D>(hashID("Snow")));
+		m_mesh.PopulateBuffers();
 
 		delete[] pHeights;
 		pHeights = nullptr;
-
-		//delete[] pPixels;
-		//pPixels = nullptr;
 	}
 
 	float Terrain::GetHeightInterpolated(float _fX, float _fZ)
@@ -181,34 +146,8 @@ namespace Omotura
 		return fFinalHeight;
 	}
 
-
-	void Terrain::AddRegion(const Region& _region)
+	const Mesh& Terrain::GetMesh() const
 	{
-		m_vRegions.push_back(_region);
-	}
-
-	Shared<Texture2D> Terrain::GetTexture()
-	{
-		return m_pTexture;
-	}
-
-	std::vector<Shared<Texture2D>> Terrain::GetTextures()
-	{
-		return m_vpTextures;
-	}
-
-	Shared<Texture2D> Terrain::GetHeightMap()
-	{
-		return m_pHeightMap;
-	}
-
-	int Terrain::GetNumVertices()
-	{
-		return constants::iNumPatchPoints * constants::iRes * constants::iRes;
-	}
-
-	GLuint Terrain::GetVAO()
-	{
-		return m_VAO;
+		return m_mesh;
 	}
 }

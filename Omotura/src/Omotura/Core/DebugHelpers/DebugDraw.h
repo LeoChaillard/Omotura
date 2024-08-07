@@ -104,7 +104,7 @@ namespace Omotura
 	private:
 		static std::queue<DrawCommand> m_drawQueue;
 
-		static Shader m_debugShader;
+		static Shared<Shader> m_pDebugShader;
 
 	public:
 		// Adds a line segment to te debug drawing queue
@@ -178,7 +178,7 @@ namespace Omotura
 			float _fDuration = 0.0f,
 			bool _bDepthEnabled = true);
 
-		static void DrawPrimitives(Shader& _shader);
+		static void DrawPrimitives(Shared<Shader> _pShader);
 
 	private:
 		static void DrawLine(const DrawCommand& _command);

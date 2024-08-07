@@ -9,18 +9,19 @@ namespace Omotura
 		m_pRigidBody = CreateShared<RigidBody>();
 	}
 
-	void GameObject::Hide()
-	{
-		m_bVisible = false;
-	}
-
 	void GameObject::Show()
 	{
 		m_bVisible = true;
 	}
 
-	bool GameObject::IsHidden()
+	void GameObject::Hide()
 	{
-		return !m_bVisible;
+		m_bVisible = false;
 	}
+
+	bool GameObject::IsVisible()
+	{
+		return m_bVisible;
+	}
+
 }
